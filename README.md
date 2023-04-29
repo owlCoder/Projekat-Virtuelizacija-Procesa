@@ -1,7 +1,7 @@
 <p align="center">
  <img width="100px" src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/logo.jpg" align="center" alt="GitHub Readme Stats" />
- <h2 align="center">Mrežni Demultiplekser 2023.05.02</h2>
- <p align="center">Aplikacija koja predstavlja pojednostavljenu verziju sistema za rad sa mrežnim demultiplekserom i unmanaged kodom implementirano u WCF.</p>
+ <h2 align="center">Proračuni na osnovu zahteva 2023.05.02</h2>
+ <p align="center">Aplikacija koja predstavlja pojednostavljenu verziju sistema za rad sa elektroenergetskom mrežom i unmanaged kodom implementirano u WCF.</p>
 </p>
   <p align="center">
     <a href="https://github.com/owlCoder/Content-Managment-System/actions">
@@ -38,12 +38,9 @@
 
 # Mogućnosti Aplikacije
 
--   Dodavanje novog klijenta
--   Izmena postojećeg klijenta
--   Brisanje postojećeg klijenta
--   Rad sa mrežnim servisima dokumentima   
--   Multikorisničko okruženje dodavanja/pregleda
-  
+-   Izračunavanje minimalne potrošnje
+-   Izračunavanje maksimalne potrošnje
+-   Izračunavanje standardne devijacije
 
 <p><br /></p>
 
@@ -61,7 +58,7 @@ Spisak osoba koje su doprineli da projekat "Mrežni Demultiplekser 2023.05.02" p
 
 - @owlCoder    -> Danijel Jovanović
 - @Anndreaa12  -> Andrea Čekić
-- @            -> Sanja Jovišić
+- @sanja60     -> Sanja Jovišić
 - @ninikaca    -> Katarina Marinković
 
 > **Note**

@@ -36,6 +36,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,6 +48,9 @@
   <ItemGroup>
     <Compile Include="Interfejsi\IPreglediPotrosnje.cs" />
     <Compile Include="Interfejsi\IProracun.cs" />
+    <Compile Include="PregledPotrosnje\PregledMaksimalnePotrosnje.cs" />
+    <Compile Include="PregledPotrosnje\PregledMinimalnePostrosnje.cs" />
+    <Compile Include="PregledPotrosnje\PregledStandardneDevijacijePotrosnje.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

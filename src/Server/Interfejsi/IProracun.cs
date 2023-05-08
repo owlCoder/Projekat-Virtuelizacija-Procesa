@@ -5,5 +5,6 @@ namespace Server.Interfejsi
     [ServiceContract]
     public interface IProracun
     {
+
     }
 }

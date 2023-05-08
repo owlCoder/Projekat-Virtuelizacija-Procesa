@@ -42,12 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Izuzeci\CsvDatotekaIzuzetak.cs" />
+    <Compile Include="Izuzeci\XmlBazaPodatakaIzuzetak.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Modeli\Audit.cs" />
     <Compile Include="Modeli\Load.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Izuzeci\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

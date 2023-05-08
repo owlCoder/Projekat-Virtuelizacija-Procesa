@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace XmlBazaPodataka.Tabele
+namespace Common.Modeli
 {
     // Enumerativni tip za potrebe upisa tipa greske odnosno belezenja tipa izvestaja
     public enum MessageType { [EnumMember] Info, [EnumMember] Warning, [EnumMember] Error };

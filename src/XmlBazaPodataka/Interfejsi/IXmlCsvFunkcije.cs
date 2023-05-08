@@ -5,6 +5,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Izuzeci;
 using Common.Modeli;
 
 namespace XmlBazaPodataka.Interfejsi
@@ -20,12 +21,14 @@ namespace XmlBazaPodataka.Interfejsi
         // listu List<Load> ucitano
         // metoda poziva posebnu metodu za upis u bazu podataka
         [OperationContract]
+        [FaultContract(typeof(CsvDatotekaIzuzetak))]
         bool ParsiranjeCsvDatoteke(FileStream csv, out List<Audit> greske);
 
         // ako datoteka postoji i uspesno se otvori vraca true, u suprotnom false
         // putanja datoteke je predifinisana u App.config
         // ako datoteka ne postoji desava se XmlIzuzetak/DirectoryNotFoundException
         [OperationContract]
+        [FaultContract(typeof(XmlBazaPodatakaIzuzetak))]
         bool OtvoriXmlDatoteku();
     }
 }

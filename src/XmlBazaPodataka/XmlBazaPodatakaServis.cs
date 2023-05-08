@@ -1,6 +1,10 @@
-﻿namespace XmlBazaPodataka
+﻿using XmlBazaPodataka.Interfejsi;
+
+namespace XmlBazaPodataka
 {
-    public class XmlBazaPodatakaServis
+    // Klasa koja implementira potrebne servise za rad sa Xml bazom podataka
+    public class XmlBazaPodatakaServis // : IBazaPodataka, IXmlCsvFunkcije
     {
+        // TO DO
     }
 }

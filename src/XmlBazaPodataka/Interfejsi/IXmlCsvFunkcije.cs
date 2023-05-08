@@ -22,9 +22,9 @@ namespace XmlBazaPodataka.Interfejsi
 
         // ako datoteka postoji i uspesno se otvori vraca true, u suprotnom false
         // putanja datoteke je predifinisana u App.config
-        // ako datoteka ne postoji desava se XmlIzuzetak/DirectoryNotFoundException
+        // ako datoteka ne postoji desava se XmlBazaPodatakaIzuzetak
         [OperationContract]
         [FaultContract(typeof(XmlBazaPodatakaIzuzetak))]
-        bool OtvoriXmlDatoteku(string putanja_xml_datoteke);
+        bool OtvoriDatoteku(string putanja_datoteke);
     }
 }

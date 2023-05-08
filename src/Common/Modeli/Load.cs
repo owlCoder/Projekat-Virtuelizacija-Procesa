@@ -16,7 +16,7 @@ namespace Common.Modeli
 
         // Izmerena vrednost za dati trenutak
         [DataMember]
-        public double MeasuredValue { get; set; }
+        public float MeasuredValue { get; set; }
 
         public Load()
         {

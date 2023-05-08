@@ -9,7 +9,6 @@ namespace XmlBazaPodataka
         {
             ServiceHost host;
 
-            // server
             try
             {
                 host = new ServiceHost(typeof(XmlBazaPodatakaServis));
@@ -19,6 +18,9 @@ namespace XmlBazaPodataka
             {
                 Console.WriteLine(e.Message);
             }
+
+            Console.WriteLine("Servis XML Baze Podataka je uspesno pokrenut!");
+            Console.ReadLine();
         }
     }
 }

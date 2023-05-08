@@ -17,7 +17,7 @@ namespace Common.Modeli
 
         // Vremenski trenutak zapisa u XML tabeli
         [DataMember]
-        public DateTime Timestamp { get; set; } 
+        public DateTime Timestamp { get; set; }
 
         // Koji tip poruke se upisuje u XML tabelu
         [DataMember]

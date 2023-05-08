@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
 namespace Server
 {
-    internal class Program
+    class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
+            // Ucitavanje putanje baze podataka iz konfiguracione datoteke App.config
+            string putanja_baze_podataka = ConfigurationManager.AppSettings["DatotekaBazePodataka"];
         }
     }
 }

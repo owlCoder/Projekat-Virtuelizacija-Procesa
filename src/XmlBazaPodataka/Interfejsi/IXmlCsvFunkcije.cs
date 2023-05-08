@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Common.Izuzeci;
+using Common.Modeli;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
-using Common.Izuzeci;
-using Common.Modeli;
 
 namespace XmlBazaPodataka.Interfejsi
 {
@@ -29,6 +25,6 @@ namespace XmlBazaPodataka.Interfejsi
         // ako datoteka ne postoji desava se XmlIzuzetak/DirectoryNotFoundException
         [OperationContract]
         [FaultContract(typeof(XmlBazaPodatakaIzuzetak))]
-        bool OtvoriXmlDatoteku();
+        bool OtvoriXmlDatoteku(string putanja_xml_datoteke);
     }
 }

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Common.Modeli
 {
@@ -22,8 +18,8 @@ namespace Common.Modeli
         [DataMember]
         public double MeasuredValue { get; set; }
 
-        public Load() 
-        { 
+        public Load()
+        {
             // Prazan konstruktor zbog serijalizacije
         }
 

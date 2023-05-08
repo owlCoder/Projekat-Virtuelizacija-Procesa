@@ -5,10 +5,10 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XmlBazaPodataka.Tabele
+namespace Common.Modeli
 {
     [DataContract]
-    public class LoadTabela
+    public class Load
     {
         // Jedinstevni identifikator merenja
         [DataMember]
@@ -22,13 +22,13 @@ namespace XmlBazaPodataka.Tabele
         [DataMember]
         public double MeasuredValue { get; set; }
 
-        public LoadTabela() 
+        public Load() 
         { 
             // Prazan konstruktor zbog serijalizacije
         }
 
         // Konstruktor sa parametrima
-        public LoadTabela(int id, DateTime timestamp, double measuredValue)
+        public Load(int id, DateTime timestamp, double measuredValue)
         {
             Id = id;
             Timestamp = timestamp;
@@ -38,7 +38,7 @@ namespace XmlBazaPodataka.Tabele
         // Metoda za proveru jednakosti objekata klase LoadTabela
         public override bool Equals(object obj)
         {
-            return obj is LoadTabela tabela &&
+            return obj is Load tabela &&
                    Id == tabela.Id &&
                    Timestamp == tabela.Timestamp &&
                    MeasuredValue == tabela.MeasuredValue;

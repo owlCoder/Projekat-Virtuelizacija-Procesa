@@ -9,7 +9,7 @@ namespace XmlBazaPodataka.Tabele
 
     // Klasa koja modeluje Audit tabelu datu ulaznom XML datotetom TBL_AUDIT.xml
     [DataContract]
-    public class AuditTabela
+    public class Audit
     {
         // Jedinstveni identifikator zapisa u XML tabeli
         [DataMember]
@@ -27,13 +27,13 @@ namespace XmlBazaPodataka.Tabele
         [DataMember]
         public string Message { get; set; }
 
-        public AuditTabela()
+        public Audit()
         {
             // prazan konstruktor zbog serijalizacije
         }
 
         // Konstruktor sa parametrima
-        public AuditTabela(int id, DateTime timestamp, MessageType message_Type, string message)
+        public Audit(int id, DateTime timestamp, MessageType message_Type, string message)
         {
             Id = id;
             Timestamp = timestamp;
@@ -44,7 +44,7 @@ namespace XmlBazaPodataka.Tabele
         // Metoda za poredjenje objekata klase AuditTabela
         public override bool Equals(object obj)
         {
-            return obj is AuditTabela tabela &&
+            return obj is Audit tabela &&
                    Id == tabela.Id &&
                    Timestamp == tabela.Timestamp &&
                    Message_Type == tabela.Message_Type &&

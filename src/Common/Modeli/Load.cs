@@ -24,7 +24,7 @@ namespace Common.Modeli
         }
 
         // Konstruktor sa parametrima
-        public Load(int id, DateTime timestamp, double measuredValue)
+        public Load(int id, DateTime timestamp, float measuredValue)
         {
             Id = id;
             Timestamp = timestamp;

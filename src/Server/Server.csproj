@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfejsi\IIzvestaj.cs" />
     <Compile Include="Interfejsi\IPreglediPotrosnje.cs" />
     <Compile Include="Interfejsi\IProracun.cs" />
     <Compile Include="PregledPotrosnje\PregledMaksimalnePotrosnje.cs" />

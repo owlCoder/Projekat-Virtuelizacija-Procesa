@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Izuzeci\IzvestajIzuzetak.cs" />
     <Compile Include="Izuzeci\CsvDatotekaIzuzetak.cs" />
     <Compile Include="Izuzeci\PregledPotrosnjeIzuzetak.cs" />
     <Compile Include="Izuzeci\XmlBazaPodatakaIzuzetak.cs" />

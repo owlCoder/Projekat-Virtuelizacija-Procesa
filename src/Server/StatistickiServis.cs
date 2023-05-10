@@ -1,12 +1,4 @@
-﻿using Server.Interfejsi;
-using Server.PregledPotrosnje;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Server
+﻿namespace Server
 {
     // Delegat koji se koristi za pozivanje odgovarajucih metoda za preglede potrosnje
     delegate dynamic Pregledi();

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Security.Principal;
 
 namespace Klijent.InterfejsMeni
@@ -33,17 +29,17 @@ namespace Klijent.InterfejsMeni
 
             // Korisnikov unos
             string unos = Console.ReadLine();
-            
+
             // Da li je uneta help komanda
-            if(unos.Trim().Equals("help"))
+            if (unos.Trim().Equals("help"))
             {
                 IspisPomoci();
             }
-            else if(unos.Trim().StartsWith("Send"))
+            else if (unos.Trim().StartsWith("Send"))
             {
                 // TO DO
             }
-            else if(unos.Trim().StartsWith("Get"))
+            else if (unos.Trim().StartsWith("Get"))
             {
                 // TO DO
                 // PROVERA BROJA PARAMETRA da li je sledeci min, max, stand

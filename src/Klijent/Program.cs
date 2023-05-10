@@ -14,7 +14,7 @@ namespace Klijent
 
             while (true)
             {
-                 meni.IspisiMeni();
+                meni.IspisiMeni();
             }
         }
     }

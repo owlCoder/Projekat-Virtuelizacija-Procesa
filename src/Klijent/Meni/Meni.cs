@@ -6,10 +6,10 @@ namespace Klijent.InterfejsMeni
     public class Meni : IMeni
     {
         #region POLJA KLASE
-        public readonly string pocetni_ispis = "Welcome to PNZ 2.4.17 (GNU/PNZ 5.15.90.1-standard x86_64)\r\n\r\n " +
-                "* Documentation:  https://bit.ly/3BeKFUj\r\n " +
-                "* Management:     https://bit.ly/3Mf7rBE\r\n " +
-                "* Support:        https://bit.ly/3VUcz1n\r\n";
+        public readonly string pocetni_ispis = "Aplikacija PNZ 2.4.17 (GNU/PNZ 5.15.90.1-standard x86_64)\r\n\r\n " +
+                "* Dokumentacija:  https://bit.ly/3BeKFUj\r\n " +
+                "* Upravljanje:    https://bit.ly/3Mf7rBE\r\n " +
+                "* Podrska:        https://bit.ly/3VUcz1n\r\n";
         #endregion
 
         #region METODA ZA ISPIS MENIJA

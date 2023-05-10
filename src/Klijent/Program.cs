@@ -6,7 +6,7 @@ namespace Klijent
     class Program
     {
         // Objekat klase meni za pozivanje menija
-        private static Meni meni = new Meni();
+        static readonly Meni meni = new Meni();
 
         static void Main()
         {

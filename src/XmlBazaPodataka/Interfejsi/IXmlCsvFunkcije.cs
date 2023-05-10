@@ -18,9 +18,9 @@ namespace XmlBazaPodataka.Interfejsi
         // metoda poziva posebnu metodu za upis u bazu podataka
         [OperationContract]
         [FaultContract(typeof(CsvDatotekaIzuzetak))]
-        bool ParsiranjeCsvDatoteke(FileStream csv, out List<Audit> greske);
+        bool ParsiranjeCsvDatoteke(MemoryStream csv, out List<Audit> greske);
 
-        // ako datoteka postoji i uspesno se otvori vraca true, u suprotnom false
+        // ako xml datoteka postoji i uspesno se otvori vraca true, u suprotnom false
         // putanja datoteke je predifinisana u App.config
         // ako datoteka ne postoji desava se XmlBazaPodatakaIzuzetak
         [OperationContract]

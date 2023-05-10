@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Server.Interfejsi
 {
     [ServiceContract]
-    public interface IIzvestaj
+    public interface IIzvestajProracuna
     {
         // Metoda koja se poziva nakon poziva delegata metoda proracuna
         // povratna vrednost je tok bajtova na teksutalni fajl u kojem su upisani 

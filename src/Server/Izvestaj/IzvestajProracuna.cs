@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Server.Izvestaj
 {
-    public class IzvestajProracuna : IIzvestajProracuna
+    public class IzvestajProracuna : IIzvestajProracuna // mozda treba i : IDisposable
     {
         public Stream NapraviIzvestajNakonProracuna(List<Proracun> podaci)
         {

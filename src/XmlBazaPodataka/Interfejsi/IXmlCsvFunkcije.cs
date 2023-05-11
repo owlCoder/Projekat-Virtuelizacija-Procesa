@@ -1,4 +1,5 @@
-﻿using Common.Izuzeci;
+﻿using Common.Datoteke;
+using Common.Izuzeci;
 using Common.Modeli;
 using System.Collections.Generic;
 using System.IO;
@@ -20,11 +21,11 @@ namespace XmlBazaPodataka.Interfejsi
         [FaultContract(typeof(CsvDatotekaIzuzetak))]
         bool ParsiranjeCsvDatoteke(MemoryStream csv, out List<Audit> greske);
 
-        // ako xml datoteka postoji i uspesno se otvori vraca true, u suprotnom false
+        // Ako xml datoteka postoji i uspesno se otvori vraca true, u suprotnom false
         // putanja datoteke je predifinisana u App.config
         // ako datoteka ne postoji desava se XmlBazaPodatakaIzuzetak
         [OperationContract]
         [FaultContract(typeof(XmlBazaPodatakaIzuzetak))]
-        bool OtvoriDatoteku(string putanja_datoteke);
+        bool OtvoriDatoteku(string putanja_datoteke, IRadSaDatotekom otvorena_datoteka);
     }
 }

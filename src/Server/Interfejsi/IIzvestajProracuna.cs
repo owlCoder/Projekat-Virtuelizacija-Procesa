@@ -18,6 +18,6 @@ namespace Server.Interfejsi
         // ako nije moguce kreirati tekstualni fajl takodje se desava IzvestajIzuzetak
         [OperationContract]
         [FaultContract(typeof(IzvestajIzuzetak))]
-        Stream NapraviIzvestajNakonProracuna(List<Proracun> podaci);
+        MemoryStream NapraviIzvestajNakonProracuna(List<Proracun> podaci);
     }
 }

@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Common.Izuzeci;
+using System;
+using System.Configuration;
+using System.IO;
 using System.Security.Principal;
+using System.ServiceModel;
 
 namespace Klijent.InterfejsMeni
 {
@@ -37,13 +41,11 @@ namespace Klijent.InterfejsMeni
             }
             else if (unos.Trim().StartsWith("Send"))
             {
-                // TO DO
+                MeniSend();
             }
             else if (unos.Trim().StartsWith("Get"))
             {
-                // TO DO
-                // PROVERA BROJA PARAMETRA da li je sledeci min, max, stand
-                // KOLIKO PARAMETARA IMA ITD
+                MeniGet();
             }
             else
             {
@@ -54,11 +56,69 @@ namespace Klijent.InterfejsMeni
         #endregion
 
         #region METODA ZA SEND MENI
-        // TO DO
+        public void MeniSend()
+        {
+            /// ///////////////
+            /// SANJA
+            /// ///////////////
+            // Iz app config ucitati lokaciju csv datoteka
+            // kako se to radi>
+            // Ucitavanje putanje iz konfiguracione datoteke App.config
+            // string putanja_csv_datoteka = ConfigurationManager.AppSettings["CsvDirektorijum"];
+            try
+            {
+                // TO DO
+            }
+            catch (FaultException<KomandaIzuzetak> ke)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(ke.Detail.Razlog);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
         #endregion
 
         #region METODA ZA GET MENI
-        // TO DO
+        public void MeniGet()
+        {
+            /// ///////////////
+            /// ANDREA
+            /// ///////////////
+            try
+            {
+                // PROVERA BROJA PARAMETRA da li je sledeci min, max, stand
+                // KOLIKO PARAMETARA IMA ITD
+
+                // Promenljive koje se prosledjuju metodi bool SlanjeCsv();
+
+                bool IsMin = false, IsMax = false, IsStand = false;
+                // to do
+                // 1. proveriti da li je broj parametara veci od 3, ako jeste ispisati gresku
+
+                // 2. proveriti da li se vise puta ponavlja isti zahtev npr Get max max ili Get min max min
+                // u tom slucaju ispisati gresku da komande moraju biti jedinstvene
+
+                // 3. ako je uneto samo Get pozvati bool SlanjeGetKomande() sa svim parametrima false
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Nije moguce upisati izvestaj jer direktorijum izvestaja ne postoji!");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch (FaultException < DatotekaJeOtvorenaIzuzetak > de)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(de.Detail.Razlog);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch(Exception exp)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(exp.ToString());
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
         #endregion
 
         #region METODA ZA PRIKAZ HELP MENIJA

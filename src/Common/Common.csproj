@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Datoteke\IRadSaDatotekom.cs" />
     <Compile Include="Datoteke\RadSaDatotekom.cs" />
+    <Compile Include="Izuzeci\DatotekaJeOtvorenaIzuzetak.cs" />
     <Compile Include="Izuzeci\IzvestajIzuzetak.cs" />
     <Compile Include="Izuzeci\CsvDatotekaIzuzetak.cs" />
     <Compile Include="Izuzeci\KomandaIzuzetak.cs" />

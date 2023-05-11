@@ -34,7 +34,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,10 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Komande\IKomanda.cs" />
+    <Compile Include="Komande\Komanda.cs" />
     <Compile Include="Meni\IMeni.cs" />
     <Compile Include="Meni\Meni.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TekstualniIzvestaji\IUpisUIzvestaj.cs" />
+    <Compile Include="TekstualniIzvestaji\UpisUIzvestaj.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

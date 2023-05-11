@@ -8,7 +8,7 @@ namespace Server.Izvestaj
 {
     public class IzvestajProracuna : IIzvestajProracuna // mozda treba i : IDisposable
     {
-        public Stream NapraviIzvestajNakonProracuna(List<Proracun> podaci)
+        public MemoryStream NapraviIzvestajNakonProracuna(List<Proracun> podaci)
         {
             throw new NotImplementedException();
         }

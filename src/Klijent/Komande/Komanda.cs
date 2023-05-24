@@ -32,11 +32,19 @@ namespace Klijent.Komande
             // pokupi sve datoteke iz direktorijuma
             string[] svi_fajlovi = Directory.GetFiles(putanja_csv_datoteka);
 
+            if (svi_fajlovi.Length == 0)
+            {
+                // nijedan csv fajl se nalazi u direktorijumu
+                throw new FaultException<KomandaIzuzetak>(
+                    new KomandaIzuzetak("[ERROR]: " + DateTime.Now.ToString() + " Ne postoji nijedna CSV datoteka u direktorijumu! Komanda 'Send' neuspesno izvrsena!"));
+            }
+
             // kreiranje stream-a i slanje csv
             // citanje csv datoteke
             using (FileStream csv = new FileStream(svi_fajlovi[0], FileMode.Open, FileAccess.Read))
             {
                 csv.CopyTo(stream);
+                csv.Dispose();
             }
 
             stream.Position = 0;
@@ -46,6 +54,15 @@ namespace Klijent.Komande
             {
                 uspesno = proksi_csv.ParsiranjeCsvDatoteke((datoteka as RadSaDatotekom).DatotecniTok, out greske);
                 datoteka.Dispose();
+            }
+
+            // uspesno obrisan fajl obrisati
+            if(uspesno && File.Exists(svi_fajlovi[0]))
+            {
+                File.Delete(svi_fajlovi[0]);
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                Console.WriteLine("[INFO]: ", DateTime.Now, " Datoteka ", svi_fajlovi[0], " uspesno obrisana!");
+                Console.ForegroundColor = ConsoleColor.White;
             }
 
             return uspesno;

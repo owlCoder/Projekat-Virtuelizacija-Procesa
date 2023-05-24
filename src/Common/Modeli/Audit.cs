@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace Common.Modeli
 {
     // Enumerativni tip za potrebe upisa tipa greske odnosno belezenja tipa izvestaja
-    public enum MessageType { [EnumMember] INFO, [EnumMember] WARNING, [EnumMember] ERROR };
+    public enum MessageType { [EnumMember] Info, [EnumMember] Warning, [EnumMember] Error };
 
     // Klasa koja modeluje Audit tabelu datu ulaznom XML datotetom TBL_AUDIT.xml
     [DataContract]

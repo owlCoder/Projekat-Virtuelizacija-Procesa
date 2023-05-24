@@ -8,6 +8,8 @@ using System.Linq;
 using System.Diagnostics;
 using System.Text;
 using System.Xml;
+using System.Xml.Linq;
+using System.Configuration;
 
 namespace XmlBazaPodataka
 {
@@ -40,7 +42,7 @@ namespace XmlBazaPodataka
                     {
                         // nema dovoljno podataka u csv, mora ih imati 2, vreme:merenje
                         greske.Add(
-                            new Audit(new Random().Next(200, 2000), DateTime.Now, MessageType.ERROR, "Linija " + linija + ": Potrebno je uneti 2 podatka u formatu vreme:vrednost!")
+                            new Audit(0, DateTime.Now, MessageType.Error, "Nema dovoljno podataka u redu " + linija + ": vreme:merenje")
                         );
                     }
                     else
@@ -49,7 +51,7 @@ namespace XmlBazaPodataka
                         if (!TimeSpan.TryParse(splitovano[0], out TimeSpan vreme))
                         {
                             greske.Add(
-                                new Audit(new Random().Next(200, 2000), DateTime.Now, MessageType.ERROR, "Linija " + linija + ": Uneli ste vreme koje ne postoji!")
+                                new Audit(0, DateTime.Now, MessageType.Error, "Nevalidan podatak TIME_STAMP za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
                             );
                         }
                         else
@@ -58,14 +60,14 @@ namespace XmlBazaPodataka
                             if (!float.TryParse(splitovano[1].Replace('.', ','), out float vrednost))
                             {
                                 greske.Add(
-                                    new Audit(new Random().Next(200, 2000), DateTime.Now, MessageType.ERROR, "Linija " + linija + ": Uneli ste vrednost merenja koje nije broj!")
-                                );
+                                new Audit(0, DateTime.Now, MessageType.Error, "Nevalidan podatak MEASURED_VALUE za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
+                            );
                             }
                             else
                             {
                                 // i vreme i merenje su validni
                                 nove_vrednosti.Add(
-                                        new Load(new Random().Next(2000, 5000), DateTime.Today + vreme, vrednost)
+                                        new Load(0, DateTime.Today + vreme, vrednost)
                                     );
                             }
                         }
@@ -103,11 +105,29 @@ namespace XmlBazaPodataka
         {
             int upisano_redova = 0;
 
-            // upisi podatke u load tabelu
-
+            // upisi podatke u audit tabelu
+            var xml_load = XDocument.Load(ConfigurationManager.AppSettings["BazaZaGreske"]);
+            var elements = xml_load.Descendants("ID");
+            var max_row_id = elements.Max(e => int.Parse(e.Value));
 
             // upisi greske u audit tabelu
+            // ali pre toga azuriraj id-greske sa max + 1
+            foreach(Audit a in greske)
+            {
+                a.Id = ++max_row_id;
 
+                var stavke = xml_load.Element("STAVKE");
+                var novi = new XElement("row");
+
+                // dodavanje podataka u xml serijalizaciju
+                novi.Add(new XElement("ID", a.Id));
+                novi.Add(new XElement("TIME_STAMP", a.Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff")));
+                novi.Add(new XElement("MESSAGE_TYPE", a.Message_Type));
+                novi.Add(new XElement("MESSAGE", a.Message));
+
+                stavke.Add(novi);
+                xml_load.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
+            }
 
             return upisano_redova;
         }

@@ -60,8 +60,8 @@ namespace Klijent.Komande
             if(uspesno && File.Exists(svi_fajlovi[0]))
             {
                 File.Delete(svi_fajlovi[0]);
-                Console.ForegroundColor = ConsoleColor.DarkBlue;
-                Console.WriteLine("[INFO]: ", DateTime.Now, " Datoteka ", svi_fajlovi[0], " uspesno obrisana!");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("[INFO]: " + DateTime.Now + " Datoteka " + svi_fajlovi[0] + " uspesno obrisana!");
                 Console.ForegroundColor = ConsoleColor.White;
             }
 

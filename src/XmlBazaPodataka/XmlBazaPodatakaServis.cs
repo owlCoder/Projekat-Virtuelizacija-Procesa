@@ -42,8 +42,8 @@ namespace XmlBazaPodataka
                     {
                         // nema dovoljno podataka u csv, mora ih imati 2, vreme:merenje
                         greske.Add(
-                            new Audit(0, DateTime.Now, MessageType.Error, "Nema dovoljno podataka u redu " + linija + ": vreme:merenje")
-                        );
+                                new Audit(0, DateTime.Now, MessageType.Error, "Nevalidan format u CSV za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
+                            );
                     }
                     else
                     {
@@ -106,8 +106,11 @@ namespace XmlBazaPodataka
             int upisano_redova = 0;
 
             // upisi podatke u audit tabelu
-            var xml_load = XDocument.Load(ConfigurationManager.AppSettings["BazaZaGreske"]);
-            var elements = xml_load.Descendants("ID");
+            var xml_audit = XDocument.Load(ConfigurationManager.AppSettings["BazaZaGreske"]);
+            var xml_load = XDocument.Load(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+
+            #region UPIS U AUDIT
+            var elements = xml_audit.Descendants("ID");
             var max_row_id = elements.Max(e => int.Parse(e.Value));
 
             // upisi greske u audit tabelu
@@ -116,7 +119,7 @@ namespace XmlBazaPodataka
             {
                 a.Id = ++max_row_id;
 
-                var stavke = xml_load.Element("STAVKE");
+                var stavke = xml_audit.Element("STAVKE");
                 var novi = new XElement("row");
 
                 // dodavanje podataka u xml serijalizaciju
@@ -126,8 +129,52 @@ namespace XmlBazaPodataka
                 novi.Add(new XElement("MESSAGE", a.Message));
 
                 stavke.Add(novi);
-                xml_load.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
+                xml_audit.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
             }
+
+            // ako nema gresaka upisi u audit da je sve okej
+            if(greske.Count == 0)
+            {
+                var stavke = xml_audit.Element("STAVKE");
+                var novi = new XElement("row");
+
+                // dodavanje podataka u xml serijalizaciju
+                novi.Add(new XElement("ID", ++max_row_id));
+                novi.Add(new XElement("TIME_STAMP", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")));
+                novi.Add(new XElement("MESSAGE_TYPE", "Info"));
+                novi.Add(new XElement("MESSAGE", "Podaci uspesno procitani i prosledjeni"));
+
+                stavke.Add(novi);
+                xml_audit.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
+            }
+            #endregion
+
+            #region UPIS U LOAD
+            // dodavanje podataka iz csv parsiranih u xml bazu
+            foreach (Load l in podaci)
+            {
+                var stavke = xml_load.Element("rows");
+                var element = stavke.Descendants().FirstOrDefault(e => e.Attribute("TIME_STAMP")?.Value.ToString() == (l.Timestamp.ToString("yyyy-MM-dd HH:mm")));
+
+                if (element != null)
+                {
+                    element.Element("MEASURED_VALUE").Value = l.MeasuredValue.ToString();
+                    xml_load.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+                }
+                else
+                {
+                    // ne postoji red u xml, dodaje se novi
+                    var novi = new XElement("row");
+                    novi.Add(new XElement("TIME_STAMP", DateTime.Now.ToString("yyyy-MM-dd HH:mm")));
+                    novi.Add(new XElement("MEASURED_VALUE", l.MeasuredValue.ToString()));
+
+                    stavke.Add(novi);
+                    xml_load.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+                }
+
+                upisano_redova += 1; // jedan red se upisao u tabelu
+            }
+            #endregion
 
             return upisano_redova;
         }

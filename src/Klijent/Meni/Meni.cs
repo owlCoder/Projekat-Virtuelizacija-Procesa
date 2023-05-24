@@ -71,7 +71,7 @@ namespace Klijent.InterfejsMeni
                 if (uspesno)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("[INFO]: ", DateTime.Now, " Podaci o merenju uspesno parsirani!");
+                    Console.WriteLine("[INFO]: " + DateTime.Now + " Podaci o merenju uspesno parsirani!");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
                 else

@@ -1,5 +1,9 @@
-﻿using Common.Izuzeci;
+﻿using Common.Datoteke;
+using Common.Izuzeci;
+using Common.Modeli;
+using Klijent.Komande;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Security.Principal;
@@ -58,21 +62,38 @@ namespace Klijent.InterfejsMeni
         #region METODA ZA SEND MENI
         public void MeniSend()
         {
-            /// ///////////////
-            /// SANJA
-            /// ///////////////
-            // Iz app config ucitati lokaciju csv datoteka
-            // kako se to radi>
-            // Ucitavanje putanje iz konfiguracione datoteke App.config
-            // string putanja_csv_datoteka = ConfigurationManager.AppSettings["CsvDirektorijum"];
             try
             {
-                // TO DO
+                List<Audit> greske = new List<Audit>();
+
+                bool uspesno = new Komanda().SlanjeCsv(out greske);
+
+                if (uspesno)
+                {
+                    Console.WriteLine("Uspesno slanje csv");
+                }
+                else
+                {
+                    // ispis svih gresaka koje su se desile
+                    foreach (Audit audit in greske) 
+                    {
+                        Console.ForegroundColor= ConsoleColor.Red;
+                        Console.WriteLine(audit);
+                    }
+
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
             }
             catch (FaultException<KomandaIzuzetak> ke)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(ke.Detail.Razlog);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch(Exception exp)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(exp.Message);
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }

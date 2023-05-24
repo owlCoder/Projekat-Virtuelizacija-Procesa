@@ -1,4 +1,6 @@
-﻿using Common.Izuzeci;
+﻿using Common.Datoteke;
+using Common.Izuzeci;
+using Common.Modeli;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +23,7 @@ namespace Klijent.Komande
         // U slucaju da se desio TIMEOUT (Servis nije pokrenut/dostupan) izazvati izuzetak KomandaIzuzetak
         [OperationContract]
         [FaultContract(typeof(KomandaIzuzetak))]
-        bool SlanjeCsv();
+        bool SlanjeCsv(out List<Audit> greske);
 
 
         // Metoda koja salje get komandu na servis, ulazni parametri funkcije su podrazumevano

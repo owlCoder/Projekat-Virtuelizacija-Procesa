@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace Common.Modeli
 {
     // Enumerativni tip za potrebe upisa tipa greske odnosno belezenja tipa izvestaja
-    public enum MessageType { [EnumMember] Info, [EnumMember] Warning, [EnumMember] Error };
+    public enum MessageType { [EnumMember] INFO, [EnumMember] WARNING, [EnumMember] ERROR };
 
     // Klasa koja modeluje Audit tabelu datu ulaznom XML datotetom TBL_AUDIT.xml
     [DataContract]
@@ -55,7 +55,7 @@ namespace Common.Modeli
         public override string ToString()
         {
             // Izlazni format: [Info]: 2023-5-8 Uspesno izmeren podatak (ID: 102)
-            return string.Format("[{0}]: {1} {2} (ID: {3}", Message_Type, Timestamp.ToString(), Message, Id);
+            return string.Format("[{0}]: {1} {2}", Message_Type, Timestamp.ToString(), Message);
         }
 
         // Metoda za racunanje Hash vrednosti

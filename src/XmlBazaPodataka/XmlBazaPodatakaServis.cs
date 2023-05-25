@@ -19,6 +19,7 @@ namespace XmlBazaPodataka
     // Klasa koja implementira potrebne servise za rad sa Xml bazom podataka
     public class XmlBazaPodatakaServis : IBazaPodataka, IXmlCsvFunkcije
     {
+        #region METODA ZA CITANJE IZ XML DATOTEKE
         public IRadSaDatotekom OtvoriDatoteku(string putanja_datoteke)
         {
 
@@ -45,6 +46,7 @@ namespace XmlBazaPodataka
             return new RadSaDatotekom(stream, Path.GetFileName(putanja_datoteke));
 
         }
+        #endregion
 
         #region CSV PARSER
         public bool ParsiranjeCsvDatoteke(MemoryStream csv, out List<Audit> greske)

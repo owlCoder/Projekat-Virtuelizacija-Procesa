@@ -9,7 +9,7 @@ namespace XmlBazaPodataka.Interfejsi
     public interface IBazaPodataka
     {
         // povratna vrednost je broj uspesno upisanih redova u bazu podataka TBL_LOAD.xml,
-        // ako nista nije upisano vraca -1
+        // ako nista nije upisano vraca 0
         // u bazu podataka TBL_LOAD.xml upisuju se Load i Audit podaci iz listi
         [OperationContract]
         [FaultContract(typeof(XmlBazaPodatakaIzuzetak))]

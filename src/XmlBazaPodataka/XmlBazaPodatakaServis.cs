@@ -10,18 +10,42 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Configuration;
+using System.ServiceModel;
+using Common.Izuzeci;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace XmlBazaPodataka
 {
     // Klasa koja implementira potrebne servise za rad sa Xml bazom podataka
     public class XmlBazaPodatakaServis : IBazaPodataka, IXmlCsvFunkcije
     {
-        #region METODE ZA RAD SA XML I CSV datotekama
-        public bool OtvoriDatoteku(string putanja_datoteke, IRadSaDatotekom otvorena_datoteka)
+        public IRadSaDatotekom OtvoriDatoteku(string putanja_datoteke)
         {
-            throw new NotImplementedException();
+
+            if(!File.Exists(putanja_datoteke))
+            {
+                // ako datoteka ne postoji, kreira se nova
+                XDocument novi_xml = new XDocument(new XDeclaration("1.0", "utf-8", "no"), new XElement("rows"));
+                novi_xml.Save(putanja_datoteke);
+            }
+
+            // otvoriti po disposable pattern-u xml datoteku
+            // promenljive za memorijski tok
+            MemoryStream stream = new MemoryStream();
+
+            using (FileStream xml = new FileStream(putanja_datoteke, FileMode.Open, FileAccess.Read))
+            {
+                xml.CopyTo(stream);
+                xml.Dispose();
+            }
+
+            stream.Position = 0;
+
+            return new RadSaDatotekom(stream, Path.GetFileName(putanja_datoteke));
+
         }
 
+        #region CSV PARSER
         public bool ParsiranjeCsvDatoteke(MemoryStream csv, out List<Audit> greske)
         {
             greske = new List<Audit>();
@@ -95,94 +119,126 @@ namespace XmlBazaPodataka
         }
         #endregion
 
-        #region METODE ZA RAD SA BAZOM PODATAKA
+        #region METODE CITANJE PODATAKA IZ BAZE PODATAKA
         public bool ProcitajIzBazePodataka(out List<Load> procitano)
         {
             throw new NotImplementedException();
         }
+        #endregion
 
+        #region METODA ZA UPIS U BAZU PODATAKA
         public int UpisUBazuPodataka(List<Load> podaci, List<Audit> greske)
+        {
+            // upis svih gresaka u audit
+            try
+            {
+                UpisUAuditTBL(greske, ConfigurationManager.AppSettings["BazaZaGreske"]);
+                return UpisULoadTBL(podaci, ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+            }
+            catch (Exception)
+            {
+                throw new FaultException<XmlBazaPodatakaIzuzetak>(
+                    new XmlBazaPodatakaIzuzetak("[Error]: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm") +
+                                               " XML datoteka nije dobro formatirana!"));
+            }
+        }
+        #endregion
+
+        #region UPIS U LOAD
+        private static int UpisULoadTBL(List<Load> podaci, string xml_load_path)
         {
             int upisano_redova = 0;
 
-            // upisi podatke u audit tabelu
-            var xml_audit = XDocument.Load(ConfigurationManager.AppSettings["BazaZaGreske"]);
-            var xml_load = XDocument.Load(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
-
-            #region UPIS U AUDIT
-            var elements = xml_audit.Descendants("ID");
-            var max_row_id = elements.Max(e => int.Parse(e.Value));
-
-            // upisi greske u audit tabelu
-            // ali pre toga azuriraj id-greske sa max + 1
-            foreach(Audit a in greske)
+            using(IRadSaDatotekom datoteka = new XmlBazaPodatakaServis().OtvoriDatoteku(xml_load_path))
             {
-                a.Id = ++max_row_id;
+                XmlDocument xml_load = new XmlDocument();
+                xml_load.Load(((RadSaDatotekom)datoteka).DatotecniTok);
 
-                var stavke = xml_audit.Element("STAVKE");
-                var novi = new XElement("row");
-
-                // dodavanje podataka u xml serijalizaciju
-                novi.Add(new XElement("ID", a.Id));
-                novi.Add(new XElement("TIME_STAMP", a.Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff")));
-                novi.Add(new XElement("MESSAGE_TYPE", a.Message_Type));
-                novi.Add(new XElement("MESSAGE", a.Message));
-
-                stavke.Add(novi);
-                xml_audit.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
-            }
-
-            // ako nema gresaka upisi u audit da je sve okej
-            if(greske.Count == 0)
-            {
-                var stavke = xml_audit.Element("STAVKE");
-                var novi = new XElement("row");
-
-                // dodavanje podataka u xml serijalizaciju
-                novi.Add(new XElement("ID", ++max_row_id));
-                novi.Add(new XElement("TIME_STAMP", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")));
-                novi.Add(new XElement("MESSAGE_TYPE", "Info"));
-                novi.Add(new XElement("MESSAGE", "Podaci uspesno procitani i prosledjeni"));
-
-                stavke.Add(novi);
-                xml_audit.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
-            }
-            #endregion
-
-            #region UPIS U LOAD
-            XmlDocument load = new XmlDocument();
-            load.Load(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
-
-            // dodavanje podataka iz csv parsiranih u xml bazu
-            foreach (Load l in podaci)
-            {
-                string pretraga = "//row[TIME_STAMP='" + l.Timestamp.ToString("yyyy-MM-dd HH:mm") + "']";
-                XmlNode element = load.SelectSingleNode(pretraga);
-
-                if (element != null)
+                // dodavanje podataka iz csv parsiranih u xml bazu
+                foreach (Load l in podaci)
                 {
-                    element.SelectSingleNode("MEASURED_VALUE").InnerText = l.MeasuredValue.ToString();
-                    // element.Attributes["MEASURED_VALUE"].Value = l.MeasuredValue.ToString();
-                    load.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
-                }
-                else
-                {
-                    var stavke = xml_load.Element("rows");
+                    string pretraga = "//row[TIME_STAMP='" + l.Timestamp.ToString("yyyy-MM-dd HH:mm") + "']";
+                    XmlNode element = xml_load.SelectSingleNode(pretraga);
 
-                    // ne postoji red u xml, dodaje se novi
-                    var novi = new XElement("row");
-                    novi.Add(new XElement("TIME_STAMP", l.Timestamp.ToString("yyyy-MM-dd HH:mm")));
-                    novi.Add(new XElement("MEASURED_VALUE", l.MeasuredValue.ToString()));
+                    if (element != null)
+                    {
+                        element.SelectSingleNode("MEASURED_VALUE").InnerText = l.MeasuredValue.ToString();
+                        xml_load.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+                    }
+                    else
+                    {
+                        XDocument xml_dokument = new XDocument(((RadSaDatotekom)datoteka).DatotecniTok);
+                        var stavke = xml_dokument.Element("rows");
 
-                    stavke.Add(novi);
-                    xml_load.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+                        // ne postoji red u xml, dodaje se novi
+                        var novi = new XElement("row");
+                        novi.Add(new XElement("TIME_STAMP", l.Timestamp.ToString("yyyy-MM-dd HH:mm")));
+                        novi.Add(new XElement("MEASURED_VALUE", l.MeasuredValue.ToString()));
+
+                        stavke.Add(novi);
+                        xml_load.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+                    }
+
+                    upisano_redova += 1; // jedan red se upisao u tabelu
                 }
 
-                upisano_redova += 1; // jedan red se upisao u tabelu
+                // oslobadjanje resursa
+                datoteka.Dispose();
             }
-            #endregion
 
             return upisano_redova;
+        }
+        #endregion
+
+        #region UPIS U AUDIT
+        private static void UpisUAuditTBL(List<Audit> greske, string xml_audit_path)
+        {
+            using (IRadSaDatotekom datoteka = new XmlBazaPodatakaServis().OtvoriDatoteku(xml_audit_path))
+            {
+                ((RadSaDatotekom)datoteka).DatotecniTok.Position = 0;
+                XDocument xml_audit = new XDocument(((RadSaDatotekom)datoteka).DatotecniTok);
+
+                var elements = xml_audit.Descendants("ID");
+                var max_row_id = elements.Max(e => int.Parse(e.Value));
+
+                // upisi greske u audit tabelu
+                // ali pre toga azuriraj id-greske sa max + 1
+                foreach (Audit a in greske)
+                {
+                    a.Id = ++max_row_id;
+
+                    var stavke = xml_audit.Element("STAVKE");
+                    var novi = new XElement("row");
+
+                    // dodavanje podataka u xml serijalizaciju
+                    novi.Add(new XElement("ID", a.Id));
+                    novi.Add(new XElement("TIME_STAMP", a.Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff")));
+                    novi.Add(new XElement("MESSAGE_TYPE", a.Message_Type));
+                    novi.Add(new XElement("MESSAGE", a.Message));
+
+                    stavke.Add(novi);
+                    xml_audit.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
+                }
+
+                // ako nema gresaka upisi u audit da je sve okej
+                if (greske.Count == 0)
+                {
+                    var stavke = xml_audit.Element("STAVKE");
+                    var novi = new XElement("row");
+
+                    // dodavanje podataka u xml serijalizaciju
+                    novi.Add(new XElement("ID", ++max_row_id));
+                    novi.Add(new XElement("TIME_STAMP", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")));
+                    novi.Add(new XElement("MESSAGE_TYPE", "Info"));
+                    novi.Add(new XElement("MESSAGE", "Podaci uspesno procitani i prosledjeni"));
+
+                    stavke.Add(novi);
+                    xml_audit.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
+                }
+
+                // oslobadjanje resursa
+                datoteka.Dispose();
+            }
         }
         #endregion
     }

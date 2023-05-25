@@ -23,9 +23,8 @@ namespace XmlBazaPodataka.Interfejsi
 
         // Ako xml datoteka postoji i uspesno se otvori vraca true, u suprotnom false
         // putanja datoteke je predifinisana u App.config
-        // ako datoteka ne postoji desava se XmlBazaPodatakaIzuzetak
+        // ako datoteka ne postoji kreira se nova prazna xml datoteka
         [OperationContract]
-        [FaultContract(typeof(XmlBazaPodatakaIzuzetak))]
-        bool OtvoriDatoteku(string putanja_datoteke, IRadSaDatotekom otvorena_datoteka);
+        IRadSaDatotekom OtvoriDatoteku(string putanja_datoteke);
     }
 }

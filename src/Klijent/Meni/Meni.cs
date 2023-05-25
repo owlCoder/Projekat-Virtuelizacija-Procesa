@@ -4,6 +4,7 @@ using Klijent.Komande;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Principal;
 using System.ServiceModel;
 
@@ -47,7 +48,7 @@ namespace Klijent.InterfejsMeni
             }
             else if (unos.Trim().StartsWith("Get"))
             {
-                MeniGet();
+                MeniGet(unos);
             }
             else
             {
@@ -100,26 +101,77 @@ namespace Klijent.InterfejsMeni
         #endregion
 
         #region METODA ZA GET MENI
-        public void MeniGet()
+        public void MeniGet(string unos)
         {
-            /// ///////////////
-            /// ANDREA
-            /// ///////////////
             try
             {
-                // PROVERA BROJA PARAMETRA da li je sledeci min, max, stand
-                // KOLIKO PARAMETARA IMA ITD
-
                 // Promenljive koje se prosledjuju metodi bool SlanjeCsv();
-
                 bool IsMin = false, IsMax = false, IsStand = false;
-                // to do
-                // 1. proveriti da li je broj parametara veci od 3, ako jeste ispisati gresku
 
-                // 2. proveriti da li se vise puta ponavlja isti zahtev npr Get max max ili Get min max min
-                // u tom slucaju ispisati gresku da komande moraju biti jedinstvene
+                // proveriti da li je broj parametara veci od 3, ako jeste ispisati gresku
+                string[] parametri = unos.Trim().Split(' '); // komande su razdvojene sa razmakom
 
-                // 3. ako je uneto samo Get pozvati bool SlanjeGetKomande() sa svim parametrima false
+                if (parametri.Length < (1 + 1)) // get komanda je uvek prisutna
+                {
+                    // unet je samo Get
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Niste uneli dovoljan broj parametra za Get servis!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else if (parametri.Length > (3 + 1))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Uneli ste preveliki broj parametra za Get servis!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    // proveriti da li se vise puta ponavlja isti zahtev npr Get max max ili Get min max min
+                    // u tom slucaju ispisati gresku da komande moraju biti jedinstvene
+                    ushort min_cnt = 0, max_cnt = 0, stand_cnt = 0;
+
+                    for (int i = 1; i < parametri.Length; i++)
+                    {
+                        if (parametri[i].ToLower().Equals("min"))
+                        {
+                            min_cnt++;
+                        }
+                        else if (parametri[i].ToLower().Equals("max"))
+                        {
+                            max_cnt++;
+                        }
+                        else if (parametri[i].ToLower().Equals("stand"))
+                        {
+                            stand_cnt++;
+                        }
+                        else
+                        {
+                            // nije uneto nista validno
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Vrednost '" + parametri[i] + "' parametra za Get servis nije validna!\nValidne opcije su: min, max, stand.");
+                            Console.ForegroundColor = ConsoleColor.White;
+
+                            return;
+                        }
+                    }
+
+                    if (min_cnt > 1 || max_cnt > 1 || stand_cnt > 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Vrednost parametra za Get servis mora biti unikatna i sme se ponoviti samo jednom!");
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        return;
+                    }
+
+                    // ako je uneto samo Get pozvati bool SlanjeGetKomande() sa svim parametrima false
+                    IsMin = (min_cnt == 1);
+                    IsMax = (max_cnt == 1);
+                    IsStand = (stand_cnt == 1);
+
+                    bool uspesno = new Komanda().SlanjeGetKomande();
+
+                }
             }
             catch (DirectoryNotFoundException)
             {

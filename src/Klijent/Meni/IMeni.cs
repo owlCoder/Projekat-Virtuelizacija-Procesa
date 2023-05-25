@@ -6,6 +6,6 @@
 
         void MeniSend();
 
-        void MeniGet();
+        void MeniGet(string unos);
     }
 }

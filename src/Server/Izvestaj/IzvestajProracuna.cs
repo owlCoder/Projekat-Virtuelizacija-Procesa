@@ -1,4 +1,5 @@
-﻿using Common.Modeli;
+﻿using Common.Datoteke;
+using Common.Modeli;
 using Server.Interfejsi;
 using System;
 using System.Collections.Generic;
@@ -6,9 +7,9 @@ using System.IO;
 
 namespace Server.Izvestaj
 {
-    public class IzvestajProracuna : IIzvestajProracuna // mozda treba i : IDisposable
+    public class IzvestajProracuna : IIzvestajProracuna
     {
-        public MemoryStream NapraviIzvestajNakonProracuna(List<Proracun> podaci)
+        public IRadSaDatotekom NapraviIzvestajNakonProracuna(List<Proracun> podaci)
         {
             throw new NotImplementedException();
         }

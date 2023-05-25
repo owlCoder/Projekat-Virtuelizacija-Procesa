@@ -25,7 +25,7 @@ namespace XmlBazaPodataka
             if(!File.Exists(putanja_datoteke))
             {
                 // ako datoteka ne postoji, kreira se nova
-                string root_element = (putanja_datoteke.ToLower().Contains("audit")) ? "STAVKE" : "row";
+                string root_element = (putanja_datoteke.ToLower().Contains("audit")) ? "STAVKE" : "rows";
                 XDocument novi_xml = new XDocument(new XDeclaration("1.0", "utf-8", "no"), new XElement(root_element));
                 novi_xml.Save(putanja_datoteke);
             }

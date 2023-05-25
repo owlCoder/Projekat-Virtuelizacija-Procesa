@@ -9,10 +9,10 @@ namespace Server.PregledPotrosnje
     public class PregledMaksimalnePotrosnje : IPreglediPotrosnje
     {
         // Metoda koja racuna maksimalnu potrosnju za tekuci dan
-        public float PregledPotrosnje()
+        public double PregledPotrosnje()
         {
             // Promenljiva u kojoj se cuva najveca zabelezena potrosnja
-            float potrosnja_float = 0.0f;
+            double potrosnja = 0.0;
 
             // Lista podataka u kojoj ce biti procitani podaci za tekuci dan
             List<Load> procitano_tekuci_dan = new List<Load>();
@@ -31,7 +31,7 @@ namespace Server.PregledPotrosnje
             // IZ LISTE pronaci najvecu vrednost potrosnje i upisati je u potrosnja_float
 
 
-            return potrosnja_float;
+            return potrosnja;
         }
     }
 }

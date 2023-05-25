@@ -9,10 +9,10 @@ namespace Server.PregledPotrosnje
     public class PregledStandardneDevijacijePotrosnje : IPreglediPotrosnje
     {
         // Metoda koja racuna standardnu devijaciju potrosnje za tekuci dan
-        public float PregledPotrosnje()
+        public double PregledPotrosnje()
         {
             // Promenljiva u kojoj se cuva standardna devijacija zabelezene potrosnje
-            float potrosnja_float = 0.0f;
+            double potrosnja = 0.0;
 
             // Lista podataka u kojoj ce biti procitani podaci za tekuci dan
             List<Load> procitano_tekuci_dan = new List<Load>();
@@ -31,7 +31,7 @@ namespace Server.PregledPotrosnje
             // IZ LISTE pronaci vrednost potrosnje po standardnoj devijaciji i upisati je u potrosnja_float
 
 
-            return potrosnja_float;
+            return potrosnja;
         }
     }
 }

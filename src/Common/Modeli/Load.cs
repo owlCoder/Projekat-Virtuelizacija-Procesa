@@ -16,7 +16,7 @@ namespace Common.Modeli
 
         // Izmerena vrednost za dati trenutak
         [DataMember]
-        public float MeasuredValue { get; set; }
+        public double MeasuredValue { get; set; }
 
         public Load()
         {
@@ -24,7 +24,7 @@ namespace Common.Modeli
         }
 
         // Konstruktor sa parametrima
-        public Load(int id, DateTime timestamp, float measuredValue)
+        public Load(int id, DateTime timestamp, double measuredValue)
         {
             Id = id;
             Timestamp = timestamp;

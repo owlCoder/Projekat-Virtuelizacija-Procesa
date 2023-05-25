@@ -85,7 +85,7 @@ namespace XmlBazaPodataka
                         else
                         {
                             // vreme je validno, sada parsiramo da li je merenje validno
-                            if (!float.TryParse(splitovano[1].Replace('.', ','), out float vrednost))
+                            if (!double.TryParse(splitovano[1].Replace('.', ','), out double vrednost))
                             {
                                 greske.Add(
                                 new Audit(0, DateTime.Now, MessageType.Error, "Nevalidan podatak MEASURED_VALUE za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
@@ -93,7 +93,7 @@ namespace XmlBazaPodataka
                             }
                             else
                             {
-                                if (vrednost < 0f)
+                                if (vrednost < 0.0)
                                 {
                                     greske.Add(
                                         new Audit(0, DateTime.Now, MessageType.Error, "Nevalidan podatak MEASURED_VALUE za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
@@ -169,7 +169,7 @@ namespace XmlBazaPodataka
                     Load novi = new Load
                     {
                         Id = ID_LOAD++,
-                        MeasuredValue = float.Parse(red.SelectSingleNode("MEASURED_VALUE").InnerText),
+                        MeasuredValue = double.Parse(red.SelectSingleNode("MEASURED_VALUE").InnerText),
                         Timestamp = DateTime.Parse(red.SelectSingleNode("TIME_STAMP").InnerText)
                     };
 
@@ -206,11 +206,24 @@ namespace XmlBazaPodataka
                 XmlDocument xml_load = new XmlDocument();
                 xml_load.Load(((RadSaDatotekom)datoteka).DatotecniTok);
 
+                // posto se koristi ista datoteka, potrebno je vratiti se na pocetak
+                ((RadSaDatotekom)datoteka).DatotecniTok.Position = 0;
+
+                XDocument xml_dokument = XDocument.Load(((RadSaDatotekom)datoteka).DatotecniTok);
+                var stavke = xml_dokument.Element("rows");
+
                 // dodavanje podataka iz csv parsiranih u xml bazu
                 foreach (Load l in podaci)
                 {
                     string pretraga = "//row[TIME_STAMP='" + l.Timestamp.ToString("yyyy-MM-dd HH:mm") + "']";
-                    XmlNode element = xml_load.SelectSingleNode(pretraga);
+                    XmlNode element = null;
+
+                    try
+                    {
+                        element = xml_load.SelectSingleNode(pretraga);
+                    }
+                    catch { }
+                    
 
                     if (element != null)
                     {
@@ -219,12 +232,6 @@ namespace XmlBazaPodataka
                     }
                     else
                     {
-                        // posto se koristi ista datoteka, potrebno je vratiti se na pocetak
-                        ((RadSaDatotekom)datoteka).DatotecniTok.Position = 0;
-
-                        XDocument xml_dokument = XDocument.Load(((RadSaDatotekom)datoteka).DatotecniTok);
-                        var stavke = xml_dokument.Element("rows");
-
                         // ne postoji red u xml, dodaje se novi
                         var novi = new XElement("row");
                         novi.Add(new XElement("TIME_STAMP", l.Timestamp.ToString("yyyy-MM-dd HH:mm")));
@@ -253,7 +260,14 @@ namespace XmlBazaPodataka
                 XDocument xml_audit = XDocument.Load(((RadSaDatotekom)datoteka).DatotecniTok);
 
                 var elements = xml_audit.Descendants("ID");
-                var max_row_id = elements.Max(e => int.Parse(e.Value));
+                var max_row_id = 0;
+
+                // ako nema elemenata, max row id je 0
+                try
+                {
+                    max_row_id = elements.Max(e => int.Parse(e.Value));
+                }
+                catch { }
 
                 // upisi greske u audit tabelu
                 // ali pre toga azuriraj id-greske sa max + 1

@@ -9,10 +9,10 @@ namespace Server.PregledPotrosnje
     public class PregledMinimalnePostrosnje : IPreglediPotrosnje
     {
         // Metoda koja racuna minimalnu potrosnju za tekuci dan
-        public float PregledPotrosnje()
+        public double PregledPotrosnje()
         {
             // Promenljiva u kojoj se cuva najmanja zabelezena potrosnja
-            float potrosnja_float = 0.0f;
+            double potrosnja = 0.0;
 
             // Lista podataka u kojoj ce biti procitani podaci za tekuci dan
             List<Load> procitano_tekuci_dan = new List<Load>();
@@ -28,10 +28,10 @@ namespace Server.PregledPotrosnje
             /// KATARINA
             ///////////////////////////
 
-            // IZ LISTE pronaci najamanju vrednost potrosnje i upisati je u potrosnja_float
+            // IZ LISTE pronaci najamanju vrednost potrosnje i upisati je u potrosnja
 
 
-            return potrosnja_float;
+            return potrosnja;
         }
     }
 }

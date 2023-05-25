@@ -10,6 +10,6 @@ namespace Server.Interfejsi
         // Metoda koja pronalazi min, max, std potrosnju za tekuci datum
         [OperationContract]
         [FaultContract(typeof(PregledPotrosnjeIzuzetak))]
-        float PregledPotrosnje();
+        double PregledPotrosnje();
     }
 }

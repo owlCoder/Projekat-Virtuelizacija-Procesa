@@ -25,7 +25,7 @@ namespace Klijent.Komande
         // Odrednisni EndPoint je Server -> StatistickiServer
         // Povratna vrednost je true ako postoji barem ijedan zapis, u suprotnom false
         // Ako su sva tri parametra false (korisnik je uneo samo Get, izazvati izuzetak KomandaIzuzetak
-        // Na kraju ako postoji podataka, kreira se tekstualna datoteka koja sadrzi primljene proracune
+        // Na kraju ako postoji podatak, kreira se tekstualna datoteka koja sadrzi primljene proracune
         [OperationContract]
         [FaultContract(typeof(KomandaIzuzetak))]
         bool SlanjeGetKomande(bool IsMin = false, bool IsMax = false, bool IsStand = false);

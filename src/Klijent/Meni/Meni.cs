@@ -111,7 +111,7 @@ namespace Klijent.InterfejsMeni
                 // proveriti da li je broj parametara veci od 3, ako jeste ispisati gresku
                 string[] parametri = unos.Trim().Split(' '); // komande su razdvojene sa razmakom
 
-                if (parametri.Length < (1 + 1)) // get komanda je uvek prisutna
+                if (parametri.Length < (1)) // prazan string
                 {
                     // unet je samo Get
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -169,8 +169,7 @@ namespace Klijent.InterfejsMeni
                     IsMax = (max_cnt == 1);
                     IsStand = (stand_cnt == 1);
 
-                    bool uspesno = new Komanda().SlanjeGetKomande();
-
+                    bool uspesno = new Komanda().SlanjeGetKomande(IsMin, IsMax, IsStand);
                 }
             }
             catch (DirectoryNotFoundException)
@@ -179,7 +178,7 @@ namespace Klijent.InterfejsMeni
                 Console.WriteLine("Nije moguce upisati izvestaj jer direktorijum izvestaja ne postoji!");
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            catch (FaultException<DatotekaJeOtvorenaIzuzetak> de)
+            catch (FaultException<KomandaIzuzetak> de)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(de.Detail.Razlog);

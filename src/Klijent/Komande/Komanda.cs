@@ -68,6 +68,13 @@ namespace Klijent.Komande
         {
             bool uspesno = false;
 
+            if(IsMin == false && IsMax == false && IsStand == false)
+            {
+                // samo je poslat get, desava se izuzetak komande
+                throw new FaultException<KomandaIzuzetak>(
+                    new KomandaIzuzetak("[ERROR]: " + DateTime.Now.ToString() + " Ne postoji nijedan parametar uz Get zahtev! Komanda 'Get' neuspesno izvrsena!"));
+            }
+
             // dodatni opis:
             // Ako je Get komanda prosla od strane servisa
             // povratna vrednost metode sa servera je memory stream

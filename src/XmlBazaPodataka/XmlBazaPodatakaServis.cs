@@ -19,6 +19,10 @@ namespace XmlBazaPodataka
     // Klasa koja implementira potrebne servise za rad sa Xml bazom podataka
     public class XmlBazaPodatakaServis : IBazaPodataka, IXmlCsvFunkcije
     {
+        #region POLJE KLASE ZA ID
+        private static ushort ID_LOAD = 1;
+        #endregion
+
         #region METODA ZA CITANJE IZ XML DATOTEKE
         public IRadSaDatotekom OtvoriDatoteku(string putanja_datoteke)
         {
@@ -136,7 +140,35 @@ namespace XmlBazaPodataka
         #region METODE CITANJE PODATAKA IZ BAZE PODATAKA
         public bool ProcitajIzBazePodataka(out List<Load> procitano)
         {
-            throw new NotImplementedException();
+            procitano = new List<Load>();
+
+            using (IRadSaDatotekom datoteka = new XmlBazaPodatakaServis().OtvoriDatoteku(ConfigurationManager.AppSettings["DatotekaBazePodataka"]))
+            {
+                XmlDocument baza = new XmlDocument();
+                baza.Load(((RadSaDatotekom)datoteka).DatotecniTok);
+
+                // citanje podataka samo za tekuci dan
+                string datum = DateTime.Now.ToString("yyyy-MM-dd");
+                XmlNodeList podaci = baza.SelectNodes("//row[TIME_STAMP[contains(., '" + datum + "')]]");
+
+                foreach (XmlNode red in podaci)
+                {
+                    Load novi = new Load
+                    {
+                        Id = ID_LOAD++,
+                        MeasuredValue = float.Parse(red.SelectSingleNode("MEASURED_VALUE").InnerText),
+                        Timestamp = DateTime.Parse(red.SelectSingleNode("TIME_STAMP").InnerText)
+                    };
+
+                    // dodavanje procitanog podatka u izlaznu listu
+                    procitano.Add(novi);
+                }
+
+                // oslobadjanje resursa datoteke
+                datoteka.Dispose();
+            }
+
+            return procitano.Count > 0;
         }
         #endregion
 
@@ -174,7 +206,7 @@ namespace XmlBazaPodataka
 
                     if (element != null)
                     {
-                        element.SelectSingleNode("MEASURED_VALUE").InnerText = l.MeasuredValue.ToString();
+                        element.SelectSingleNode("MEASURED_VALUE").InnerText = l.MeasuredValue.ToString().Replace(',', '.');
                         xml_load.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
                     }
                     else
@@ -188,7 +220,7 @@ namespace XmlBazaPodataka
                         // ne postoji red u xml, dodaje se novi
                         var novi = new XElement("row");
                         novi.Add(new XElement("TIME_STAMP", l.Timestamp.ToString("yyyy-MM-dd HH:mm")));
-                        novi.Add(new XElement("MEASURED_VALUE", l.MeasuredValue.ToString()));
+                        novi.Add(new XElement("MEASURED_VALUE", l.MeasuredValue.ToString().Replace(',', '.')));
 
                         stavke.Add(novi);
                         xml_load.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);

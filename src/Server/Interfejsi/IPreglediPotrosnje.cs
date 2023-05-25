@@ -1,5 +1,4 @@
 ﻿using Common.Izuzeci;
-using System.Configuration;
 using System.ServiceModel;
 
 namespace Server.Interfejsi

@@ -5,11 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using XmlBazaPodataka.Interfejsi;
 
 namespace Klijent.Komande
@@ -57,7 +53,7 @@ namespace Klijent.Komande
             }
 
             // uspesno obrisan fajl obrisati
-            if(uspesno && File.Exists(svi_fajlovi[0]))
+            if (uspesno && File.Exists(svi_fajlovi[0]))
             {
                 File.Delete(svi_fajlovi[0]);
                 Console.ForegroundColor = ConsoleColor.Blue;

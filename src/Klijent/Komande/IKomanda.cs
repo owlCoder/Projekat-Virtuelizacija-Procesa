@@ -1,13 +1,7 @@
-﻿using Common.Datoteke;
-using Common.Izuzeci;
+﻿using Common.Izuzeci;
 using Common.Modeli;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Klijent.Komande
 {
@@ -33,7 +27,7 @@ namespace Klijent.Komande
         // Ako su sva tri parametra false (korisnik je uneo samo Get, izazvati izuzetak KomandaIzuzetak
         // Na kraju ako postoji podataka, kreira se tekstualna datoteka koja sadrzi primljene proracune
         [OperationContract]
-        [FaultContract(typeof (KomandaIzuzetak))]
+        [FaultContract(typeof(KomandaIzuzetak))]
         bool SlanjeGetKomande(bool IsMin = false, bool IsMax = false, bool IsStand = false);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Common.Modeli;
 using Server.Interfejsi;
-using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using XmlBazaPodataka.Interfejsi;

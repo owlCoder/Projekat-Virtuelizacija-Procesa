@@ -1,18 +1,15 @@
-﻿using System;
+﻿using Common.Datoteke;
+using Common.Izuzeci;
 using Common.Modeli;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
-using XmlBazaPodataka.Interfejsi;
-using Common.Datoteke;
 using System.Linq;
-using System.Diagnostics;
-using System.Text;
+using System.ServiceModel;
 using System.Xml;
 using System.Xml.Linq;
-using System.Configuration;
-using System.ServiceModel;
-using Common.Izuzeci;
-using System.Runtime.InteropServices.ComTypes;
+using XmlBazaPodataka.Interfejsi;
 
 namespace XmlBazaPodataka
 {
@@ -96,14 +93,14 @@ namespace XmlBazaPodataka
                             }
                             else
                             {
-                                if(vrednost < 0f)
+                                if (vrednost < 0f)
                                 {
                                     greske.Add(
                                         new Audit(0, DateTime.Now, MessageType.Error, "Nevalidan podatak MEASURED_VALUE za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
                                     );
 
                                 }
-                                
+
                                 else
                                 {
                                     // i vreme i merenje su validni
@@ -122,7 +119,7 @@ namespace XmlBazaPodataka
 
             // ako je broj redova koji ima gresku jednak svi unetim redovima
             // onda se kreira samo jedan audit objekat
-            if(greske.Count == linija - 1)
+            if (greske.Count == linija - 1)
             {
                 greske.Clear(); // upisace se samo jedna greska
                 greske.Add(
@@ -192,15 +189,10 @@ namespace XmlBazaPodataka
         public int UpisUBazuPodataka(List<Load> podaci, List<Audit> greske)
         {
             // upis svih gresaka u audit
-            try
-            {
-                UpisUAuditTBL(greske, ConfigurationManager.AppSettings["BazaZaGreske"]);
-                return UpisULoadTBL(podaci, ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
-            }
-            catch (Exception)
-            {
-                throw new FaultException<XmlBazaPodatakaIzuzetak>(new XmlBazaPodatakaIzuzetak("[Error]: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + " XML datoteka nije dobro formatirana!"));
-            }
+            UpisUAuditTBL(greske, ConfigurationManager.AppSettings["BazaZaGreske"]);
+
+            // upis podataka u bazu xml
+            return UpisULoadTBL(podaci, ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
         }
         #endregion
 

@@ -1,10 +1,8 @@
-﻿using Common.Datoteke;
-using Common.Izuzeci;
+﻿using Common.Izuzeci;
 using Common.Modeli;
 using Klijent.Komande;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Security.Principal;
 using System.ServiceModel;
@@ -77,9 +75,9 @@ namespace Klijent.InterfejsMeni
                 else
                 {
                     // ispis svih gresaka koje su se desile
-                    foreach (Audit audit in greske) 
+                    foreach (Audit audit in greske)
                     {
-                        Console.ForegroundColor= ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(audit);
                     }
 
@@ -92,13 +90,7 @@ namespace Klijent.InterfejsMeni
                 Console.WriteLine(ke.Detail.Razlog);
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            catch(FaultException<XmlBazaPodatakaIzuzetak> xi)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(xi.Message);
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            catch(Exception exp) 
+            catch (Exception exp)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(exp.Message);
@@ -135,13 +127,13 @@ namespace Klijent.InterfejsMeni
                 Console.WriteLine("Nije moguce upisati izvestaj jer direktorijum izvestaja ne postoji!");
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            catch (FaultException < DatotekaJeOtvorenaIzuzetak > de)
+            catch (FaultException<DatotekaJeOtvorenaIzuzetak> de)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(de.Detail.Razlog);
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(exp.ToString());

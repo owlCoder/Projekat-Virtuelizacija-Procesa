@@ -90,10 +90,21 @@ namespace XmlBazaPodataka
                             }
                             else
                             {
-                                // i vreme i merenje su validni
-                                nove_vrednosti.Add(
+                                if(vrednost < 0f)
+                                {
+                                    greske.Add(
+                                        new Audit(0, DateTime.Now, MessageType.Error, "Nevalidan podatak MEASURED_VALUE za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
+                                    );
+
+                                }
+                                
+                                else
+                                {
+                                    // i vreme i merenje su validni
+                                    nove_vrednosti.Add(
                                         new Load(0, DateTime.Today + vreme, vrednost)
                                     );
+                                }
                             }
                         }
                     }
@@ -166,6 +177,9 @@ namespace XmlBazaPodataka
                     }
                     else
                     {
+                        // posto se koristi ista datoteka, potrebno je vratiti se na pocetak
+                        ((RadSaDatotekom)datoteka).DatotecniTok.Position = 0;
+
                         XDocument xml_dokument = XDocument.Load(((RadSaDatotekom)datoteka).DatotecniTok);
                         var stavke = xml_dokument.Element("rows");
 

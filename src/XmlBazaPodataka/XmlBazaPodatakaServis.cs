@@ -25,7 +25,8 @@ namespace XmlBazaPodataka
             if(!File.Exists(putanja_datoteke))
             {
                 // ako datoteka ne postoji, kreira se nova
-                XDocument novi_xml = new XDocument(new XDeclaration("1.0", "utf-8", "no"), new XElement("rows"));
+                string root_element = (putanja_datoteke.ToLower().Contains("audit")) ? "STAVKE" : "row";
+                XDocument novi_xml = new XDocument(new XDeclaration("1.0", "utf-8", "no"), new XElement(root_element));
                 novi_xml.Save(putanja_datoteke);
             }
 
@@ -105,7 +106,7 @@ namespace XmlBazaPodataka
             // greske upisati u bazu podataka
             // nove vrednosti upisati u bazu podataka
             int redova = UpisUBazuPodataka(nove_vrednosti, greske);
-
+            
             // neki deo u poslatoj csv datoteci nije validan
             if(greske.Count > 0)
             {
@@ -137,9 +138,7 @@ namespace XmlBazaPodataka
             }
             catch (Exception)
             {
-                throw new FaultException<XmlBazaPodatakaIzuzetak>(
-                    new XmlBazaPodatakaIzuzetak("[Error]: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm") +
-                                               " XML datoteka nije dobro formatirana!"));
+                throw new FaultException(("[Error]: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + " XML datoteka nije dobro formatirana!"));
             }
         }
         #endregion
@@ -195,7 +194,6 @@ namespace XmlBazaPodataka
         {
             using (IRadSaDatotekom datoteka = new XmlBazaPodatakaServis().OtvoriDatoteku(xml_audit_path))
             {
-                ((RadSaDatotekom)datoteka).DatotecniTok.Position = 0;
                 XDocument xml_audit = new XDocument(((RadSaDatotekom)datoteka).DatotecniTok);
 
                 var elements = xml_audit.Descendants("ID");

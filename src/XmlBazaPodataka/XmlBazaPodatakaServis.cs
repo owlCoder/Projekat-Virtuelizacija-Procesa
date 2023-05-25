@@ -132,7 +132,7 @@ namespace XmlBazaPodataka
             // upis svih gresaka u audit
             try
             {
-               // UpisUAuditTBL(greske, ConfigurationManager.AppSettings["BazaZaGreske"]);
+                UpisUAuditTBL(greske, ConfigurationManager.AppSettings["BazaZaGreske"]);
                 return UpisULoadTBL(podaci, ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
             }
             catch (Exception)
@@ -195,10 +195,10 @@ namespace XmlBazaPodataka
         {
             using (IRadSaDatotekom datoteka = new XmlBazaPodatakaServis().OtvoriDatoteku(xml_audit_path))
             {
-                XDocument xml_audit = new XDocument(((RadSaDatotekom)datoteka).DatotecniTok); // exception, why?
+                XmlDocument xml_audit = new XmlDocument();
+                xml_audit.Load(((RadSaDatotekom)datoteka).DatotecniTok);
 
-                var elements = xml_audit.Descendants("ID");
-                var max_row_id = elements.Max(e => int.Parse(e.Value));
+                var max_row_id = xml_audit.DocumentElement.ChildNodes.Count + 100;
 
                 // upisi greske u audit tabelu
                 // ali pre toga azuriraj id-greske sa max + 1
@@ -206,16 +206,27 @@ namespace XmlBazaPodataka
                 {
                     a.Id = ++max_row_id;
 
-                    var stavke = xml_audit.Element("STAVKE");
-                    var novi = new XElement("row");
+                    XmlElement row = xml_audit.CreateElement("row");
 
-                    // dodavanje podataka u xml serijalizaciju
-                    novi.Add(new XElement("ID", a.Id));
-                    novi.Add(new XElement("TIME_STAMP", a.Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff")));
-                    novi.Add(new XElement("MESSAGE_TYPE", a.Message_Type));
-                    novi.Add(new XElement("MESSAGE", a.Message));
+                    XmlElement id = xml_audit.CreateElement("ID");
+                    id.InnerText = a.Id.ToString();
+                    row.AppendChild(id);
 
-                    stavke.Add(novi);
+                    XmlElement time = xml_audit.CreateElement("TIME_STAMP");
+                    time.InnerText = a.Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                    row.AppendChild(time);
+                    xml_audit.DocumentElement.AppendChild(row);
+
+                    XmlElement type = xml_audit.CreateElement("MESSAGE_TYPE");
+                    type.InnerText = a.Message_Type.ToString();
+                    row.AppendChild(type);
+                    xml_audit.DocumentElement.AppendChild(row);
+
+                    XmlElement message = xml_audit.CreateElement("MESSAGE");
+                    message.InnerText = a.Message;
+                    row.AppendChild(message);
+                    xml_audit.DocumentElement.AppendChild(row);
+                  
                     xml_audit.Save(xml_audit_path);
                 }
 

@@ -231,7 +231,7 @@ namespace XmlBazaPodataka
                         novi.Add(new XElement("MEASURED_VALUE", l.MeasuredValue.ToString().Replace(',', '.')));
 
                         stavke.Add(novi);
-                        xml_load.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+                        xml_dokument.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
                     }
 
                     upisano_redova += 1; // jedan red se upisao u tabelu

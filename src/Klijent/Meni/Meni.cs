@@ -92,7 +92,7 @@ namespace Klijent.InterfejsMeni
                 Console.WriteLine(ke.Detail.Razlog);
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            catch(FaultException xi)
+            catch(FaultException<XmlBazaPodatakaIzuzetak> xi)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(xi.Message);

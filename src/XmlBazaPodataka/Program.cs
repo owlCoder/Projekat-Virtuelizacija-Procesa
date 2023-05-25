@@ -21,9 +21,6 @@ namespace XmlBazaPodataka
                 Console.WriteLine(e.Message);
             }
 
-            XmlBazaPodatakaServis servis = new XmlBazaPodatakaServis();
-            servis.ProcitajIzBazePodataka(out List<Load> procitano);
-
             Console.WriteLine("Servis XML Baze Podataka je uspesno pokrenut!");
             Console.ReadLine();
         }

@@ -18,7 +18,6 @@ namespace XmlBazaPodataka.Interfejsi
         // listu List<Load> ucitano
         // metoda poziva posebnu metodu za upis u bazu podataka
         [OperationContract]
-        [FaultContract(typeof(CsvDatotekaIzuzetak))]
         bool ParsiranjeCsvDatoteke(MemoryStream csv, out List<Audit> greske);
 
         // Ako xml datoteka postoji i uspesno se otvori vraca true, u suprotnom false

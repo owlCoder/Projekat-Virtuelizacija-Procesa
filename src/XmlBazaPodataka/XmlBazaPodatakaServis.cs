@@ -120,6 +120,22 @@ namespace XmlBazaPodataka
                 }
             }
 
+            // ako je broj redova koji ima gresku jednak svi unetim redovima
+            // onda se kreira samo jedan audit objekat
+            if(greske.Count == linija - 1)
+            {
+                greske.Clear(); // upisace se samo jedna greska
+                greske.Add(
+                        new Audit(0, DateTime.Now, MessageType.Error, "Struktura CSV datoteke nije validna za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
+                );
+
+                // upisi gresku u audit
+                UpisUAuditTBL(greske, ConfigurationManager.AppSettings["BazaZaGreske"]);
+
+                // nije upisan nijedan podatak
+                return false;
+            }
+
             // greske upisati u bazu podataka
             // nove vrednosti upisati u bazu podataka
             int redova = UpisUBazuPodataka(nove_vrednosti, greske);
@@ -183,7 +199,7 @@ namespace XmlBazaPodataka
             }
             catch (Exception)
             {
-                throw new FaultException(("[Error]: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + " XML datoteka nije dobro formatirana!"));
+                throw new FaultException<XmlBazaPodatakaIzuzetak>(new XmlBazaPodatakaIzuzetak("[Error]: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + " XML datoteka nije dobro formatirana!"));
             }
         }
         #endregion

@@ -12,7 +12,6 @@ using System.Xml.Linq;
 using System.Configuration;
 using System.ServiceModel;
 using Common.Izuzeci;
-using System.Runtime.InteropServices.ComTypes;
 
 namespace XmlBazaPodataka
 {
@@ -133,7 +132,7 @@ namespace XmlBazaPodataka
             // upis svih gresaka u audit
             try
             {
-                UpisUAuditTBL(greske, ConfigurationManager.AppSettings["BazaZaGreske"]);
+               // UpisUAuditTBL(greske, ConfigurationManager.AppSettings["BazaZaGreske"]);
                 return UpisULoadTBL(podaci, ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
             }
             catch (Exception)
@@ -161,21 +160,23 @@ namespace XmlBazaPodataka
 
                     if (element != null)
                     {
-                        element.SelectSingleNode("MEASURED_VALUE").InnerText = l.MeasuredValue.ToString();
-                        xml_load.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+                        element.SelectSingleNode("MEASURED_VALUE").InnerText = l.MeasuredValue.ToString().Replace(',', '.');
+                        xml_load.Save(xml_load_path);
                     }
                     else
                     {
-                        XDocument xml_dokument = new XDocument(((RadSaDatotekom)datoteka).DatotecniTok);
-                        var stavke = xml_dokument.Element("rows");
+                        XmlElement row = xml_load.CreateElement("row");
 
-                        // ne postoji red u xml, dodaje se novi
-                        var novi = new XElement("row");
-                        novi.Add(new XElement("TIME_STAMP", l.Timestamp.ToString("yyyy-MM-dd HH:mm")));
-                        novi.Add(new XElement("MEASURED_VALUE", l.MeasuredValue.ToString()));
+                        XmlElement timeStamp = xml_load.CreateElement("TIME_STAMP");
+                        timeStamp.InnerText = l.Timestamp.ToString("yyyy-MM-dd HH:mm");
+                        row.AppendChild(timeStamp);
 
-                        stavke.Add(novi);
-                        xml_load.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+                        XmlElement messageType = xml_load.CreateElement("MEASURED_VALUE");
+                        messageType.InnerText = l.MeasuredValue.ToString().Replace(',', '.');
+                        row.AppendChild(messageType);
+                        xml_load.DocumentElement.AppendChild(row);
+
+                        xml_load.Save(xml_load_path);
                     }
 
                     upisano_redova += 1; // jedan red se upisao u tabelu
@@ -194,7 +195,7 @@ namespace XmlBazaPodataka
         {
             using (IRadSaDatotekom datoteka = new XmlBazaPodatakaServis().OtvoriDatoteku(xml_audit_path))
             {
-                XDocument xml_audit = new XDocument(((RadSaDatotekom)datoteka).DatotecniTok);
+                XDocument xml_audit = new XDocument(((RadSaDatotekom)datoteka).DatotecniTok); // exception, why?
 
                 var elements = xml_audit.Descendants("ID");
                 var max_row_id = elements.Max(e => int.Parse(e.Value));
@@ -215,7 +216,7 @@ namespace XmlBazaPodataka
                     novi.Add(new XElement("MESSAGE", a.Message));
 
                     stavke.Add(novi);
-                    xml_audit.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
+                    xml_audit.Save(xml_audit_path);
                 }
 
                 // ako nema gresaka upisi u audit da je sve okej
@@ -231,7 +232,7 @@ namespace XmlBazaPodataka
                     novi.Add(new XElement("MESSAGE", "Podaci uspesno procitani i prosledjeni"));
 
                     stavke.Add(novi);
-                    xml_audit.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
+                    xml_audit.Save(xml_audit_path);
                 }
 
                 // oslobadjanje resursa

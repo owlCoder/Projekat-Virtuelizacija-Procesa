@@ -16,10 +16,10 @@ namespace Common.Modeli
         // Proracunata vrednost za odabrani kriterijum
         // set metoda nije dostupna jer se vrednost objekta nakon kreiranja ne sme menjati
         [DataMember]
-        public float VrednostProracuna { get; }
+        public double VrednostProracuna { get; }
 
         // Konstruktor sa parametrima
-        public Proracun(string tipProracuna, float vrednostProracuna)
+        public Proracun(string tipProracuna, double vrednostProracuna)
         {
             TipProracuna = tipProracuna;
             VrednostProracuna = vrednostProracuna;

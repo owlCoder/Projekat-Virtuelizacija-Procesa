@@ -16,7 +16,6 @@ namespace Server.Interfejsi
         // dok su ulazni parametri lista proracuna koja se upisuje u izlazni txt fajl
         // u slucaju da je lista proracuna prazna ili neki od podataka nevalidan
         // desava se IzvestajIzuzetak
-        // ako nije moguce kreirati tekstualni fajl takodje se desava IzvestajIzuzetak
         [OperationContract]
         [FaultContract(typeof(IzvestajIzuzetak))]
         IRadSaDatotekom NapraviIzvestajNakonProracuna(List<Proracun> podaci);

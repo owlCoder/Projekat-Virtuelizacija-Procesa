@@ -64,6 +64,10 @@
       <Project>{91FCCC5C-49D7-4432-A7AA-FC55E08A97AF}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Server\Server.csproj">
+      <Project>{BB987C96-897D-4273-8517-96E661DF3D92}</Project>
+      <Name>Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XmlBazaPodataka\XmlBazaPodataka.csproj">
       <Project>{5644DE2E-DDDA-427A-94E4-818FFA2ADE34}</Project>
       <Name>XmlBazaPodataka</Name>

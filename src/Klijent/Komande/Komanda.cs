@@ -1,6 +1,7 @@
 ﻿using Common.Datoteke;
 using Common.Izuzeci;
 using Common.Modeli;
+using Server.Interfejsi;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -74,6 +75,10 @@ namespace Klijent.Komande
                 throw new FaultException<KomandaIzuzetak>(
                     new KomandaIzuzetak("[ERROR]: " + DateTime.Now.ToString() + " Ne postoji nijedan parametar uz Get zahtev! Komanda 'Get' neuspesno izvrsena!"));
             }
+
+            // komunikacija sa xml csv funkcijama iz xml baze podataka
+            ChannelFactory<IProracun> kanal_statistika_servis = new ChannelFactory<IProracun>("Statistika");
+            IProracun proksi = kanal_statistika_servis.CreateChannel();
 
             // dodatni opis:
             // Ako je Get komanda prosla od strane servisa

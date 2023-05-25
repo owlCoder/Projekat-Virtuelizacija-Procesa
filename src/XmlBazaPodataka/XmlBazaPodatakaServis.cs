@@ -150,22 +150,28 @@ namespace XmlBazaPodataka
             #endregion
 
             #region UPIS U LOAD
+            XmlDocument load = new XmlDocument();
+            load.Load(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+
             // dodavanje podataka iz csv parsiranih u xml bazu
             foreach (Load l in podaci)
             {
-                var stavke = xml_load.Element("rows");
-                var element = stavke.Descendants().FirstOrDefault(e => e.Attribute("TIME_STAMP")?.Value.ToString() == (l.Timestamp.ToString("yyyy-MM-dd HH:mm")));
+                string pretraga = "//row[TIME_STAMP='" + l.Timestamp.ToString("yyyy-MM-dd HH:mm") + "']";
+                XmlNode element = load.SelectSingleNode(pretraga);
 
                 if (element != null)
                 {
-                    element.Element("MEASURED_VALUE").Value = l.MeasuredValue.ToString();
-                    xml_load.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+                    element.SelectSingleNode("MEASURED_VALUE").InnerText = l.MeasuredValue.ToString();
+                    // element.Attributes["MEASURED_VALUE"].Value = l.MeasuredValue.ToString();
+                    load.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
                 }
                 else
                 {
+                    var stavke = xml_load.Element("rows");
+
                     // ne postoji red u xml, dodaje se novi
                     var novi = new XElement("row");
-                    novi.Add(new XElement("TIME_STAMP", DateTime.Now.ToString("yyyy-MM-dd HH:mm")));
+                    novi.Add(new XElement("TIME_STAMP", l.Timestamp.ToString("yyyy-MM-dd HH:mm")));
                     novi.Add(new XElement("MEASURED_VALUE", l.MeasuredValue.ToString()));
 
                     stavke.Add(novi);

@@ -1,10 +1,16 @@
-﻿namespace Server
+﻿using Common.Datoteke;
+using System.IO;
+
+namespace Server
 {
     // Delegat koji se koristi za pozivanje odgovarajucih metoda za preglede potrosnje
     delegate dynamic Pregledi();
 
     public class StatistickiServis // : IPreglediPotrosnje
     {
+        public delegate float PregledPotrosnjeDelegat();
+        public event PregledPotrosnjeDelegat PPD;
+
         // TO DO
         // Hint: Standardna implementacija ipregledipotrosnje
         // a u njima se poziva PregledPotrosnje.Pregled Min/Max/Std klase
@@ -16,5 +22,12 @@
             pregledi();
         }
         */
+
+        public IRadSaDatotekom Racunaj()
+        {
+
+
+            return new RadSaDatotekom(null, "");
+        }
     }
 }

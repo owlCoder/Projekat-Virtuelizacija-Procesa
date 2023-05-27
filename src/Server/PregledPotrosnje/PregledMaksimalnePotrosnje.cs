@@ -1,6 +1,7 @@
 ﻿using Common.Modeli;
 using Server.Interfejsi;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using XmlBazaPodataka.Interfejsi;
 
@@ -24,12 +25,8 @@ namespace Server.PregledPotrosnje
             // Poziv metode koja ce procitati sve Load objekte za tekuci dan i smestiti u listu podataka
             proksi_xml.ProcitajIzBazePodataka(out procitano_tekuci_dan);
 
-            // TO DO
-            /// KATARINA
-            ///////////////////////////
-
-            // IZ LISTE pronaci najvecu vrednost potrosnje i upisati je u potrosnja_float
-
+            // pronaci najvecu vrednost potrosnje i upisati je u potrosnja_float
+            potrosnja = procitano_tekuci_dan.Any() ? procitano_tekuci_dan.Max(p => p.MeasuredValue) : 0.0;
 
             return potrosnja;
         }

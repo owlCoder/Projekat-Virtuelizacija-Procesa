@@ -14,11 +14,8 @@ namespace Server.PrikupljanjePodataka
             ChannelFactory<IBazaPodataka> kanal_xml_servis = new ChannelFactory<IBazaPodataka>("BazaPodataka");
             IBazaPodataka proksi_xml = kanal_xml_servis.CreateChannel();
 
-            // Lista u kojoj se cuvaju svi procitani podaci
-            List<Load> procitano_tekuci_dan = new List<Load>();
-
             // Poziv metode koja ce procitati sve Load objekte za tekuci dan i smestiti u listu podataka
-            proksi_xml.ProcitajIzBazePodataka(out procitano_tekuci_dan);
+            proksi_xml.ProcitajIzBazePodataka(out List<Load>procitano_tekuci_dan);
 
             return procitano_tekuci_dan;
         }

@@ -1,12 +1,10 @@
 ﻿using Common.Datoteke;
-using Common.Izuzeci;
 using Common.Modeli;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.ServiceModel;
 using System.Xml;
 using System.Xml.Linq;
 using XmlBazaPodataka.Interfejsi;
@@ -223,7 +221,7 @@ namespace XmlBazaPodataka
                         element = xml_load.SelectSingleNode(pretraga);
                     }
                     catch { }
-                    
+
 
                     if (element != null)
                     {

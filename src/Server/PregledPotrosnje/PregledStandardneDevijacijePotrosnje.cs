@@ -1,35 +1,21 @@
 ﻿using Common.Modeli;
 using Server.Interfejsi;
+using Server.ProracunDevijacije;
 using System.Collections.Generic;
-using System.ServiceModel;
-using XmlBazaPodataka.Interfejsi;
+using System.Linq;
 
 namespace Server.PregledPotrosnje
 {
     public class PregledStandardneDevijacijePotrosnje : IPreglediPotrosnje
     {
         // Metoda koja racuna standardnu devijaciju potrosnje za tekuci dan
-        public double PregledPotrosnje()
+        public double PregledPotrosnje(List<Load> procitano_tekuci_dan)
         {
             // Promenljiva u kojoj se cuva standardna devijacija zabelezene potrosnje
             double potrosnja = 0.0;
 
-            // Lista podataka u kojoj ce biti procitani podaci za tekuci dan
-            List<Load> procitano_tekuci_dan = new List<Load>();
-
-            // Povezivanje na server baze podataka
-            ChannelFactory<IBazaPodataka> kanal_xml_servis = new ChannelFactory<IBazaPodataka>("BazaPodataka");
-            IBazaPodataka proksi_xml = kanal_xml_servis.CreateChannel();
-
-            // Poziv metode koja ce procitati sve Load objekte za tekuci dan i smestiti u listu podataka
-            proksi_xml.ProcitajIzBazePodataka(out procitano_tekuci_dan);
-
-            // TO DO
-            /// KATARINA
-            ///////////////////////////
-
-            // IZ LISTE pronaci vrednost potrosnje po standardnoj devijaciji i upisati je u potrosnja_float
-
+            // pronaci vrednost potrosnje po standardnoj devijaciji i upisati je u potrosnja
+            potrosnja = new Devijacija().StandardnaDevijacija(procitano_tekuci_dan.Select(p => p.MeasuredValue));
 
             return potrosnja;
         }

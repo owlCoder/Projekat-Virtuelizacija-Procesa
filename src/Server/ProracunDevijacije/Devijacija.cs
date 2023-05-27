@@ -1,14 +1,16 @@
 ﻿using Server.Interfejsi;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Server.ProracunDevijacije
 {
     public class Devijacija : IDevijacija
     {
+        public Devijacija()
+        {
+            // Prazan konstruktor
+        }
+
         public double StandardnaDevijacija(IEnumerable<double> merenja)
         {
             double mean = 0.0;

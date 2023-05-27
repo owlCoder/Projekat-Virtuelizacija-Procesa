@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfejsi\IDataFetcher.cs" />
     <Compile Include="Interfejsi\IIzvestajProracuna.cs" />
     <Compile Include="Interfejsi\IPreglediPotrosnje.cs" />
     <Compile Include="Interfejsi\IProracun.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="PregledPotrosnje\PregledMaksimalnePotrosnje.cs" />
     <Compile Include="PregledPotrosnje\PregledMinimalnePostrosnje.cs" />
     <Compile Include="PregledPotrosnje\PregledStandardneDevijacijePotrosnje.cs" />
+    <Compile Include="PrikupljanjePodataka\DataFetcher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfejsi\IDevijacija.cs" />

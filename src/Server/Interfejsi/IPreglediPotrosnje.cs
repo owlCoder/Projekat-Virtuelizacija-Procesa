@@ -1,4 +1,6 @@
 ﻿using Common.Izuzeci;
+using Common.Modeli;
+using System.Collections.Generic;
 using System.ServiceModel;
 
 namespace Server.Interfejsi
@@ -10,6 +12,6 @@ namespace Server.Interfejsi
         // Metoda koja pronalazi min, max, std potrosnju za tekuci datum
         [OperationContract]
         [FaultContract(typeof(PregledPotrosnjeIzuzetak))]
-        double PregledPotrosnje();
+        double PregledPotrosnje(List<Load> procitano_tekuci_dan);
     }
 }

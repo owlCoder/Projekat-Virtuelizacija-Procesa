@@ -15,7 +15,7 @@ namespace Server.Izvestaj
         public IRadSaDatotekom NapraviIzvestajNakonProracuna(List<Proracun> podaci)
         {
             // ako nema podataka, izazvati izuzetak
-            if(podaci.Count == 0)
+            if (podaci.Count == 0)
             {
                 throw new FaultException<IzvestajIzuzetak>(
                     new IzvestajIzuzetak("[ERROR]: Nema podataka za generisanje izvestaja!"));
@@ -24,7 +24,7 @@ namespace Server.Izvestaj
             // ako ima podataka, serijalizovati ih i pretvoriti u niz bajtova
             string za_slanje = "";
 
-            foreach(Proracun p in podaci)
+            foreach (Proracun p in podaci)
             {
                 za_slanje += p.TipProracuna + ": " + p.VrednostProracuna.ToString() + "\n";
             }

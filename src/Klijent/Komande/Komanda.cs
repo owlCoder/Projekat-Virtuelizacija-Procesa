@@ -69,7 +69,7 @@ namespace Klijent.Komande
         {
             bool uspesno = false;
 
-            if(IsMin == false && IsMax == false && IsStand == false)
+            if (IsMin == false && IsMax == false && IsStand == false)
             {
                 // samo je poslat get, desava se izuzetak komande
                 throw new FaultException<KomandaIzuzetak>(

@@ -2,7 +2,6 @@
 using Common.Izuzeci;
 using Common.Modeli;
 using System.Collections.Generic;
-using System.IO;
 using System.ServiceModel;
 
 namespace Server.Interfejsi

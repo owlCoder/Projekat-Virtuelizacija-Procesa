@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Server.PrikupljanjePodataka;
+using System;
+using System.Linq;
 using System.ServiceModel;
 
 namespace Server
@@ -16,6 +18,11 @@ namespace Server
             {
                 Console.WriteLine(e.Message);
             }
+
+            //PregledPotrosnje.PregledMaksimalnePotrosnje pm = new PregledPotrosnje.PregledMaksimalnePotrosnje();
+            //DataFetcher dataFetcher = new DataFetcher();
+            //Console.WriteLine("Max Load: " + pm.PregledPotrosnje(dataFetcher.PrikupiPodatkeZaTekuciDan().ToList()));
+
 
             Console.WriteLine("Servis Statistike je uspesno pokrenut!");
             Console.ReadLine();

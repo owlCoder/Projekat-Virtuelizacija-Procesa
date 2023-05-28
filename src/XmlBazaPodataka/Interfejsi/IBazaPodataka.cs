@@ -14,11 +14,11 @@ namespace XmlBazaPodataka.Interfejsi
         int UpisUBazuPodataka(List<Load> podaci, List<Audit> greske);
 
 
-        // ako je baza podataka prazna ili nije procitan nijedan podatak vraca false, u suprotnom true
+        // ako je baza podataka prazna ili nije procitan nijedan podatak vraca praznu listu, u suprotnom iscitanu listu podataka
         // iz baze podataka TBL_LOAD.xml iscitava se red po red podataka i kreira objekat Load
         // i cuva u listu procitanih
         // u slucaju da datoteka TBL_LOAD.xml ne postoji kreira se nova xml datoteka
         [OperationContract]
-        bool ProcitajIzBazePodataka(out List<Load> procitano);
+        void ProcitajIzBazePodataka(out List<Load> procitano);
     }
 }

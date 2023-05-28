@@ -149,7 +149,7 @@ namespace XmlBazaPodataka
         #endregion
 
         #region METODE CITANJE PODATAKA IZ BAZE PODATAKA
-        public bool ProcitajIzBazePodataka(out List<Load> procitano)
+        public void ProcitajIzBazePodataka(out List<Load> procitano)
         {
             procitano = new List<Load>();
 
@@ -178,8 +178,6 @@ namespace XmlBazaPodataka
                 // oslobadjanje resursa datoteke
                 datoteka.Dispose();
             }
-
-            return procitano.Count > 0;
         }
         #endregion
 

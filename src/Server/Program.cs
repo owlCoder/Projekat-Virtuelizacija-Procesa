@@ -1,6 +1,4 @@
-﻿using Server.PrikupljanjePodataka;
-using System;
-using System.Linq;
+﻿using System;
 using System.ServiceModel;
 
 namespace Server

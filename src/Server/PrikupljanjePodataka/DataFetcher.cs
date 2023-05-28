@@ -15,7 +15,7 @@ namespace Server.PrikupljanjePodataka
             IBazaPodataka proksi_xml = kanal_xml_servis.CreateChannel();
 
             // Poziv metode koja ce procitati sve Load objekte za tekuci dan i smestiti u listu podataka
-            proksi_xml.ProcitajIzBazePodataka(out List<Load>procitano_tekuci_dan);
+            proksi_xml.ProcitajIzBazePodataka(out List<Load> procitano_tekuci_dan);
 
             return procitano_tekuci_dan;
         }

@@ -45,6 +45,11 @@
   <ItemGroup>
     <Compile Include="Datoteke\IRadSaDatotekom.cs" />
     <Compile Include="Datoteke\RadSaDatotekom.cs" />
+    <Compile Include="Dogadjaji\Dogadjaj.cs" />
+    <Compile Include="Dogadjaji\Publish\IPublisher.cs" />
+    <Compile Include="Dogadjaji\Publish\Publisher.cs" />
+    <Compile Include="Dogadjaji\Subscribe\ISubscriber.cs" />
+    <Compile Include="Dogadjaji\Subscribe\Subscriber.cs" />
     <Compile Include="Izuzeci\DatotekaJeOtvorenaIzuzetak.cs" />
     <Compile Include="Izuzeci\IzvestajIzuzetak.cs" />
     <Compile Include="Izuzeci\KomandaIzuzetak.cs" />

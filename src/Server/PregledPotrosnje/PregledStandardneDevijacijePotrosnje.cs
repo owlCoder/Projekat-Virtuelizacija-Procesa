@@ -9,7 +9,7 @@ namespace Server.PregledPotrosnje
     public class PregledStandardneDevijacijePotrosnje : IPreglediPotrosnje
     {
         // Metoda koja racuna standardnu devijaciju potrosnje za tekuci dan
-        public double PregledPotrosnje(List<Load> procitano_tekuci_dan)
+        public double PregledPotrosnje(IEnumerable<Load> procitano_tekuci_dan)
         {
             // Promenljiva u kojoj se cuva standardna devijacija zabelezene potrosnje
             double potrosnja = 0.0;

@@ -1,20 +1,39 @@
-﻿using Common.Datoteke;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Common.Datoteke;
+using Common.Dogadjaji;
+using Common.Modeli;
+using Server.Interfejsi;
+using Server.PregledPotrosnje;
+using Server.PrikupljanjePodataka;
 
 namespace Server
 {
-    public class StatistickiServis // : IPreglediPotrosnje
+    public class StatistickiServis : IProracun
     {
-        // Delegat koji se koristi za pozivanje odgovarajucih metoda za preglede potrosnje
-        public delegate double PregledPotrosnjeDelegat();
+        InterakcijaDogadjajem interakcija = new InterakcijaDogadjajem();
 
-        // Dogadjaj koji ce biti kreiran
-        public event PregledPotrosnjeDelegat PPD;
+        PregledMaksimalnePotrosnje p_max = new PregledMaksimalnePotrosnje();
+        PregledMinimalnePostrosnje p_min = new PregledMinimalnePostrosnje();
+        PregledStandardneDevijacijePotrosnje p_stand = new PregledStandardneDevijacijePotrosnje();
 
-        public IRadSaDatotekom Racunaj()
+        public IRadSaDatotekom PokreniProracun(bool IsMin, bool IsMax, bool IsStand)
         {
+            IEnumerable<Load> podaci = new DataFetcher().PrikupiPodatkeZaTekuciDan();
+
+            if(IsMin)
+                interakcija.IzvrsiProracun += new ProracunDelegat(p_max.PregledPotrosnje);
+            
+            if(IsMax)
+                interakcija.IzvrsiProracun += new ProracunDelegat(p_min.PregledPotrosnje);
+            
+            if(IsStand)
+                interakcija.IzvrsiProracun += new ProracunDelegat(p_stand.PregledPotrosnje);
 
 
-            return new RadSaDatotekom(null, "");
+
+            return new RadSaDatotekom(null, null);
         }
     }
 }

@@ -17,6 +17,6 @@ namespace Server.Interfejsi
         // desava se IzvestajIzuzetak
         [OperationContract]
         [FaultContract(typeof(IzvestajIzuzetak))]
-        IRadSaDatotekom NapraviIzvestajNakonProracuna(List<Proracun> podaci);
+        IRadSaDatotekom NapraviIzvestajNakonProracuna(IEnumerable<Proracun> podaci);
     }
 }

@@ -12,6 +12,6 @@ namespace Common.Potrosnja
         // Metoda koja pronalazi min, max, std potrosnju za tekuci datum
         [OperationContract]
         [FaultContract(typeof(PregledPotrosnjeIzuzetak))]
-        double PregledPotrosnje(List<Load> procitano_tekuci_dan);
+        double PregledPotrosnje(IEnumerable<Load> procitano_tekuci_dan);
     }
 }

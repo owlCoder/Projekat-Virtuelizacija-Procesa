@@ -8,7 +8,7 @@ namespace Server.PregledPotrosnje
     public class PregledMaksimalnePotrosnje : IPreglediPotrosnje
     {
         // Metoda koja racuna maksimalnu potrosnju za tekuci dan
-        public double PregledPotrosnje(List<Load> procitano_tekuci_dan)
+        public double PregledPotrosnje(IEnumerable<Load> procitano_tekuci_dan)
         {
             // Promenljiva u kojoj se cuva najveca zabelezena potrosnja
             double potrosnja = 0.0;

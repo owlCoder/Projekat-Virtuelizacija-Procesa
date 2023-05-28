@@ -5,6 +5,7 @@ using Server.Interfejsi;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.ServiceModel;
 using System.Text;
 
@@ -12,10 +13,10 @@ namespace Server.Izvestaj
 {
     public class IzvestajProracuna : IIzvestajProracuna
     {
-        public IRadSaDatotekom NapraviIzvestajNakonProracuna(List<Proracun> podaci)
+        public IRadSaDatotekom NapraviIzvestajNakonProracuna(IEnumerable<Proracun> podaci)
         {
             // ako nema podataka, izazvati izuzetak
-            if (podaci.Count == 0)
+            if (podaci.ToList().Count == 0)
             {
                 throw new FaultException<IzvestajIzuzetak>(
                     new IzvestajIzuzetak("[ERROR]: Nema podataka za generisanje izvestaja!"));

@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Interfejsi\IDataFetcher.cs" />
     <Compile Include="Interfejsi\IIzvestajProracuna.cs" />
-    <Compile Include="Interfejsi\IPreglediPotrosnje.cs" />
     <Compile Include="Interfejsi\IProracun.cs" />
     <Compile Include="Izvestaj\IzvestajProracuna.cs" />
     <Compile Include="PregledPotrosnje\PregledMaksimalnePotrosnje.cs" />

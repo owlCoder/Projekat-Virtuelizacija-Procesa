@@ -1,5 +1,5 @@
 ﻿using Common.Modeli;
-using Server.Interfejsi;
+using Common.Potrosnja;
 using Server.ProracunDevijacije;
 using System.Collections.Generic;
 using System.Linq;

@@ -45,11 +45,16 @@
   <ItemGroup>
     <Compile Include="Datoteke\IRadSaDatotekom.cs" />
     <Compile Include="Datoteke\RadSaDatotekom.cs" />
+    <Compile Include="Dogadjaji\Publish\IPublisher.cs" />
+    <Compile Include="Dogadjaji\Publish\Publisher.cs" />
+    <Compile Include="Dogadjaji\Subscribe\ISubscriber.cs" />
+    <Compile Include="Dogadjaji\Subscribe\Subscriber.cs" />
     <Compile Include="Izuzeci\DatotekaJeOtvorenaIzuzetak.cs" />
     <Compile Include="Izuzeci\IzvestajIzuzetak.cs" />
     <Compile Include="Izuzeci\KomandaIzuzetak.cs" />
     <Compile Include="Izuzeci\PregledPotrosnjeIzuzetak.cs" />
     <Compile Include="Modeli\Proracun.cs" />
+    <Compile Include="Potrosnja\IPreglediPotrosnje.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Modeli\Audit.cs" />
     <Compile Include="Modeli\Load.cs" />

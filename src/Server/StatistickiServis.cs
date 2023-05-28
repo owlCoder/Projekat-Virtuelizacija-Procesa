@@ -2,12 +2,12 @@
 
 namespace Server
 {
-    // Delegat koji se koristi za pozivanje odgovarajucih metoda za preglede potrosnje
-    delegate dynamic Pregledi();
-
     public class StatistickiServis // : IPreglediPotrosnje
     {
-        public delegate float PregledPotrosnjeDelegat();
+        // Delegat koji se koristi za pozivanje odgovarajucih metoda za preglede potrosnje
+        public delegate double PregledPotrosnjeDelegat();
+
+        // Dogadjaj koji ce biti kreiran
         public event PregledPotrosnjeDelegat PPD;
 
         public IRadSaDatotekom Racunaj()

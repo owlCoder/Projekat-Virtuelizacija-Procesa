@@ -10,7 +10,6 @@ namespace Common.Dogadjaji.Subscribe
     [ServiceContract]
     public interface ISubscriber : IDisposable
     {
-      
-
+        // to do
     }
 }

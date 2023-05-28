@@ -29,12 +29,6 @@ namespace Common.Dogadjaji.Publish
             PPD = null;
         }
 
-        // Metoda koja delegatu dodaje odgovarajucu metodu proracuna
-        public void DodajMetoduProracuna(IPreglediPotrosnje metoda)
-        {
-
-        }
-
         public IRadSaDatotekom Publish(bool IsMin, bool IsMax, bool IsStand)
         {
             if(PPD !=  null)

@@ -10,18 +10,6 @@ namespace Server
         public delegate float PregledPotrosnjeDelegat();
         public event PregledPotrosnjeDelegat PPD;
 
-        // TO DO
-        // Hint: Standardna implementacija ipregledipotrosnje
-        // a u njima se poziva PregledPotrosnje.Pregled Min/Max/Std klase
-
-        /*
-        Pregledi pregledi = new PregledMaksimalnePotrosnje().PregledPotrosnje();
-        public StatistickiServis() 
-        {
-            pregledi();
-        }
-        */
-
         public IRadSaDatotekom Racunaj()
         {
 

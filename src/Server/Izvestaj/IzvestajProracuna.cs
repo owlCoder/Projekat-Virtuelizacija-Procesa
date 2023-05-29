@@ -11,11 +11,13 @@ using System.Text;
 
 namespace Server.Izvestaj
 {
+    #region KLASA ZA GENERISANJE IZVESTAJA PRORACUNA KOJI SE SALJE KLIJENTU NA ZAHTEV
     public class IzvestajProracuna : IIzvestajProracuna
     {
+        #region METODA ZA KREIRANJE IZVESTAJA NAKON POZIVA DELEGATA PRORACUNA
         public IRadSaDatotekom NapraviIzvestajNakonProracuna(IEnumerable<Proracun> podaci)
         {
-            // ako nema podataka - tj nije generisan nijedan izvestaj, izazvati izuzetak
+            // ako nema podataka - tj nije generisan nijedan proracun, izazvati izuzetak
             if (podaci.ToList().Count == 0 || (podaci.ToList().FindAll(p => p.VrednostProracuna == -1)).Count == 3)
             {
                 throw new FaultException<IzvestajIzuzetak>(
@@ -27,8 +29,11 @@ namespace Server.Izvestaj
 
             foreach (Proracun p in podaci)
             {
+                // ako se vrednost proracuna nije promenila - onda ona nije ni zahtevana od klijenta
+                // kao konacni izvestaj ulaze samo validni proracuni i proracuni koji su se desili
                 if (p.VrednostProracuna != -1)
                 {
+                    // izlazni format je 'Max Load: 4238.322321'
                     za_slanje += p.TipProracuna + p.VrednostProracuna.ToString() + "\n";
                 }
             }
@@ -37,7 +42,10 @@ namespace Server.Izvestaj
             MemoryStream stream = new MemoryStream(Encoding.ASCII.GetBytes(za_slanje.Replace(',', '.')));
             string ime_datoteke = "calculations_" + DateTime.Now.ToString("yyyy_MM_dd_HHmm") + ".txt";
 
+            // klijentu se vraca memorijski tok novo kreirane teksutalne datoteke
             return new RadSaDatotekom(stream, ime_datoteke);
         }
+        #endregion
     }
+    #endregion
 }

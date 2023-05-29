@@ -3,6 +3,7 @@ using System.ServiceModel;
 
 namespace Server
 {
+    #region GLAVNA PROGRAMSKA NIT
     class Program
     {
         static void Main()
@@ -21,4 +22,5 @@ namespace Server
             Console.ReadLine();
         }
     }
+    #endregion
 }

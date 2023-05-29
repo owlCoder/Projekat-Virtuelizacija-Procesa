@@ -5,9 +5,10 @@ using System.Linq;
 
 namespace Server.PregledPotrosnje
 {
+    #region KLASA ZA IMPLEMENTACIJU PRORACUNA MAKSIMALNE POTROSNJE
     public class PregledMaksimalnePotrosnje : IPreglediPotrosnje
     {
-        // Metoda koja racuna maksimalnu potrosnju za tekuci dan
+        #region METODA KOJA RACUNA MAKSIMALNU POTROSNJU ZA TEKUCI DAN
         public double PregledPotrosnje(IEnumerable<Load> procitano_tekuci_dan)
         {
             // Promenljiva u kojoj se cuva najveca zabelezena potrosnja
@@ -18,5 +19,7 @@ namespace Server.PregledPotrosnje
 
             return potrosnja;
         }
+        #endregion
     }
+    #endregion
 }

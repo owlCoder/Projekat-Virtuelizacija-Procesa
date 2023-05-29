@@ -6,6 +6,7 @@ using System.ServiceModel;
 
 namespace Server.Interfejsi
 {
+    #region INTERFEJS ZA GENERISANJE IZVESTAJA PRORACUNA NAKON INVOKACIJE DELEGATA/DOGADJAJA
     [ServiceContract]
     public interface IIzvestajProracuna
     {
@@ -19,4 +20,5 @@ namespace Server.Interfejsi
         [FaultContract(typeof(IzvestajIzuzetak))]
         IRadSaDatotekom NapraviIzvestajNakonProracuna(IEnumerable<Proracun> podaci);
     }
+    #endregion
 }

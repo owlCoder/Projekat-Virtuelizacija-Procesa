@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Server.Interfejsi
 {
-    // Interfejs koji modeluje metodu potrebnu za prikupljanje podataka
+    #region INTERFEJS KOJI MODELUJE METODU POTREBNU ZA PRIKUPLJANJE PODATAKA
     public interface IDataFetcher
     {
         // Metoda se povezuje sa serverom xml baze podataka
@@ -11,4 +11,5 @@ namespace Server.Interfejsi
         // Povratna vrednost metode je lista svih podataka merenja
         IEnumerable<Load> PrikupiPodatkeZaTekuciDan();
     }
+    #endregion
 }

@@ -6,9 +6,10 @@ using System.Linq;
 
 namespace Server.PregledPotrosnje
 {
+    #region KLASA ZA IMPLEMENTACIJU PRORACUNA DEVIJACIJE POTROSNJE
     public class PregledStandardneDevijacijePotrosnje : IPreglediPotrosnje
     {
-        // Metoda koja racuna standardnu devijaciju potrosnje za tekuci dan
+        #region METODA KOJA RACUNA STANDARDNU DEVIJACIJU POTROSNJE ZA TEKUCI DAN
         public double PregledPotrosnje(IEnumerable<Load> procitano_tekuci_dan)
         {
             // Promenljiva u kojoj se cuva standardna devijacija zabelezene potrosnje
@@ -19,5 +20,7 @@ namespace Server.PregledPotrosnje
 
             return potrosnja;
         }
+        #endregion
     }
+    #endregion
 }

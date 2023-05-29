@@ -17,11 +17,6 @@ namespace Server
                 Console.WriteLine(e.Message);
             }
 
-            //PregledPotrosnje.PregledMaksimalnePotrosnje pm = new PregledPotrosnje.PregledMaksimalnePotrosnje();
-            //DataFetcher dataFetcher = new DataFetcher();
-            //Console.WriteLine("Max Load: " + pm.PregledPotrosnje(dataFetcher.PrikupiPodatkeZaTekuciDan().ToList()));
-
-
             Console.WriteLine("Servis Statistike je uspesno pokrenut!");
             Console.ReadLine();
         }

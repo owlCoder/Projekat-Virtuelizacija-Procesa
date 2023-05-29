@@ -38,21 +38,20 @@ namespace Klijent.TekstualniIzvestaji
                 }
                 
             }
-            else
-            {
-                // datoteka ne postoji i nije otvorena, te je mozemo kreirati
-                // koristimo prosledjeni memorijski strim
-                MemoryStream stream = (datoteka as RadSaDatotekom).DatotecniTok;
 
-                using (FileStream txt_fajl = new FileStream(lokacija_datoteke, FileMode.Create, FileAccess.Write))
-                {
-                    byte[] bytes = new byte[stream.Length];
-                    stream.Read(bytes, 0, (int)stream.Length);
-                    txt_fajl.Write(bytes, 0, bytes.Length);
-                    txt_fajl.Close();
-                    uspesno = true;
-                }
+            // datoteka ne postoji i nije otvorena, te je mozemo kreirati
+            // koristimo prosledjeni memorijski strim
+            MemoryStream stream = (datoteka as RadSaDatotekom).DatotecniTok;
+
+            using (FileStream txt_fajl = new FileStream(lokacija_datoteke, FileMode.Create, FileAccess.Write))
+            {
+                byte[] bytes = new byte[stream.Length];
+                stream.Read(bytes, 0, (int)stream.Length);
+                txt_fajl.Write(bytes, 0, bytes.Length);
+                txt_fajl.Close();
+                uspesno = true;
             }
+            
 
             return uspesno;
         }

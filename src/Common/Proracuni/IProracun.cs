@@ -7,6 +7,6 @@ namespace Common.Proracuni
     public interface IProracun
     {
         [OperationContract]
-        IRadSaDatotekom PokreniProracun(bool IsMin, bool IsMax, bool IsStand);
+        RadSaDatotekom PokreniProracun(bool IsMin, bool IsMax, bool IsStand);
     }
 }

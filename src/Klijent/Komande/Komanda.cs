@@ -79,7 +79,7 @@ namespace Klijent.Komande
             }
 
             // komunikacija sa xml csv funkcijama iz xml baze podataka
-            ChannelFactory<IProracun> kanal_statistika_servis = new ChannelFactory<IProracun>("Statistika");
+            ChannelFactory<IProracun> kanal_statistika_servis = new ChannelFactory<IProracun>("StatistikaServis");
             IProracun proksi = kanal_statistika_servis.CreateChannel();
 
             // Ako je Get komanda prosla od strane servisa
@@ -88,22 +88,25 @@ namespace Klijent.Komande
             // na putanju C:\Temp\kalkulacije\
             // izvestaj ne mora biti upisan pa se moze desiti izuzetak
 
-            // izaziva wcf exception timeout
             using (IRadSaDatotekom datoteka = proksi.PokreniProracun(IsMin, IsMax, IsStand))
             {
                 // ispis poruke
                 uspesno = new UpisUIzvestaj().KreirajDatotekuKalkulacije(datoteka);
 
                 // poruka korisniku
-                if(uspesno)
+                if (uspesno)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("[INFO]: " + DateTime.Now + " Datoteka sa trazenim proracunima uspesno pristigla!");
                     Console.ForegroundColor = ConsoleColor.White;
 
                     Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine("[INFO]: " + DateTime.Now + " Lokacija pristigle datoteke je '" + Path.Combine(ConfigurationManager.AppSettings["IzvestajiDirektorijum"], (datoteka as RadSaDatotekom).NazivDatoteke) + " uspesno obrisana!");
+                    Console.WriteLine("[INFO]: " + DateTime.Now + " Lokacija pristigle datoteke je '" + Path.Combine(ConfigurationManager.AppSettings["IzvestajiDirektorijum"], (datoteka as RadSaDatotekom).NazivDatoteke) + "'");
                     Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.WriteLine("neuspesno");
                 }
 
                 datoteka.Dispose();

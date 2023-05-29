@@ -8,6 +8,7 @@ using Common.Proracuni;
 using Server.Izvestaj;
 using Server.PregledPotrosnje;
 using Server.PrikupljanjePodataka;
+using System.IO;
 
 namespace Server
 {
@@ -15,13 +16,13 @@ namespace Server
     {
         InterakcijaDogadjajem Interakcija = new InterakcijaDogadjajem();
 
-        public IRadSaDatotekom PokreniProracun(bool IsMin, bool IsMax, bool IsStand)
+        public RadSaDatotekom PokreniProracun(bool IsMin, bool IsMax, bool IsStand)
         {
             IEnumerable<Load> podaci = new DataFetcher().PrikupiPodatkeZaTekuciDan();
 
             if (IsMin)
                 Interakcija.IzvrsiProracun += new ProracunDelegat(new PregledMaksimalnePotrosnje().PregledPotrosnje);
-            
+
             if(IsMax)
                 Interakcija.IzvrsiProracun += new ProracunDelegat(new PregledMinimalnePostrosnje().PregledPotrosnje);
 
@@ -30,7 +31,10 @@ namespace Server
 
             Interakcija.Objavi(podaci);
 
-            return new RadSaDatotekom(null, null);
+            IzvestajProracuna ip = new IzvestajProracuna();
+            RadSaDatotekom dat = ip.NapraviIzvestajNakonProracuna(Interakcija.Proracuni) as RadSaDatotekom;
+
+            return dat;            
         }
     }
 }

@@ -171,10 +171,16 @@ namespace Klijent.InterfejsMeni
                     bool uspesno = new Komanda().SlanjeGetKomande(IsMin, IsMax, IsStand);
                 }
             }
-            catch (DirectoryNotFoundException)
+            catch (FaultException<DatotekaJeOtvorenaIzuzetak> de)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Nije moguce upisati izvestaj jer direktorijum izvestaja ne postoji!");
+                Console.WriteLine(de.Detail.Razlog);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch (FaultException<IzvestajIzuzetak> ie)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(ie.Detail.Razlog);
                 Console.ForegroundColor = ConsoleColor.White;
             }
             catch (FaultException<KomandaIzuzetak> de)

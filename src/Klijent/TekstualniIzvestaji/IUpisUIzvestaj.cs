@@ -1,4 +1,5 @@
-﻿using Common.Izuzeci;
+﻿using Common.Datoteke;
+using Common.Izuzeci;
 using System.IO;
 using System.ServiceModel;
 
@@ -14,6 +15,6 @@ namespace Klijent.TekstualniIzvestaji
         // moze se desiti izuzetak DirectoryNotFoundException ili DatotekaJeOtvorenaIzuzetak
         [OperationContract]
         [FaultContract(typeof(DatotekaJeOtvorenaIzuzetak))]
-        bool KreirajDatotekuKalkulacije(string naziv_datoteke = "calculations_", MemoryStream kalkulacija = null);
+        bool KreirajDatotekuKalkulacije(IRadSaDatotekom datoteka);
     }
 }

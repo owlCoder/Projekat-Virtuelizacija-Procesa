@@ -16,7 +16,7 @@ namespace Server.Izvestaj
         public IRadSaDatotekom NapraviIzvestajNakonProracuna(IEnumerable<Proracun> podaci)
         {
             // ako nema podataka - tj nije generisan nijedan izvestaj, izazvati izuzetak
-            if (podaci.ToList().Count == 0 || (podaci.ToList().FindAll(p => p.VrednostProracuna != -1)).Count == 3)
+            if (podaci.ToList().Count == 0 || (podaci.ToList().FindAll(p => p.VrednostProracuna == -1)).Count == 3)
             {
                 throw new FaultException<IzvestajIzuzetak>(
                     new IzvestajIzuzetak("[ERROR]: Nema podataka za generisanje izvestaja!"));

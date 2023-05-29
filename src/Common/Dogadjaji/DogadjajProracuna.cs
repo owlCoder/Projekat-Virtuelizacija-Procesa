@@ -51,7 +51,7 @@ namespace Common.Dogadjaji
         public void AzuriranjeProracuna(IEnumerable<Load> podaci)
         {
            
-            foreach (ProracunDelegat p in IzvrsiProracun.GetInvocationList())
+            foreach (ProracunDelegat p in IzvrsiProracun.GetInvocationList().Cast<ProracunDelegat>())
             {
                 Proracuni[TipBrojac++ % 3].VrednostProracuna = p(podaci);
             }

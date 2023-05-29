@@ -1,6 +1,7 @@
 ﻿using Common.Datoteke;
 using Common.Izuzeci;
 using Common.Modeli;
+using Klijent.TekstualniIzvestaji;
 using Server.Interfejsi;
 using System;
 using System.Collections.Generic;
@@ -80,16 +81,30 @@ namespace Klijent.Komande
             ChannelFactory<IProracun> kanal_statistika_servis = new ChannelFactory<IProracun>("Statistika");
             IProracun proksi = kanal_statistika_servis.CreateChannel();
 
-            // dodatni opis:
             // Ako je Get komanda prosla od strane servisa
             // povratna vrednost metode sa servera je memory stream
-            // iz klase RadSaDatotekom pozvati konstruktor kreirati novi objekat
-            // iz njega proslediti objekatKlase.DatotecniTok konstrutkoru memory stream
             // upisati datoteku pomocu metode iz TekstualniIzvestaji/UpisUIzvestaj.cs
             // na putanju C:\Temp\kalkulacije\
             // izvestaj ne mora biti upisan pa se moze desiti izuzetak
-            // TO DO
-            proksi.PokreniProracun(IsMin, IsMax, IsStand);
+            using (IRadSaDatotekom datoteka = proksi.PokreniProracun(IsMin, IsMax, IsStand))
+            {
+                // ispis poruke
+                uspesno = new UpisUIzvestaj().KreirajDatotekuKalkulacije(datoteka);
+
+                // poruka korisniku
+                if(uspesno)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("[INFO]: " + DateTime.Now + " Datoteka sa trazenim proracunima uspesno pristigla!");
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("[INFO]: " + DateTime.Now + " Lokacija pristigle datoteke je '" + Path.Combine(ConfigurationManager.AppSettings["IzvestajiDirektorijum"], (datoteka as RadSaDatotekom).NazivDatoteke) + " uspesno obrisana!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+
+                datoteka.Dispose();
+            }
 
             return uspesno;
         }

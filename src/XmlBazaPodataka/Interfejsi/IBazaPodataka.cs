@@ -4,6 +4,7 @@ using System.ServiceModel;
 
 namespace XmlBazaPodataka.Interfejsi
 {
+
     [ServiceContract]
     public interface IBazaPodataka
     {

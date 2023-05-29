@@ -46,12 +46,12 @@
 
 # Korisnički Interfejs
 
-<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/main_w.png" align="center" alt="Image" /><br/>
-<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/help_w.png" align="center" alt="Image" /><br/>
-<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/get_min_w.png" align="center" alt="Image" /><br/>
-<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/get_multi_w.png" align="center" alt="Image" /><br/>
-<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/send_w.png" align="center" alt="Image" /><br/>
-<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/send_err.png" align="center" alt="Image" /><br/>
+<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/main_w.png" align="center" alt="Image" /><br/><br/>
+<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/help_w.png" align="center" alt="Image" /><br/><br/>
+<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/get_min_w.png" align="center" alt="Image" /><br/><br/>
+<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/get_multi_w.png" align="center" alt="Image" /><br/><br/>
+<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/send_w.png" align="center" alt="Image" /><br/><br/>
+<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/send_err.png" align="center" alt="Image" /><br/><br/>
 
 > **Warning**
 > Izgled aplikacije je podložan promeni i predstavlja trenutnu ilustraciju UI!

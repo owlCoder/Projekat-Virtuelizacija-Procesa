@@ -24,4 +24,5 @@ namespace Server.PrikupljanjePodataka
         }
         #endregion
     }
+    #endregion
 }

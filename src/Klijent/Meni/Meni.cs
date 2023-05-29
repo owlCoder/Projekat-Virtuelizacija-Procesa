@@ -89,6 +89,12 @@ namespace Klijent.InterfejsMeni
                 Console.WriteLine(ke.Detail.Razlog);
                 Console.ForegroundColor = ConsoleColor.White;
             }
+            catch (EndpointNotFoundException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[Error]: " + DateTime.Now + " Za dalji rad potrebno je pokrenuti servis baze podataka!");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             catch (Exception exp)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -192,6 +198,18 @@ namespace Klijent.InterfejsMeni
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(pe.Detail.Razlog);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch (EndpointNotFoundException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[Error]: " + DateTime.Now + " Za dalji rad potrebno je pokrenuti servis proracuna!");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch (FaultException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[Error]: " + DateTime.Now + " Za dalji rad potrebno je pokrenuti servis baze podataka!");
                 Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception exp)

@@ -22,28 +22,20 @@ namespace Server
         {
             IEnumerable<Load> podaci = new DataFetcher().PrikupiPodatkeZaTekuciDan();
 
-            // delegati
-            ProracunDelegat P1 = new ProracunDelegat(p_max.PregledPotrosnje);
-            ProracunDelegat P2 = new ProracunDelegat(p_min.PregledPotrosnje);
-            ProracunDelegat P3 = new ProracunDelegat(p_stand.PregledPotrosnje);
-            ProracunDelegat PA = null;
             if (IsMin)
-                PA += P1;
+                Interakcija.IzvrsiProracun += new ProracunDelegat(p_max.PregledPotrosnje);
             
             if(IsMax)
-                PA += P2;
-            
-            if(IsStand)
-                PA += P3;
+                Interakcija.IzvrsiProracun += new ProracunDelegat(p_min.PregledPotrosnje);
 
-            Interakcija.IzvrsiProracun += PA;
+            if (IsStand)
+                Interakcija.IzvrsiProracun += new ProracunDelegat(p_stand.PregledPotrosnje);
 
             Interakcija.Objavi(podaci);
 
-            foreach (ProracunDelegat pd in PA.GetInvocationList())
+            foreach(Proracun p in Interakcija.Proracuni)
             {
-                double retVal = pd(podaci);
-                Console.WriteLine("\tOutput: " + retVal);
+                Console.WriteLine(p.TipProracuna + p.VrednostProracuna);
             }
 
             return new RadSaDatotekom(null, null);

@@ -15,22 +15,37 @@ namespace Common.Dogadjaji
     {
         public event ProracunDelegat IzvrsiProracun;
 
-        public IEnumerable<Proracun> Proracuni;
+        public List<Proracun> Proracuni;
 
-        public string[] Tip = { "Max Load: ", "Min Load: ", "Stand Load: " } ;
+        public string[] Tip = { "Max Load: ", "Min Load: ", "Stand Deviation: " } ;
         public ushort TipBrojac = 0;
 
         public InterakcijaDogadjajem()
         {
             IzvrsiProracun = null;
-            Proracuni = new List<Proracun>();
+            Proracuni = new List<Proracun>()
+            {
+                new Proracun(Tip[0], -1.0),
+                new Proracun(Tip[1], -1.0),
+                new Proracun(Tip[2], -1.0)
+            };
         }
 
         public void Objavi(IEnumerable<Load> podaci)
         {
             if (IzvrsiProracun != null)
             {
-                IzvrsiProracun(podaci);
+                // cuva se u cirkularnu listu - ne cuva proveri
+                Proracuni[TipBrojac % 3].VrednostProracuna = IzvrsiProracun(podaci);
+                TipBrojac += 1;
+            }
+        }
+
+        public Delegate[] Invokacija
+        {
+            get
+            {
+                return IzvrsiProracun.GetInvocationList();
             }
         }
     }

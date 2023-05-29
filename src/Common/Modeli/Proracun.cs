@@ -9,14 +9,12 @@ namespace Common.Modeli
     public class Proracun
     {
         // Koji je tip proracuna u pitanju: min, max, std devijacija
-        // set metoda nije dostupna jer se vrednost objekta nakon kreiranja ne sme menjati
         [DataMember]
-        public string TipProracuna { get; }
+        public string TipProracuna { get; set; }
 
         // Proracunata vrednost za odabrani kriterijum
-        // set metoda nije dostupna jer se vrednost objekta nakon kreiranja ne sme menjati
         [DataMember]
-        public double VrednostProracuna { get; }
+        public double VrednostProracuna { get; set; }
 
         // Konstruktor sa parametrima
         public Proracun(string tipProracuna, double vrednostProracuna)

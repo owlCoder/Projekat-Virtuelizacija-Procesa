@@ -5,6 +5,7 @@ using Common.Datoteke;
 using Common.Dogadjaji;
 using Common.Modeli;
 using Server.Interfejsi;
+using Server.Izvestaj;
 using Server.PregledPotrosnje;
 using Server.PrikupljanjePodataka;
 
@@ -14,31 +15,22 @@ namespace Server
     {
         InterakcijaDogadjajem Interakcija = new InterakcijaDogadjajem();
 
-        PregledMaksimalnePotrosnje p_max = new PregledMaksimalnePotrosnje();
-        PregledMinimalnePostrosnje p_min = new PregledMinimalnePostrosnje();
-        PregledStandardneDevijacijePotrosnje p_stand = new PregledStandardneDevijacijePotrosnje();
-
         public IRadSaDatotekom PokreniProracun(bool IsMin, bool IsMax, bool IsStand)
         {
             IEnumerable<Load> podaci = new DataFetcher().PrikupiPodatkeZaTekuciDan();
 
             if (IsMin)
-                Interakcija.IzvrsiProracun += new ProracunDelegat(p_max.PregledPotrosnje);
+                Interakcija.IzvrsiProracun += new ProracunDelegat(new PregledMaksimalnePotrosnje().PregledPotrosnje);
             
             if(IsMax)
-                Interakcija.IzvrsiProracun += new ProracunDelegat(p_min.PregledPotrosnje);
+                Interakcija.IzvrsiProracun += new ProracunDelegat(new PregledMinimalnePostrosnje().PregledPotrosnje);
 
             if (IsStand)
-                Interakcija.IzvrsiProracun += new ProracunDelegat(p_stand.PregledPotrosnje);
+                Interakcija.IzvrsiProracun += new ProracunDelegat(new PregledStandardneDevijacijePotrosnje().PregledPotrosnje);
 
             Interakcija.Objavi(podaci);
 
-            foreach(Proracun p in Interakcija.Proracuni)
-            {
-                Console.WriteLine(p.TipProracuna + p.VrednostProracuna);
-            }
-
-            return new RadSaDatotekom(null, null);
+            return new IzvestajProracuna().NapraviIzvestajNakonProracuna(Interakcija.Proracuni);
         }
     }
 }

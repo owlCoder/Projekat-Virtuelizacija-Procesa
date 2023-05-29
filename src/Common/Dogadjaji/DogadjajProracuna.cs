@@ -35,9 +35,8 @@ namespace Common.Dogadjaji
         {
             if (IzvrsiProracun != null)
             {
-                // cuva se u cirkularnu listu - ne cuva proveri
-                Proracuni[TipBrojac % 3].VrednostProracuna = IzvrsiProracun(podaci);
-                TipBrojac += 1;
+                IzvrsiProracun(podaci);
+                AzuriranjeProracuna(podaci);
             }
         }
 
@@ -46,6 +45,15 @@ namespace Common.Dogadjaji
             get
             {
                 return IzvrsiProracun.GetInvocationList();
+            }
+        }
+
+        public void AzuriranjeProracuna(IEnumerable<Load> podaci)
+        {
+           
+            foreach (ProracunDelegat p in IzvrsiProracun.GetInvocationList())
+            {
+                Proracuni[TipBrojac++ % 3].VrednostProracuna = p(podaci);
             }
         }
     }

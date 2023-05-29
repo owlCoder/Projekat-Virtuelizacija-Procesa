@@ -5,6 +5,7 @@ using System.ServiceModel;
 
 namespace Klijent.Komande
 {
+    #region INTERFEJS ZA GET I SEND KOMANDE
     [ServiceContract]
     public interface IKomanda
     {
@@ -30,4 +31,5 @@ namespace Klijent.Komande
         [FaultContract(typeof(KomandaIzuzetak))]
         bool SlanjeGetKomande(bool IsMin = false, bool IsMax = false, bool IsStand = false);
     }
+    #endregion
 }

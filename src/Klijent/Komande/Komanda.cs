@@ -12,8 +12,10 @@ using XmlBazaPodataka.Interfejsi;
 
 namespace Klijent.Komande
 {
+    #region KLASA ZA RAD SA KOMANDAMA
     public class Komanda : IKomanda
     {
+        #region METODA ZA SLANJE CSV DATOTEKE NA SERVIS
         public bool SlanjeCsv(out List<Audit> greske)
         {
             bool uspesno = false;
@@ -54,7 +56,7 @@ namespace Klijent.Komande
                 datoteka.Dispose();
             }
 
-            // uspesno obrisan fajl obrisati
+            // uspesno obradjen fajl - obrisati ga
             if (uspesno && File.Exists(svi_fajlovi[0]))
             {
                 File.Delete(svi_fajlovi[0]);
@@ -65,7 +67,9 @@ namespace Klijent.Komande
 
             return uspesno;
         }
+        #endregion
 
+        #region METODA ZA SLANJE GET KOMANDE NA SERVIS
         public bool SlanjeGetKomande(bool IsMin = false, bool IsMax = false, bool IsStand = false)
         {
             bool uspesno = false;
@@ -94,6 +98,7 @@ namespace Klijent.Komande
                 // poruka korisniku
                 if (uspesno)
                 {
+                    // Ispis poruke o uspesnom prijemu datoteke
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("[INFO]: " + DateTime.Now + " Datoteka sa trazenim proracunima uspesno pristigla!");
                     Console.ForegroundColor = ConsoleColor.White;
@@ -108,5 +113,7 @@ namespace Klijent.Komande
 
             return uspesno;
         }
+        #endregion
     }
+    #endregion
 }

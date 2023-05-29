@@ -6,8 +6,10 @@ using System.ServiceModel;
 
 namespace Klijent.TekstualniIzvestaji
 {
+    #region KLASA ZA UPIS IZVESTAJA NA KLIJENTU
     public class UpisUIzvestaj : IUpisUIzvestaj
     {
+        #region METODA KOJA KREIRA TEKSTUALNU DATOTEKU NA KLIJENTU
         public bool KreirajDatotekuKalkulacije(IRadSaDatotekom datoteka)
         {
             bool uspesno = false;
@@ -42,23 +44,35 @@ namespace Klijent.TekstualniIzvestaji
             // koristimo prosledjeni memorijski strim
             MemoryStream stream = (datoteka as RadSaDatotekom).DatotecniTok;
 
+            // citanje primljenog datotecnog toka sa servera i konverzija u tekstualnu datoteku
             using (FileStream txt_fajl = new FileStream(lokacija_datoteke, FileMode.Create, FileAccess.Write))
             {
+                // niz bajtova u koji ce se cuvati strim
                 byte[] bytes = new byte[stream.Length];
+
+                // citanje memorijskog strima i prebacivanje u niz bajtova
                 stream.Read(bytes, 0, (int)stream.Length);
+
+                // upis u tekstualnu datoteku na klijentu
                 txt_fajl.Write(bytes, 0, bytes.Length);
+
+                // datoteka je upisana - zatvaranje datotecnog toka 
                 txt_fajl.Close();
+                
                 uspesno = true;
             }
 
 
             return uspesno;
         }
+        #endregion
 
+        #region METODA ZA PROVERU DA LI JE DATOTEKA OTVORENA
         public static bool DatotekaOtvorena(string putanja_fajla)
         {
             try
             {
+                // Ukoliko je datoteka otvorena od strane drugog procesa - desava se IOException
                 using (FileStream stream = File.Open(putanja_fajla, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
                 {
                     stream.Close();
@@ -71,6 +85,7 @@ namespace Klijent.TekstualniIzvestaji
 
             return false;
         }
-
+        #endregion
     }
+    #endregion
 }

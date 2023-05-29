@@ -1,5 +1,5 @@
 <p align="center">
- <img width="100px" src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/logo.jpg" align="center" alt="GitHub Readme Stats" />
+ <img width="100px" src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/logo.png" align="center" alt="GitHub Readme Stats" />
  <h2 align="center">Proračuni na osnovu zahteva 2023.05.02</h2>
  <p align="center">Aplikacija koja predstavlja pojednostavljenu verziju sistema za rad sa elektroenergetskom mrežom i unmanaged kodom implementirano u WCF.</p>
 </p>
@@ -46,7 +46,12 @@
 
 # Korisnički Interfejs
 
-> Soon...
+<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/main_w.png" align="center" alt="Image" /><br/>
+<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/help_w.png" align="center" alt="Image" /><br/>
+<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/get_min_w.png" align="center" alt="Image" /><br/>
+<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/get_multi_w.png" align="center" alt="Image" /><br/>
+<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/send_w.png" align="center" alt="Image" /><br/>
+<img src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/pnz/send_err.png" align="center" alt="Image" /><br/>
 
 > **Warning**
 > Izgled aplikacije je podložan promeni i predstavlja trenutnu ilustraciju UI!

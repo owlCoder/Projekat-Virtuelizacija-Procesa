@@ -54,10 +54,10 @@
 <p><br /></p>
 
 
-Spisak osoba koje su doprineli da projekat "Mrežni Demultiplekser 2023.05.02" postane javno dostupan.
+Spisak osoba koje su doprineli da projekat "Proračuni na osnovu zahteva" postane javno dostupan.
 
 - @owlCoder    -> Danijel Jovanović
-- @Anndreaa12  -> Andrea Čekić
+- @Anndreaa12  -> Andrea Čukić
 - @sanja60     -> Sanja Jovišić
 - @ninikaca    -> Katarina Marinković
 

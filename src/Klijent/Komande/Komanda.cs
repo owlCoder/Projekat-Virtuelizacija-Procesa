@@ -1,6 +1,7 @@
 ﻿using Common.Datoteke;
 using Common.Izuzeci;
 using Common.Modeli;
+using Common.Proracuni;
 using Klijent.TekstualniIzvestaji;
 using Server.Interfejsi;
 using System;
@@ -86,6 +87,8 @@ namespace Klijent.Komande
             // upisati datoteku pomocu metode iz TekstualniIzvestaji/UpisUIzvestaj.cs
             // na putanju C:\Temp\kalkulacije\
             // izvestaj ne mora biti upisan pa se moze desiti izuzetak
+
+            // izaziva wcf exception timeout
             using (IRadSaDatotekom datoteka = proksi.PokreniProracun(IsMin, IsMax, IsStand))
             {
                 // ispis poruke

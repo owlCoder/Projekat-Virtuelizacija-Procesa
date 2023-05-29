@@ -4,7 +4,7 @@ using System.Linq;
 using Common.Datoteke;
 using Common.Dogadjaji;
 using Common.Modeli;
-using Server.Interfejsi;
+using Common.Proracuni;
 using Server.Izvestaj;
 using Server.PregledPotrosnje;
 using Server.PrikupljanjePodataka;
@@ -30,7 +30,7 @@ namespace Server
 
             Interakcija.Objavi(podaci);
 
-            return new IzvestajProracuna().NapraviIzvestajNakonProracuna(Interakcija.Proracuni);
+            return new RadSaDatotekom(null, null);
         }
     }
 }

@@ -89,6 +89,7 @@ namespace Klijent.Komande
             // na putanju C:\Temp\kalkulacije\
             // izvestaj ne mora biti upisan pa se moze desiti izuzetak
             // TO DO
+            proksi.PokreniProracun(IsMin, IsMax, IsStand);
 
             return uspesno;
         }

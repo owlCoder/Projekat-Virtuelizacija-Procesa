@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Common.Dogadjaji
 {
-    public delegate double ProracunDelegat(List<Load> podaci);
+    public delegate double ProracunDelegat(IEnumerable<Load> podaci);
 
     [DataContract]
     public class InterakcijaDogadjajem
     {
         public event ProracunDelegat IzvrsiProracun;
 
-        public List<Proracun> Proracuni;
+        public IEnumerable<Proracun> Proracuni;
 
         public string[] Tip = { "Max Load: ", "Min Load: ", "Stand Load: " } ;
         public ushort TipBrojac = 0;
@@ -26,7 +26,7 @@ namespace Common.Dogadjaji
             Proracuni = new List<Proracun>();
         }
 
-        public void Objavi(List<Load> podaci)
+        public void Objavi(IEnumerable<Load> podaci)
         {
             if (IzvrsiProracun != null)
             {

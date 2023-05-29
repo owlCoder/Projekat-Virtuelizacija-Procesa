@@ -167,7 +167,7 @@ namespace XmlBazaPodataka
                     Load novi = new Load
                     {
                         Id = ID_LOAD++,
-                        MeasuredValue = double.Parse(red.SelectSingleNode("MEASURED_VALUE").InnerText),
+                        MeasuredValue = double.Parse(red.SelectSingleNode("MEASURED_VALUE").InnerText.Replace('.', ',')),
                         Timestamp = DateTime.Parse(red.SelectSingleNode("TIME_STAMP").InnerText)
                     };
 

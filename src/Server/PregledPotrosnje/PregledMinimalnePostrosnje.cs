@@ -14,7 +14,7 @@ namespace Server.PregledPotrosnje
             double potrosnja = 0.0;
 
             // pronaci najamanju vrednost potrosnje i upisati je u potrosnja
-            potrosnja = procitano_tekuci_dan.Any() ? procitano_tekuci_dan.Max(p => p.MeasuredValue) : 0.0;
+            potrosnja = procitano_tekuci_dan.Any() ? procitano_tekuci_dan.Min(p => p.MeasuredValue) : 0.0;
 
             return potrosnja;
         }

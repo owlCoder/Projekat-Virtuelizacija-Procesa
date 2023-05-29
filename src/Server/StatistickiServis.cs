@@ -12,7 +12,7 @@ namespace Server
 {
     public class StatistickiServis : IProracun
     {
-        InterakcijaDogadjajem interakcija = new InterakcijaDogadjajem();
+        InterakcijaDogadjajem Interakcija = new InterakcijaDogadjajem();
 
         PregledMaksimalnePotrosnje p_max = new PregledMaksimalnePotrosnje();
         PregledMinimalnePostrosnje p_min = new PregledMinimalnePostrosnje();
@@ -22,16 +22,29 @@ namespace Server
         {
             IEnumerable<Load> podaci = new DataFetcher().PrikupiPodatkeZaTekuciDan();
 
-            if(IsMin)
-                interakcija.IzvrsiProracun += new ProracunDelegat(p_max.PregledPotrosnje);
+            // delegati
+            ProracunDelegat P1 = new ProracunDelegat(p_max.PregledPotrosnje);
+            ProracunDelegat P2 = new ProracunDelegat(p_min.PregledPotrosnje);
+            ProracunDelegat P3 = new ProracunDelegat(p_stand.PregledPotrosnje);
+            ProracunDelegat PA = null;
+            if (IsMin)
+                PA += P1;
             
             if(IsMax)
-                interakcija.IzvrsiProracun += new ProracunDelegat(p_min.PregledPotrosnje);
+                PA += P2;
             
             if(IsStand)
-                interakcija.IzvrsiProracun += new ProracunDelegat(p_stand.PregledPotrosnje);
+                PA += P3;
 
+            Interakcija.IzvrsiProracun += PA;
 
+            Interakcija.Objavi(podaci);
+
+            foreach (ProracunDelegat pd in PA.GetInvocationList())
+            {
+                double retVal = pd(podaci);
+                Console.WriteLine("\tOutput: " + retVal);
+            }
 
             return new RadSaDatotekom(null, null);
         }

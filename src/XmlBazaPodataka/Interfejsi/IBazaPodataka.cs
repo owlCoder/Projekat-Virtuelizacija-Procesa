@@ -4,7 +4,7 @@ using System.ServiceModel;
 
 namespace XmlBazaPodataka.Interfejsi
 {
-
+    #region INTERFEJS ZA RAD SA XML BAZOM PODATAKA
     [ServiceContract]
     public interface IBazaPodataka
     {
@@ -22,4 +22,5 @@ namespace XmlBazaPodataka.Interfejsi
         [OperationContract]
         void ProcitajIzBazePodataka(out List<Load> procitano);
     }
+    #endregion
 }

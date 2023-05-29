@@ -6,6 +6,7 @@ using System.ServiceModel;
 
 namespace XmlBazaPodataka.Interfejsi
 {
+    #region INTERFEJS ZA PARSIRANJE CSV DATOTEKE I OTVARANJE DATOTEKE
     [ServiceContract]
     public interface IXmlCsvFunkcije
     {
@@ -25,4 +26,5 @@ namespace XmlBazaPodataka.Interfejsi
         [OperationContract]
         IRadSaDatotekom OtvoriDatoteku(string putanja_datoteke);
     }
+    #endregion
 }

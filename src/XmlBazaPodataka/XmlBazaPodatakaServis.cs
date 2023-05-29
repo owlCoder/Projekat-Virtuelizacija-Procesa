@@ -11,7 +11,7 @@ using XmlBazaPodataka.Interfejsi;
 
 namespace XmlBazaPodataka
 {
-    // Klasa koja implementira potrebne servise za rad sa Xml bazom podataka
+    #region KLASA KOJA IMPLEMENTIRA POTREBNE SERVISE ZA RAD SA XML BAZOM PODATAKA
     public class XmlBazaPodatakaServis : IBazaPodataka, IXmlCsvFunkcije
     {
         #region POLJE KLASE ZA ID
@@ -316,4 +316,5 @@ namespace XmlBazaPodataka
         }
         #endregion
     }
+    #endregion
 }

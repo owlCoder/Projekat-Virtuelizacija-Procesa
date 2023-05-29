@@ -103,10 +103,6 @@ namespace Klijent.Komande
                     Console.WriteLine("[INFO]: " + DateTime.Now + " Lokacija pristigle datoteke je '" + Path.Combine(ConfigurationManager.AppSettings["IzvestajiDirektorijum"], (datoteka as RadSaDatotekom).NazivDatoteke) + "'");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
-                else
-                {
-                    Console.WriteLine("neuspesno");
-                }
 
                 datoteka.Dispose();
             }

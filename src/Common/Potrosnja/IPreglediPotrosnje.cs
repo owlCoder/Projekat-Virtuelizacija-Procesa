@@ -5,7 +5,7 @@ using System.ServiceModel;
 
 namespace Common.Potrosnja
 {
-    // Interfejs koji predstavlja metode koje ce racunati pregled potrosnje (min, max, stand)
+    #region INTERFEJS KOJI PREDSTAVLJA METODE KOJE CE RACUNATI PREGLED POTROSNJE (MIN, MAX, STAND)
     [ServiceContract]
     public interface IPreglediPotrosnje
     {
@@ -14,4 +14,5 @@ namespace Common.Potrosnja
         [FaultContract(typeof(PregledPotrosnjeIzuzetak))]
         double PregledPotrosnje(IEnumerable<Load> procitano_tekuci_dan);
     }
+    #endregion
 }

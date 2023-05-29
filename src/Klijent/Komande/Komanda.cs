@@ -86,7 +86,6 @@ namespace Klijent.Komande
             // upisati datoteku pomocu metode iz TekstualniIzvestaji/UpisUIzvestaj.cs
             // na putanju C:\Temp\kalkulacije\
             // izvestaj ne mora biti upisan pa se moze desiti izuzetak
-
             using (IRadSaDatotekom datoteka = proksi.PokreniProracun(IsMin, IsMax, IsStand))
             {
                 // ispis poruke

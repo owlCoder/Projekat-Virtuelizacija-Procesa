@@ -207,6 +207,15 @@ namespace XmlBazaPodataka
 
                 XDocument xml_dokument = XDocument.Load(((RadSaDatotekom)datoteka).DatotecniTok);
                 var stavke = xml_dokument.Element("rows");
+                var elements = xml_dokument.Descendants("ID");
+                var max_row_id = 0;
+
+                // ako nema elemenata, max row id je 0
+                try
+                {
+                    max_row_id = elements.Max(e => int.Parse(e.Value));
+                }
+                catch { }
 
                 // dodavanje podataka iz csv parsiranih u xml bazu
                 foreach (Load l in podaci)
@@ -230,6 +239,7 @@ namespace XmlBazaPodataka
                     {
                         // ne postoji red u xml, dodaje se novi
                         var novi = new XElement("row");
+                        novi.Add(new XElement("ID", (++max_row_id).ToString()));
                         novi.Add(new XElement("TIME_STAMP", l.Timestamp.ToString("yyyy-MM-dd HH:mm")));
                         novi.Add(new XElement("MEASURED_VALUE", l.MeasuredValue.ToString().Replace(',', '.')));
 

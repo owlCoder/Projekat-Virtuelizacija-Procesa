@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Common.Datoteke;
+﻿using Common.Datoteke;
 using Common.Dogadjaji;
 using Common.Modeli;
 using Common.Proracuni;
 using Server.Izvestaj;
 using Server.PregledPotrosnje;
 using Server.PrikupljanjePodataka;
-using System.IO;
+using System.Collections.Generic;
 
 namespace Server
 {
@@ -23,7 +20,7 @@ namespace Server
             if (IsMin)
                 Interakcija.IzvrsiProracun += new ProracunDelegat(new PregledMaksimalnePotrosnje().PregledPotrosnje);
 
-            if(IsMax)
+            if (IsMax)
                 Interakcija.IzvrsiProracun += new ProracunDelegat(new PregledMinimalnePostrosnje().PregledPotrosnje);
 
             if (IsStand)
@@ -34,7 +31,7 @@ namespace Server
             IzvestajProracuna ip = new IzvestajProracuna();
             RadSaDatotekom dat = ip.NapraviIzvestajNakonProracuna(Interakcija.Proracuni) as RadSaDatotekom;
 
-            return dat;            
+            return dat;
         }
     }
 }

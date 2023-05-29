@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Common.Dogadjaji
 {
@@ -17,7 +15,7 @@ namespace Common.Dogadjaji
 
         public List<Proracun> Proracuni;
 
-        public string[] Tip = { "Max Load: ", "Min Load: ", "Stand Deviation: " } ;
+        public string[] Tip = { "Max Load: ", "Min Load: ", "Stand Deviation: " };
         public ushort TipBrojac = 0;
 
         public InterakcijaDogadjajem()
@@ -50,7 +48,7 @@ namespace Common.Dogadjaji
 
         public void AzuriranjeProracuna(IEnumerable<Load> podaci)
         {
-           
+
             foreach (ProracunDelegat p in IzvrsiProracun.GetInvocationList().Cast<ProracunDelegat>())
             {
                 Proracuni[TipBrojac++ % 3].VrednostProracuna = p(podaci);

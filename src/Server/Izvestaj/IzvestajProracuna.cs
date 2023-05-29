@@ -27,7 +27,7 @@ namespace Server.Izvestaj
 
             foreach (Proracun p in podaci)
             {
-                if(p.VrednostProracuna != -1)
+                if (p.VrednostProracuna != -1)
                 {
                     za_slanje += p.TipProracuna + p.VrednostProracuna.ToString() + "\n";
                 }

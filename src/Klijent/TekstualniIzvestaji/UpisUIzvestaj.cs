@@ -1,6 +1,5 @@
 ﻿using Common.Datoteke;
 using Common.Izuzeci;
-using System;
 using System.Configuration;
 using System.IO;
 using System.ServiceModel;
@@ -23,9 +22,9 @@ namespace Klijent.TekstualniIzvestaji
             }
 
             // Da li datoteka postoji, ako postoji da li je onda vec otvorena
-            if(File.Exists(lokacija_datoteke))
+            if (File.Exists(lokacija_datoteke))
             {
-                if(DatotekaOtvorena(lokacija_datoteke))
+                if (DatotekaOtvorena(lokacija_datoteke))
                 {
                     throw new FaultException<DatotekaJeOtvorenaIzuzetak>(
                     new DatotekaJeOtvorenaIzuzetak("[Error]: Datoteka " + (datoteka as RadSaDatotekom).NazivDatoteke
@@ -36,7 +35,7 @@ namespace Klijent.TekstualniIzvestaji
                     // ako postoji a nije otvorena, obrisi staru datoteku
                     File.Delete(lokacija_datoteke);
                 }
-                
+
             }
 
             // datoteka ne postoji i nije otvorena, te je mozemo kreirati
@@ -51,7 +50,7 @@ namespace Klijent.TekstualniIzvestaji
                 txt_fajl.Close();
                 uspesno = true;
             }
-            
+
 
             return uspesno;
         }

@@ -31,6 +31,10 @@ namespace Server.Izvestaj
                 }
             }
 
+             // string se pretrava u niz bajtova
+            MemoryStream stream = new MemoryStream(Encoding.ASCII.GetBytes(za_slanje.Replace(',', '.')));
+
+            
         }
     }
 }

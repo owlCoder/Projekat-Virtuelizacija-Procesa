@@ -98,7 +98,29 @@ namespace XmlBazaPodataka
         #region METODE ZA RAD SA BAZOM PODATAKA
         public bool ProcitajIzBazePodataka(out List<Load> procitano)
         {
-            throw new NotImplementedException();
+             procitano = new List<Load>();
+
+            using (IRadSaDatotekom datoteka = new XmlBazaPodatakaServis().OtvoriDatoteku(ConfigurationManager.AppSettings["DatotekaBazePodataka"]))
+            {
+                XmlDocument baza = new XmlDocument();
+                baza.Load(((RadSaDatotekom)datoteka).DatotecniTok);
+
+                // citanje podataka samo za tekuci dan
+                string datum = DateTime.Now.ToString("yyyy-MM-dd");
+                XmlNodeList podaci = baza.SelectNodes("//row[TIME_STAMP[contains(., '" + datum + "')]]");
+
+                foreach (XmlNode red in podaci)
+                {
+                    Load novi = new Load
+                    {
+                        Id = ID_LOAD++,
+                        MeasuredValue = double.Parse(red.SelectSingleNode("MEASURED_VALUE").InnerText.Replace('.', ',')),
+                        Timestamp = DateTime.Parse(red.SelectSingleNode("TIME_STAMP").InnerText)
+                    };
+
+                    // dodavanje procitanog podatka u izlaznu listu
+                    procitano.Add(novi);
+                }
         }
 
         public int UpisUBazuPodataka(List<Load> podaci, List<Audit> greske)

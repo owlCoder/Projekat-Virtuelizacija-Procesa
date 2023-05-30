@@ -40,5 +40,17 @@ namespace Klijent.TekstualniIzvestaji
             // koristimo prosledjeni memorijski strim
             MemoryStream stream = (datoteka as RadSaDatotekom).DatotecniTok;
         }
+
+        // citanje primljenog datotecnog toka sa servera i konverzija u tekstualnu datoteku
+            using (FileStream txt_fajl = new FileStream(lokacija_datoteke, FileMode.Create, FileAccess.Write))
+            {
+                // niz bajtova u koji ce se cuvati strim
+                byte[] bytes = new byte[stream.Length];
+
+                
+            }
+
+
+            return uspesno;
     }
 }

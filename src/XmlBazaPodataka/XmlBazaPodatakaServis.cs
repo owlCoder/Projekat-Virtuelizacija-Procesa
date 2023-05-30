@@ -147,7 +147,6 @@ namespace XmlBazaPodataka
                 // dodavanje podataka u xml serijalizaciju
                 novi.Add(new XElement("ID", a.Id));
                 novi.Add(new XElement("TIME_STAMP", a.Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff")));
-                novi.Add(new XElement("MESSAGE_TIPE", a.Message_Type));
                 novi.Add(new XElement("MESSAGE", a.Message));
 
                 stavke.Add(novi);

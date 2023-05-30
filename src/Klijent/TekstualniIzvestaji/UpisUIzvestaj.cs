@@ -32,11 +32,7 @@ namespace Klijent.TekstualniIzvestaji
                     new DatotekaJeOtvorenaIzuzetak("[Error]: Datoteka " + (datoteka as RadSaDatotekom).NazivDatoteke
                                                    + " je otvorena od strane drugog procesa i nije moguc upis u nju!"));
                 }
-                else
-                {
-                    // ako postoji a nije otvorena, obrisi staru datoteku
-                    File.Delete(lokacija_datoteke);
-                }
+                
 
             }
 

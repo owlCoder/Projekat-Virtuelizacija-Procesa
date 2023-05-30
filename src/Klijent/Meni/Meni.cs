@@ -178,6 +178,12 @@ namespace Klijent.InterfejsMeni
                 Console.WriteLine(de.Detail.Razlog);
                 Console.ForegroundColor = ConsoleColor.White;
             }
+            catch (FaultException<IzvestajIzuzetak> ie)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(ie.Detail.Razlog);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             catch(Exception exp)
             {
                 Console.ForegroundColor = ConsoleColor.Red;

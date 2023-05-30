@@ -88,20 +88,11 @@ namespace XmlBazaPodataka
                 XmlDocument baza = new XmlDocument();
                 baza.Load(((RadSaDatotekom)datoteka).DatotecniTok);
 
-                foreach (XmlNode red in podaci)
-                {
-                    Load novi = new Load
-                    {
-                        Id = ID_LOAD++,
-                        MeasuredValue = double.Parse(red.SelectSingleNode("MEASURED_VALUE").InnerText.Replace('.', ',')),
-                        Timestamp = DateTime.Parse(red.SelectSingleNode("TIME_STAMP").InnerText)
-                    };
+                // citanje podataka samo za tekuci dan
+                string datum = DateTime.Now.ToString("yyyy-MM-dd");
+                XmlNodeList podaci = baza.SelectNodes("//row[TIME_STAMP[contains(., '" + datum + "')]]");
 
-                    // dodavanje procitanog podatka u izlaznu listu
-                    procitano.Add(novi);
-                }
-                // oslobadjanje resursa datoteke
-                datoteka.Dispose();
+             
             }
         }
 

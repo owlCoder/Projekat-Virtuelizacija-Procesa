@@ -14,7 +14,23 @@ namespace Server.ProracunDevijacije
         }
         #endregion
 
-        
+        #region METODA ZA PRORACUN STANDARDNE DEVIJACIJE
+        public double StandardnaDevijacija(IEnumerable<double> merenja)
+        {
+            double mean = 0.0;
+            double M2 = 0.0;
+            int count = 0;
+
+            foreach (double value in merenja)
+            {
+                count++;
+                double delta = value - mean;
+               
+            }
+
+            return Math.Sqrt(M2 / (count - 1));
+        }
+        #endregion
     }
     #endregion
 }

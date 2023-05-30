@@ -25,12 +25,7 @@ namespace Server.PregledPotrosnje
             // Poziv metode koja ce procitati sve Load objekte za tekuci dan i smestiti u listu podataka
             proksi_xml.ProcitajIzBazePodataka(out procitano_tekuci_dan);
 
-            // TO DO
-            /// KATARINA
-            ///////////////////////////
-
-            // IZ LISTE pronaci vrednost potrosnje po standardnoj devijaciji i upisati je u potrosnja_float
-
+            
 
             return potrosnja_float;
         }

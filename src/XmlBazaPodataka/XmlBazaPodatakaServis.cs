@@ -24,6 +24,12 @@ namespace XmlBazaPodataka
 
             if (!File.Exists(putanja_datoteke))
             {
+                // ako ne postoji direktorijum - kreiraj se novi
+                if(!Directory.Exists(ConfigurationManager.AppSettings["DB"]))
+                {
+                    Directory.CreateDirectory(ConfigurationManager.AppSettings["DB"]);
+                }
+
                 // ako datoteka ne postoji, kreira se nova
                 string root_element = (putanja_datoteke.ToLower().Contains("audit")) ? "STAVKE" : "rows";
                 XDocument novi_xml = new XDocument(new XDeclaration("1.0", "utf-8", "no"), new XElement(root_element));

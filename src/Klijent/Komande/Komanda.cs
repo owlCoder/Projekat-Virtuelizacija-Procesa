@@ -29,6 +29,12 @@ namespace Klijent.Komande
             ChannelFactory<IXmlCsvFunkcije> kanal_xml_servis = new ChannelFactory<IXmlCsvFunkcije>("XmlCsvParser");
             IXmlCsvFunkcije proksi_csv = kanal_xml_servis.CreateChannel();
 
+            // ako ne postoji direktorijum za csv - kreirati ga
+            if(!Directory.Exists(putanja_csv_datoteka))
+            {
+                Directory.CreateDirectory(putanja_csv_datoteka);
+            }
+
             // pokupi sve datoteke iz direktorijuma
             string[] svi_fajlovi = Directory.GetFiles(putanja_csv_datoteka);
 

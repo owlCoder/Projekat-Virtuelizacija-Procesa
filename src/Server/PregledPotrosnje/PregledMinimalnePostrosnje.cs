@@ -10,12 +10,9 @@ namespace Server.PregledPotrosnje
     public class PregledMinimalnePostrosnje : IPreglediPotrosnje
     {
         // Metoda koja racuna minimalnu potrosnju za tekuci dan
-        public float PregledPotrosnje()
+        public double PregledPotrosnje(IEnumerable<Load> procitano_tekuci_dan)
         {
             
-            
-
-            return potrosnja_float;
         }
     }
 }

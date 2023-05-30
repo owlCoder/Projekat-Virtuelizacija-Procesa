@@ -157,7 +157,7 @@ namespace Klijent.InterfejsMeni
                         else
                         {
                             // nije uneto nista validno
-                            Console.ForegroundColor = ConsoleColor.Crimson;
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Vrednost '" + parametri[i] + "' parametra za Get servis nije validna!\nValidne opcije su: min, max, stand.");
                             Console.ForegroundColor = ConsoleColor.White;
 

@@ -164,7 +164,14 @@ namespace Klijent.InterfejsMeni
                             return;
                         }
                     }
+                    // ako je uneto samo Get pozvati bool SlanjeGetKomande() sa svim parametrima false
+                    IsMin = (min_cnt == 1);
+                    IsMax = (max_cnt == 1);
+                    IsStand = (stand_cnt == 1);
+
+                    bool uspesno = new Komanda().SlanjeGetKomande(IsMin, IsMax, IsStand);
                 }
+
             }
             catch (DirectoryNotFoundException)
             {

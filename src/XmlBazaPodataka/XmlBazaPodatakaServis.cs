@@ -95,5 +95,42 @@ namespace XmlBazaPodataka
         }
         #endregion
 
+        #region METODE ZA RAD SA BAZOM PODATAKA
+        public bool ProcitajIzBazePodataka(out List<Load> procitano)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int UpisUBazuPodataka(List<Load> podaci, List<Audit> greske)
+        {
+            int upisano_redova = 0;
+
+            // upisi podatke u audit tabelu
+            var xml_load = XDocument.Load(ConfigurationManager.AppSettings["BazaZaGreske"]);
+            var elements = xml_load.Descendants("ID");
+            var max_row_id = elements.Max(e => int.Parse(e.Value));
+
+            // upisi greske u audit tabelu
+            // ali pre toga azuriraj id-greske sa max + 1
+            foreach(Audit a in greske)
+            {
+                a.Id = ++max_row_id;
+
+                var stavke = xml_load.Element("STAVKE");
+                var novi = new XElement("row");
+
+                // dodavanje podataka u xml serijalizaciju
+                novi.Add(new XElement("ID", a.Id));
+                novi.Add(new XElement("TIME_STAMP", a.Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff")));
+                novi.Add(new XElement("MESSAGE_TYPE", a.Message_Type));
+                novi.Add(new XElement("MESSAGE", a.Message));
+
+                stavke.Add(novi);
+                xml_load.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
+            }
+
+            return upisano_redova;
+        }
+        #endregion
     }
 }

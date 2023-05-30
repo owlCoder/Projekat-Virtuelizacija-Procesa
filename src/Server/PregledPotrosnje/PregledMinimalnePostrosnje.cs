@@ -18,10 +18,7 @@ namespace Server.PregledPotrosnje
             // Lista podataka u kojoj ce biti procitani podaci za tekuci dan
             List<Load> procitano_tekuci_dan = new List<Load>();
 
-            // Povezivanje na server baze podataka
-            ChannelFactory<IBazaPodataka> kanal_xml_servis = new ChannelFactory<IBazaPodataka>("BazaPodataka");
-            IBazaPodataka proksi_xml = kanal_xml_servis.CreateChannel();
-
+            
             
 
             return potrosnja_float;

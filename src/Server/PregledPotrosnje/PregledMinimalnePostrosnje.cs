@@ -15,7 +15,10 @@ namespace Server.PregledPotrosnje
             // Promenljiva u kojoj se cuva najmanja zabelezena potrosnja
             double potrosnja = 0.0;
 
-            
+            // pronaci najmanju vrednost potrosnje i upisati je u potrosnja
+            potrosnja = procitano_tekuci_dan.Any() ? procitano_tekuci_dan.Min(p => p.MeasuredValue) : 0.0;
+
+            return potrosnja;
         }
     }
 }

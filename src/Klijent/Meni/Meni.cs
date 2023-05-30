@@ -164,7 +164,7 @@ namespace Klijent.InterfejsMeni
                             return;
                         }
                     }
-
+                }
             }
             catch (DirectoryNotFoundException)
             {

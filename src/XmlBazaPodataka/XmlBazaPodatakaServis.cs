@@ -88,10 +88,6 @@ namespace XmlBazaPodataka
                 XmlDocument baza = new XmlDocument();
                 baza.Load(((RadSaDatotekom)datoteka).DatotecniTok);
 
-                // citanje podataka samo za tekuci dan
-                string datum = DateTime.Now.ToString("yyyy-MM-dd");
-                XmlNodeList podaci = baza.SelectNodes("//row[TIME_STAMP[contains(., '" + datum + "')]]");
-
                 foreach (XmlNode red in podaci)
                 {
                     Load novi = new Load

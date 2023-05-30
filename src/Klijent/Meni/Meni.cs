@@ -95,7 +95,7 @@ namespace Klijent.InterfejsMeni
              catch (FaultException ke)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ke.Razlog);
+                Console.WriteLine(ke.Message);
                 Console.ForegroundColor = ConsoleColor.White;
             }
             catch(Exception exp)

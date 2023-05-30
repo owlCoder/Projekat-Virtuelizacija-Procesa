@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Datoteke;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -38,6 +39,10 @@ namespace Klijent.TekstualniIzvestaji
                 }
 
             }
+
+            // datoteka ne postoji i nije otvorena, te je mozemo kreirati
+            // koristimo prosledjeni memorijski strim
+            MemoryStream stream = (datoteka as RadSaDatotekom).DatotecniTok;
         }
     }
 }

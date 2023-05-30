@@ -34,6 +34,10 @@ namespace XmlBazaPodataka
                 string[] csv_redovi = csv_podaci.Split('\n');
                 string[] redovi = csv_redovi.Take(csv_redovi.Length - 1).ToArray();
 
-
+                foreach(var red in redovi)
+                {
+                    string[] splitovano = red.Split(','); // csv - comma separated values
+                    
+                    
     }
 }

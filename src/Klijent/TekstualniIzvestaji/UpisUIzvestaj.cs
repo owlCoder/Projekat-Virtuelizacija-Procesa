@@ -22,7 +22,22 @@ namespace Klijent.TekstualniIzvestaji
                 Directory.CreateDirectory(direktorijum_izvestaja);
             }
 
-            
+            // Da li datoteka postoji, ako postoji da li je onda vec otvorena
+            if (File.Exists(lokacija_datoteke))
+            {
+                if (DatotekaOtvorena(lokacija_datoteke))
+                {
+                    throw new FaultException<DatotekaJeOtvorenaIzuzetak>(
+                    new DatotekaJeOtvorenaIzuzetak("[Error]: Datoteka " + (datoteka as RadSaDatotekom).NazivDatoteke
+                                                   + " je otvorena od strane drugog procesa i nije moguc upis u nju!"));
+                }
+                else
+                {
+                    // ako postoji a nije otvorena, obrisi staru datoteku
+                    File.Delete(lokacija_datoteke);
+                }
+
+            }
         }
     }
 }

@@ -168,6 +168,8 @@ namespace Klijent.InterfejsMeni
                     IsMin = (min_cnt == 1);
                     IsMax = (max_cnt == 1);
                     IsStand = (stand_cnt == 1);
+
+                    bool uspesno = new Komanda().SlanjeGetKomande(IsMin, IsMax, IsStand);
                 }
 
             }

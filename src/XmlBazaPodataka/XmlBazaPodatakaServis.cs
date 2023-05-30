@@ -45,8 +45,15 @@ namespace XmlBazaPodataka
                             new Audit(0, DateTime.Now, MessageType.Error, "Nema dovoljno podataka u redu " + linija + ": vreme:merenje")
                         );
                     }
-
-        }
-        #endregion
+                    else
+                    {
+                        // ima dva podatka, proveravamo da li su validni
+                        if (!TimeSpan.TryParse(splitovano[0], out TimeSpan vreme))
+                        {
+                            greske.Add(
+                                new Audit(0, DateTime.Now, MessageType.Error, "Nevalidan podatak TIME_STAMP za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
+                            );
+                        }
+                   
     }
 }

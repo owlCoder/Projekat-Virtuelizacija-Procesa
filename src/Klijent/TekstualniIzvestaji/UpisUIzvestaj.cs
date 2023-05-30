@@ -11,8 +11,18 @@ namespace Klijent.TekstualniIzvestaji
     {
         public bool KreirajDatotekuKalkulacije(string naziv_datoteke = "calculations_", MemoryStream kalkulacija = null)
         {
-            // TO DO
-            throw new NotImplementedException();
+            bool uspesno = false;
+            string direktorijum_izvestaja = ConfigurationManager.AppSettings["IzvestajiDirektorijum"];
+            string lokacija_datoteke = Path.Combine(direktorijum_izvestaja, (datoteka as RadSaDatotekom).NazivDatoteke);
+
+            // Provera da li postoji direktorijum
+            if (!Directory.Exists(direktorijum_izvestaja))
+            {
+                // ako ne postoji kreiramo ga
+                Directory.CreateDirectory(direktorijum_izvestaja);
+            }
+
+            
         }
     }
 }

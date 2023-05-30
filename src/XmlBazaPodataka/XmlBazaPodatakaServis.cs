@@ -38,6 +38,15 @@ namespace XmlBazaPodataka
                 {
                     string[] splitovano = red.Split(','); // csv - comma separated values
                     
-                    
+                    if(splitovano.Length != 2)
+                    {
+                        // nema dovoljno podataka u csv, mora ih imati 2, vreme:merenje
+                        greske.Add(
+                            new Audit(0, DateTime.Now, MessageType.Error, "Nema dovoljno podataka u redu " + linija + ": vreme:merenje")
+                        );
+                    }
+
+        }
+        #endregion
     }
 }

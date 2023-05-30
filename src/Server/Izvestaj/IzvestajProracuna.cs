@@ -16,6 +16,9 @@ namespace Server.Izvestaj
                 throw new FaultException<IzvestajIzuzetak>(
                     new IzvestajIzuzetak("[ERROR]: Nema podataka za generisanje izvestaja!"));
             }
+
+            // ako ima podataka, serijalizovati ih i pretvoriti u niz bajtova
+            string za_slanje = "";
         }
     }
 }

@@ -108,7 +108,7 @@ namespace Klijent.InterfejsMeni
         #endregion
 
         #region METODA ZA GET MENI
-        public void MeniGet()
+        public void MeniGet(string unos)
         {
             /// ///////////////
             /// ANDREA

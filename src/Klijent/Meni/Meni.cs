@@ -115,19 +115,26 @@ namespace Klijent.InterfejsMeni
             /// ///////////////
             try
             {
-                // PROVERA BROJA PARAMETRA da li je sledeci min, max, stand
-                // KOLIKO PARAMETARA IMA ITD
-
                 // Promenljive koje se prosledjuju metodi bool SlanjeCsv();
-
                 bool IsMin = false, IsMax = false, IsStand = false;
-                // to do
-                // 1. proveriti da li je broj parametara veci od 3, ako jeste ispisati gresku
 
-                // 2. proveriti da li se vise puta ponavlja isti zahtev npr Get max max ili Get min max min
-                // u tom slucaju ispisati gresku da komande moraju biti jedinstvene
+                // proveriti da li je broj parametara veci od 3, ako jeste ispisati gresku
+                string[] parametri = unos.Trim().Split(' '); // komande su razdvojene sa razmakom
 
-                // 3. ako je uneto samo Get pozvati bool SlanjeGetKomande() sa svim parametrima false
+                if (parametri.Length < (1)) // prazan string
+                {
+                    // unet je samo Get
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Niste uneli dovoljan broj parametra za Get servis!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else if (parametri.Length > (3 + 1))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Uneli ste preveliki broj parametra za Get servis!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+
             }
             catch (DirectoryNotFoundException)
             {

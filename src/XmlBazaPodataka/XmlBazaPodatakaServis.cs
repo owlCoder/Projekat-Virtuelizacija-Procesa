@@ -111,6 +111,12 @@ namespace XmlBazaPodataka
 
                 foreach (XmlNode red in podaci)
                 {
+                    Load novi = new Load
+                    {
+                        Id = ID_LOAD++,
+                        MeasuredValue = double.Parse(red.SelectSingleNode("MEASURED_VALUE").InnerText.Replace('.', ',')),
+                        Timestamp = DateTime.Parse(red.SelectSingleNode("TIME_STAMP").InnerText)
+                    };
 
                     // dodavanje procitanog podatka u izlaznu listu
                     procitano.Add(novi);

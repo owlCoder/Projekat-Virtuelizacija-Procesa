@@ -1,14 +1,19 @@
-﻿using Common.Modeli;
+﻿using Common.Datoteke;
+using Common.Izuzeci;
+using Common.Modeli;
 using Server.Interfejsi;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
 
 namespace Server.Izvestaj
 {
     public class IzvestajProracuna : IIzvestajProracuna // mozda treba i : IDisposable
     {
-        public MemoryStream NapraviIzvestajNakonProracuna(List<Proracun> podaci)
+        public RadSaDatotekom NapraviIzvestajNakonProracuna(List<Proracun> podaci)
         {
             // ako nema podataka - tj nije generisan nijedan proracun, izazvati izuzetak
             if (podaci.ToList().Count == 0 || (podaci.ToList().FindAll(p => p.VrednostProracuna == -1)).Count == 3)

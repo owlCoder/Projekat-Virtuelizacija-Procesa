@@ -1,4 +1,5 @@
-﻿using Common.Izuzeci;
+﻿using Common.Datoteke;
+using Common.Izuzeci;
 using Common.Modeli;
 using System.Collections.Generic;
 using System.IO;
@@ -18,6 +19,6 @@ namespace Server.Interfejsi
         // ako nije moguce kreirati tekstualni fajl takodje se desava IzvestajIzuzetak
         [OperationContract]
         [FaultContract(typeof(IzvestajIzuzetak))]
-        MemoryStream NapraviIzvestajNakonProracuna(List<Proracun> podaci);
+        RadSaDatotekom NapraviIzvestajNakonProracuna(List<Proracun> podaci);
     }
 }

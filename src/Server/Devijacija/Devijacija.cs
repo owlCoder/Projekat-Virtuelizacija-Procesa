@@ -25,7 +25,8 @@ namespace Server.ProracunDevijacije
             {
                 count++;
                 double delta = value - mean;
-               
+                mean += delta / count;
+                M2 += delta * (value - mean);
             }
 
             return Math.Sqrt(M2 / (count - 1));

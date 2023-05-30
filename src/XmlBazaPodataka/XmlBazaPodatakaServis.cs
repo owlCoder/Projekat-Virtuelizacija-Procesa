@@ -144,6 +144,12 @@ namespace XmlBazaPodataka
                 var stavke = xml_load.Element("STAVKE");
                 var novi = new XElement("row");
 
+                // dodavanje podataka u xml serijalizaciju
+                novi.Add(new XElement("ID", a.Id));
+                novi.Add(new XElement("TIME_STAMP", a.Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff")));
+                    novi.Add(new XElement("MESSAGE_TYPE", a.Message_Type));
+                novi.Add(new XElement("MESSAGE", a.Message));
+
                 stavke.Add(novi);
                 xml_load.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
             }

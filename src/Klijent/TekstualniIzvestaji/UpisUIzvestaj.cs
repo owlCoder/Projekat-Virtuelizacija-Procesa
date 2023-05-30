@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,7 +48,16 @@ namespace Klijent.TekstualniIzvestaji
                 // niz bajtova u koji ce se cuvati strim
                 byte[] bytes = new byte[stream.Length];
 
+    // citanje memorijskog strima i prebacivanje u niz bajtova
+    stream.Read(bytes, 0, (int) stream.Length);
+
+    // upis u tekstualnu datoteku na klijentu
+    txt_fajl.Write(bytes, 0, bytes.Length);
+
+                // datoteka je upisana - zatvaranje datotecnog toka 
+                txt_fajl.Close();
                 
+                uspesno = true;
             }
 
 

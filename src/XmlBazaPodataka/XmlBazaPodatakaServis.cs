@@ -121,6 +121,9 @@ namespace XmlBazaPodataka
                     // dodavanje procitanog podatka u izlaznu listu
                     procitano.Add(novi);
                 }
+                // oslobadjanje resursa datoteke
+                datoteka.Dispose();
+            }
         }
 
         public int UpisUBazuPodataka(List<Load> podaci, List<Audit> greske)

@@ -36,7 +36,8 @@ namespace Server.Izvestaj
 
             string ime_datoteke = "calculations_" + DateTime.Now.ToString("yyyy_MM_dd_HHmm") + ".txt";
 
-            
+             // klijentu se vraca memorijski tok novo kreirane teksutalne datoteke
+            return new RadSaDatotekom(stream, ime_datoteke);
         }
     }
 }

@@ -22,15 +22,7 @@ namespace Server.PregledPotrosnje
             ChannelFactory<IBazaPodataka> kanal_xml_servis = new ChannelFactory<IBazaPodataka>("BazaPodataka");
             IBazaPodataka proksi_xml = kanal_xml_servis.CreateChannel();
 
-            // Poziv metode koja ce procitati sve Load objekte za tekuci dan i smestiti u listu podataka
-            proksi_xml.ProcitajIzBazePodataka(out procitano_tekuci_dan);
-
-            // TO DO
-            /// KATARINA
-            ///////////////////////////
-
-            // IZ LISTE pronaci najamanju vrednost potrosnje i upisati je u potrosnja_float
-
+            
 
             return potrosnja_float;
         }

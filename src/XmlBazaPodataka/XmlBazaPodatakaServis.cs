@@ -54,6 +54,46 @@ namespace XmlBazaPodataka
                                 new Audit(0, DateTime.Now, MessageType.Error, "Nevalidan podatak TIME_STAMP za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
                             );
                         }
-                   
+                        else
+                        {
+                            // vreme je validno, sada parsiramo da li je merenje validno
+                            if (!float.TryParse(splitovano[1].Replace('.', ','), out float vrednost))
+                            {
+                                greske.Add(
+                                new Audit(0, DateTime.Now, MessageType.Error, "Nevalidan podatak MEASURED_VALUE za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
+                            );
+                            }
+                            else
+                            {
+                                // i vreme i merenje su validni
+                                nove_vrednosti.Add(
+                                        new Load(0, DateTime.Today + vreme, vrednost)
+                                    );
+                            }
+                        }
+                    }
+
+                    // sledeci red u csv
+                    linija += 1;
+                }
+            }
+
+            // greske upisati u bazu podataka
+            // nove vrednosti upisati u bazu podataka
+            int redova = UpisUBazuPodataka(nove_vrednosti, greske);
+
+            // neki deo u poslatoj csv datoteci nije validan
+            if(greske.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                // cela csv datoteka je korektno ili je neki podatak upisan
+                return redova > 0;
+            }
+        }
+        #endregion
+
     }
 }

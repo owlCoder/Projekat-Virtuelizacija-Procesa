@@ -19,6 +19,18 @@ namespace Server.Izvestaj
 
             // ako ima podataka, serijalizovati ih i pretvoriti u niz bajtova
             string za_slanje = "";
+
+              foreach (Proracun p in podaci)
+            {
+                // ako se vrednost proracuna nije promenila - onda ona nije ni zahtevana od klijenta
+                // kao konacni izvestaj ulaze samo validni proracuni i proracuni koji su se desili
+                if (p.VrednostProracuna != -1)
+                {
+                    // izlazni format je 'Max Load: 4238.322321'
+                    za_slanje += p.TipProracuna + p.VrednostProracuna.ToString() + "\n";
+                }
+            }
+
         }
     }
 }

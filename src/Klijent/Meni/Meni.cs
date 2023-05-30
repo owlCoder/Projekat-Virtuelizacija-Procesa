@@ -134,6 +134,36 @@ namespace Klijent.InterfejsMeni
                     Console.WriteLine("Uneli ste preveliki broj parametra za Get servis!");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
+                else
+                {
+                    // proveriti da li se vise puta ponavlja isti zahtev npr Get max max ili Get min max min
+                    // u tom slucaju ispisati gresku da komande moraju biti jedinstvene
+                    ushort min_cnt = 0, max_cnt = 0, stand_cnt = 0;
+
+                    for (int i = 1; i < parametri.Length; i++)
+                    {
+                        if (parametri[i].ToLower().Equals("min"))
+                        {
+                            min_cnt++;
+                        }
+                        else if (parametri[i].ToLower().Equals("max"))
+                        {
+                            max_cnt++;
+                        }
+                        else if (parametri[i].ToLower().Equals("stand"))
+                        {
+                            stand_cnt++;
+                        }
+                        else
+                        {
+                            // nije uneto nista validno
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Vrednost '" + parametri[i] + "' parametra za Get servis nije validna!\nValidne opcije su: min, max, stand.");
+                            Console.ForegroundColor = ConsoleColor.White;
+
+                            return;
+                        }
+                    }
 
             }
             catch (DirectoryNotFoundException)

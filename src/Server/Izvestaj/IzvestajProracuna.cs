@@ -34,6 +34,8 @@ namespace Server.Izvestaj
              // string se pretrava u niz bajtova
             MemoryStream stream = new MemoryStream(Encoding.ASCII.GetBytes(za_slanje.Replace(',', '.')));
 
+            string ime_datoteke = "calculations_" + DateTime.Now.ToString("yyyy_MM_dd_HHmm") + ".txt";
+
             
         }
     }

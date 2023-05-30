@@ -11,7 +11,7 @@ namespace Server.PregledPotrosnje
     public class PregledMaksimalnePotrosnje : IPreglediPotrosnje
     {
         // Metoda koja racuna maksimalnu potrosnju za tekuci dan
-        public float PregledPotrosnje()
+        public double PregledPotrosnje()
         {
             
         }

@@ -8,7 +8,7 @@
       <img alt="Tests Passing" src="https://github.com/anuraghazra/github-readme-stats/workflows/Test/badge.svg" />
     </a>
     <a href="https://github.com/owlCoder/cache-cms/graphs/contributors">
-      <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/owlCoder/Content-Managment-System" />
+      <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/owlCoder/cache-memory" />
     </a>
     <a href="https://codecov.io/gh/owlCoder/cms">
       <img src="https://camo.githubusercontent.com/6ef37dcea5bd735bd79e9f3909739e07573aa9e5011e6217b0059f940959b752/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f436f7665726167652d39362532352d627269676874677265656e2e737667" />

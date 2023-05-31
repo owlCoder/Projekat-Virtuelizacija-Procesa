@@ -38,7 +38,9 @@
             // kada su za delegat vezane sve zahtevane metode proracuna - izvrsiti proracun
             Interakcija.Objavi(podaci);
 
-            
+            // generisanje datoteke u kojoj se nalaze zahtevani proracuni
+            IzvestajProracuna ip = new IzvestajProracuna();
+            RadSaDatotekom generisana_datoteka = ip.NapraviIzvestajNakonProracuna(Interakcija.Proracuni) as RadSaDatotekom;
 
             // slanje datoteka na klijenta koji je zahtevao proracun
             return generisana_datoteka;

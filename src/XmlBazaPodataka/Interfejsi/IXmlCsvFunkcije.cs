@@ -1,5 +1,4 @@
 ﻿using Common.Datoteke;
-using Common.Izuzeci;
 using Common.Modeli;
 using System.Collections.Generic;
 using System.IO;
@@ -7,6 +6,7 @@ using System.ServiceModel;
 
 namespace XmlBazaPodataka.Interfejsi
 {
+    #region INTERFEJS ZA PARSIRANJE CSV DATOTEKE I OTVARANJE DATOTEKE
     [ServiceContract]
     public interface IXmlCsvFunkcije
     {
@@ -18,15 +18,13 @@ namespace XmlBazaPodataka.Interfejsi
         // listu List<Load> ucitano
         // metoda poziva posebnu metodu za upis u bazu podataka
         [OperationContract]
-        [FaultContract(typeof(CsvDatotekaIzuzetak))]
         bool ParsiranjeCsvDatoteke(MemoryStream csv, out List<Audit> greske);
 
         // Ako xml datoteka postoji i uspesno se otvori vraca true, u suprotnom false
         // putanja datoteke je predifinisana u App.config
-        // ako datoteka ne postoji desava se XmlBazaPodatakaIzuzetak
+        // ako datoteka ne postoji kreira se nova prazna xml datoteka
         [OperationContract]
-        [FaultContract(typeof(XmlBazaPodatakaIzuzetak))]
-        bool OtvoriDatoteku(string putanja_datoteke, IRadSaDatotekom otvorena_datoteka);
-        bool ProcitajIzBazePodataka(out List<Load> procitano);
+        IRadSaDatotekom OtvoriDatoteku(string putanja_datoteke);
     }
+    #endregion
 }

@@ -240,8 +240,23 @@ namespace XmlBazaPodataka
                     }
                     catch { }
 
+                    if (element != null)
+                    {
+                        element.SelectSingleNode("MEASURED_VALUE").InnerText = l.MeasuredValue.ToString().Replace(',', '.');
+                        xml_load.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+                    }
+                    else
+                    {
+                        // ne postoji red u xml, dodaje se novi
+                        var novi = new XElement("row");
+                        novi.Add(new XElement("ID", (++max_row_id).ToString()));
+                        novi.Add(new XElement("TIME_STAMP", l.Timestamp.ToString("yyyy-MM-dd HH:mm")));
+                        novi.Add(new XElement("MEASURED_VALUE", l.MeasuredValue.ToString().Replace(',', '.')));
 
-                    
+                        stavke.Add(novi);
+                        xml_dokument.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+                    }
+
 
                     upisano_redova += 1; // jedan red se upisao u tabelu
                 }

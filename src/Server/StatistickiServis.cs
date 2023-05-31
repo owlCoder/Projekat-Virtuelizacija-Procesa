@@ -23,6 +23,21 @@
                     new PregledPotrosnjeIzuzetak("[Error]: Nije zabelezena potrosnja za datum " + DateTime.Now.ToString("yyyy-MM-dd") + ". Unesite podatke potrosnje!"));
             }
 
+            // ako je klijent zahtevao proracun minimuma, metoda za racunanje minimuma se vezuje za delegat
+            if (IsMin)
+                Interakcija.IzvrsiProracun += new ProracunDelegat(new PregledMinimalnePostrosnje().PregledPotrosnje);
+
+            // ako je klijent zahtevao proracun maksimuma, metoda za racunanje maksimuma se vezuje za delegat
+            if (IsMax)
+                Interakcija.IzvrsiProracun += new ProracunDelegat(new PregledMaksimalnePotrosnje().PregledPotrosnje);
+
+            // ako je klijent zahtevao proracun devijacije, metoda za racunanje devijacije se vezuje za delegat
+            if (IsStand)
+                Interakcija.IzvrsiProracun += new ProracunDelegat(new PregledStandardneDevijacijePotrosnje().PregledPotrosnje);
+
+            // kada su za delegat vezane sve zahtevane metode proracuna - izvrsiti proracun
+            Interakcija.Objavi(podaci);
+
             
 
             // slanje datoteka na klijenta koji je zahtevao proracun

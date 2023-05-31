@@ -3,9 +3,11 @@ using System.Runtime.Serialization;
 
 namespace Common.Modeli
 {
+    #region KLASA KOJE MODELUJE JEDAN LOAD OBJEKAT U TABELI LOAD
     [DataContract]
     public class Load
     {
+        #region POLJA KLASE
         // Jedinstevni identifikator merenja
         [DataMember]
         public int Id { get; set; }
@@ -16,22 +18,27 @@ namespace Common.Modeli
 
         // Izmerena vrednost za dati trenutak
         [DataMember]
-        public float MeasuredValue { get; set; }
+        public double MeasuredValue { get; set; }
+        #endregion
 
+        #region KONSTRUTKOR KLASE
         public Load()
         {
             // Prazan konstruktor zbog serijalizacije
         }
+        #endregion
 
-        // Konstruktor sa parametrima
-        public Load(int id, DateTime timestamp, float measuredValue)
+        #region KONSTRUKTOR SA PARAMETRIMA
+        public Load(int id, DateTime timestamp, double measuredValue)
         {
             Id = id;
             Timestamp = timestamp;
             MeasuredValue = measuredValue;
         }
+        #endregion
 
-        // Metoda za proveru jednakosti objekata klase LoadTabela
+
+        #region METODA ZA PROVERU JEDNAKOSTI OBJEKATA KLASE LOADTABELA
         public override bool Equals(object obj)
         {
             return obj is Load tabela &&
@@ -39,16 +46,18 @@ namespace Common.Modeli
                    Timestamp == tabela.Timestamp &&
                    MeasuredValue == tabela.MeasuredValue;
         }
+        #endregion
 
-        // Metoda za formatiran ispis objekta klase LoadTabela
+        #region METODA ZA FORMATIRAN ISPIS OBJEKTA KLASE LOADTABELA
         public override string ToString()
         {
             // Izlazni format: [122]: 2023-5-8 = 12223.143
             return string.Format("[{0}]: {1} = {2}", Id, Timestamp.ToString(), MeasuredValue);
         }
+        #endregion
 
 
-        // Metoda za generisanje Hask vrednosti
+        #region METODA ZA GENERISANJE HASH VREDNOSTI
         public override int GetHashCode()
         {
             int hashCode = 326352841;
@@ -57,5 +66,7 @@ namespace Common.Modeli
             hashCode = hashCode * -1521134295 + MeasuredValue.GetHashCode();
             return hashCode;
         }
+        #endregion
     }
+    #endregion
 }

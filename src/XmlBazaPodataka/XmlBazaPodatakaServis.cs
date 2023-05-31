@@ -202,5 +202,36 @@ namespace XmlBazaPodataka
             return UpisULoadTBL(podaci, ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
         }
         #endregion
+
+        #region UPIS U LOAD
+        private static int UpisULoadTBL(List<Load> podaci, string xml_load_path)
+        {
+            int upisano_redova = 0;
+
+            using (IRadSaDatotekom datoteka = new XmlBazaPodatakaServis().OtvoriDatoteku(xml_load_path))
+            {
+                XmlDocument xml_load = new XmlDocument();
+                xml_load.Load(((RadSaDatotekom)datoteka).DatotecniTok);
+
+                // posto se koristi ista datoteka, potrebno je vratiti se na pocetak
+                ((RadSaDatotekom)datoteka).DatotecniTok.Position = 0;
+
+                XDocument xml_dokument = XDocument.Load(((RadSaDatotekom)datoteka).DatotecniTok);
+                var stavke = xml_dokument.Element("rows");
+                var elements = xml_dokument.Descendants("ID");
+                var max_row_id = 0;
+
+                // ako nema elemenata, max row id je 0
+                try
+                {
+                    max_row_id = elements.Max(e => int.Parse(e.Value));
+                }
+                catch { }
+
+                
+
+            return upisano_redova;
+        }
+        #endregion
     }
 }

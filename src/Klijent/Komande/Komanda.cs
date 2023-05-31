@@ -7,17 +7,15 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using XmlBazaPodataka.Interfejsi;
 
 namespace Klijent.Komande
 {
+    #region KLASA ZA RAD SA KOMANDAMA
     public class Komanda : IKomanda
     {
+        #region METODA ZA SLANJE CSV DATOTEKE NA SERVIS
         public bool SlanjeCsv(out List<Audit> greske)
         {
             bool uspesno = false;
@@ -81,7 +79,9 @@ namespace Klijent.Komande
 
             return uspesno;
         }
+        #endregion
 
+        #region METODA ZA SLANJE GET KOMANDE NA SERVIS
         public bool SlanjeGetKomande(bool IsMin = false, bool IsMax = false, bool IsStand = false)
         {
             bool uspesno = false;
@@ -97,16 +97,11 @@ namespace Klijent.Komande
             ChannelFactory<IProracun> kanal_statistika_servis = new ChannelFactory<IProracun>("StatistikaServis");
             IProracun proksi = kanal_statistika_servis.CreateChannel();
 
-            // dodatni opis:
             // Ako je Get komanda prosla od strane servisa
             // povratna vrednost metode sa servera je memory stream
-            // iz klase RadSaDatotekom pozvati konstruktor kreirati novi objekat
-            // iz njega proslediti objekatKlase.DatotecniTok konstrutkoru memory stream
             // upisati datoteku pomocu metode iz TekstualniIzvestaji/UpisUIzvestaj.cs
             // na putanju C:\Temp\kalkulacije\
             // izvestaj ne mora biti upisan pa se moze desiti izuzetak
-            // TO DO
-
             using (IRadSaDatotekom datoteka = proksi.PokreniProracun(IsMin, IsMax, IsStand))
             {
                 // kreiranje teksutalne datoteke na strani klijenta nakon izvrsenog proracuna
@@ -132,5 +127,7 @@ namespace Klijent.Komande
 
             return uspesno;
         }
+        #endregion
     }
+    #endregion
 }

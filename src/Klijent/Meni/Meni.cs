@@ -43,16 +43,19 @@ namespace Klijent.InterfejsMeni
             {
                 IspisPomoci();
             }
+            // da li je unete Send komanda
             else if (unos.Trim().StartsWith("Send"))
             {
                 MeniSend();
             }
+            // da li je uneta get komanda
             else if (unos.Trim().StartsWith("Get"))
             {
-                MeniGet();
+                MeniGet(unos);
             }
             else
             {
+                // ispis greske da nije uneta validna komanda iz listi dostupnih komandi
                 Console.WriteLine("Komanda '{0}' nije pronadjena u listi komandi", unos);
                 Console.WriteLine("  da li ste mislili 'help'");
             }
@@ -207,6 +210,11 @@ namespace Klijent.InterfejsMeni
             Console.WriteLine("\t - Send (iz predefisanog direktorijuma salje se CSV na servis");
             Console.WriteLine("\t - Get [min max stand] (zahteva se od servera min, max ili stand. dev. potrosnje za tekuci dan)");
             Console.Write("\t - help (prikazuje meni dostupnih komandi)\n");
+        }
+
+        public void MeniGet()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

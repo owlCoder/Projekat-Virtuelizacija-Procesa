@@ -3,6 +3,7 @@ using System;
 
 namespace Klijent
 {
+    #region GLAVNA PROGRAMSKA NIT
     class Program
     {
         // Objekat klase meni za pozivanje menija
@@ -18,4 +19,5 @@ namespace Klijent
             }
         }
     }
+    #endregion
 }

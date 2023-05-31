@@ -3,6 +3,7 @@ using System.ServiceModel;
 
 namespace XmlBazaPodataka
 {
+    #region GLAVNA PROGRAMSKA NIT
     class Program
     {
         static void Main()
@@ -23,4 +24,5 @@ namespace XmlBazaPodataka
             Console.ReadLine();
         }
     }
+    #endregion
 }

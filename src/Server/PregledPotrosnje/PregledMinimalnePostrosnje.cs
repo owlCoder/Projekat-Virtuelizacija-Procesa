@@ -1,16 +1,15 @@
 ﻿using Common.Modeli;
-using Server.Interfejsi;
-using System;
+using Common.Potrosnja;
 using System.Collections.Generic;
-using System.ServiceModel;
-using XmlBazaPodataka.Interfejsi;
+using System.Linq;
 
 namespace Server.PregledPotrosnje
 {
+    #region KLASA ZA IMPLEMENTACIJU PRORACUNA MAKSIMALNE POTROSNJE
     public class PregledMinimalnePostrosnje : IPreglediPotrosnje
     {
-        // Metoda koja racuna minimalnu potrosnju za tekuci dan
-         public double PregledPotrosnje(IEnumerable<Load> procitano_tekuci_dan)
+        #region METODA KOJA RACUNA MINIMALNU POTROSNJU ZA TEKUCI DAN
+        public double PregledPotrosnje(IEnumerable<Load> procitano_tekuci_dan)
         {
             // Promenljiva u kojoj se cuva najmanja zabelezena potrosnja
             double potrosnja = 0.0;
@@ -20,5 +19,7 @@ namespace Server.PregledPotrosnje
 
             return potrosnja;
         }
+        #endregion
     }
+    #endregion
 }

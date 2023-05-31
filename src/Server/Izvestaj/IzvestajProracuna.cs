@@ -44,5 +44,10 @@ namespace Server.Izvestaj
              // klijentu se vraca memorijski tok novo kreirane teksutalne datoteke
             return new RadSaDatotekom(stream, ime_datoteke);
         }
+
+        public IRadSaDatotekom NapraviIzvestajNakonProracuna(IEnumerable<Proracun> podaci)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

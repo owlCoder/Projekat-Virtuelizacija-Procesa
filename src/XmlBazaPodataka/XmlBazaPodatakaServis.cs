@@ -191,5 +191,16 @@ namespace XmlBazaPodataka
             }
         }
         #endregion
+
+        #region METODA ZA UPIS U BAZU PODATAKA
+        public int UpisUBazuPodataka(List<Load> podaci, List<Audit> greske)
+        {
+            // upis svih gresaka u audit
+            UpisUAuditTBL(greske, ConfigurationManager.AppSettings["BazaZaGreske"]);
+
+            // upis podataka u bazu xml
+            return UpisULoadTBL(podaci, ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+        }
+        #endregion
     }
 }

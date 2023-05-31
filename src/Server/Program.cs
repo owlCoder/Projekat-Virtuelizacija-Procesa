@@ -4,13 +4,13 @@ using System.ServiceModel;
 
 namespace Server
 {
+    #region GLAVNA PROGRAMSKA NIT
     class Program
     {
         static void Main()
         {
             // Ucitavanje putanje baze podataka iz konfiguracione datoteke App.config
             // string putanja_baze_podataka = ConfigurationManager.AppSettings["DatotekaBazePodataka"];
-            //
 
             try
             {
@@ -23,4 +23,5 @@ namespace Server
             }
         }
     }
+    #endregion
 }

@@ -5,16 +5,9 @@
 
     public class StatistickiServis // : IPreglediPotrosnje
     {
-        // TO DO
-        // Hint: Standardna implementacija ipregledipotrosnje
-        // a u njima se poziva PregledPotrosnje.Pregled Min/Max/Std klase
+        #region POLJA KLASE
+        InterakcijaDogadjajem Interakcija = new InterakcijaDogadjajem();
+        #endregion
 
-        /*
-        Pregledi pregledi = new PregledMaksimalnePotrosnje().PregledPotrosnje();
-        public StatistickiServis() 
-        {
-            pregledi();
-        }
-        */
     }
 }

@@ -27,5 +27,6 @@ namespace XmlBazaPodataka.Interfejsi
         [OperationContract]
         [FaultContract(typeof(XmlBazaPodatakaIzuzetak))]
         bool OtvoriDatoteku(string putanja_datoteke, IRadSaDatotekom otvorena_datoteka);
+        bool ProcitajIzBazePodataka(out List<Load> procitano);
     }
 }

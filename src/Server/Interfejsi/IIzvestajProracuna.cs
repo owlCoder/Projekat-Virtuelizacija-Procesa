@@ -2,11 +2,11 @@
 using Common.Izuzeci;
 using Common.Modeli;
 using System.Collections.Generic;
-using System.IO;
 using System.ServiceModel;
 
 namespace Server.Interfejsi
 {
+    #region INTERFEJS ZA GENERISANJE IZVESTAJA PRORACUNA NAKON INVOKACIJE DELEGATA/DOGADJAJA
     [ServiceContract]
     public interface IIzvestajProracuna
     {
@@ -16,9 +16,9 @@ namespace Server.Interfejsi
         // dok su ulazni parametri lista proracuna koja se upisuje u izlazni txt fajl
         // u slucaju da je lista proracuna prazna ili neki od podataka nevalidan
         // desava se IzvestajIzuzetak
-        // ako nije moguce kreirati tekstualni fajl takodje se desava IzvestajIzuzetak
         [OperationContract]
         [FaultContract(typeof(IzvestajIzuzetak))]
-        RadSaDatotekom NapraviIzvestajNakonProracuna(List<Proracun> podaci);
+        IRadSaDatotekom NapraviIzvestajNakonProracuna(IEnumerable<Proracun> podaci);
     }
+    #endregion
 }

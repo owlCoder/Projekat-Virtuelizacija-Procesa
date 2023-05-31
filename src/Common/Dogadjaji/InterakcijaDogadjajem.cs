@@ -31,6 +31,24 @@ namespace Common.Dogadjaji
         }
         #endregion
 
+        #region KONSTRUKTOR KLASE
+        // Prazan konstruktor klase InterakcijaDogadjem
+        public InterakcijaDogadjajem()
+        {
+            // Pri svakom instanciranju, lista povezanih delegata se resetuje
+            IzvrsiProracun = null;
+
+            // Inicijalizacija prazne liste proracuna
+            // Inicijalno su sve izmerene vrednosti -1
+            // -1 ==> Trenutno nijedan delegat nije izvrsio proracun 
+            Proracuni = new List<Proracun>()
+            {
+                new Proracun(Tip[0], -1.0),
+                new Proracun(Tip[1], -1.0),
+                new Proracun(Tip[2], -1.0)
+            };
+        }
+        #endregion
     }
     #endregion
 }

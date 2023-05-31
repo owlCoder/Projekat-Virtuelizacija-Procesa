@@ -228,7 +228,27 @@ namespace XmlBazaPodataka
                 }
                 catch { }
 
-                
+                // dodavanje podataka iz csv parsiranih u xml bazu
+                foreach (Load l in podaci)
+                {
+                    string pretraga = "//row[TIME_STAMP='" + l.Timestamp.ToString("yyyy-MM-dd HH:mm") + "']";
+                    XmlNode element = null;
+
+                    try
+                    {
+                        element = xml_load.SelectSingleNode(pretraga);
+                    }
+                    catch { }
+
+
+                    
+
+                    upisano_redova += 1; // jedan red se upisao u tabelu
+                }
+
+                // oslobadjanje resursa
+                datoteka.Dispose();
+            }
 
             return upisano_redova;
         }

@@ -1,27 +1,55 @@
-﻿using System;
+﻿using Common.Datoteke;
 using Common.Modeli;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
-using XmlBazaPodataka.Interfejsi;
-using Common.Datoteke;
 using System.Linq;
-using System.Diagnostics;
-using System.Text;
 using System.Xml;
 using System.Xml.Linq;
-using System.Configuration;
+using XmlBazaPodataka.Interfejsi;
 
 namespace XmlBazaPodataka
 {
-    // Klasa koja implementira potrebne servise za rad sa Xml bazom podataka
+    #region KLASA KOJA IMPLEMENTIRA POTREBNE SERVISE ZA RAD SA XML BAZOM PODATAKA
     public class XmlBazaPodatakaServis : IBazaPodataka, IXmlCsvFunkcije
     {
-        #region METODE ZA RAD SA XML I CSV datotekama
-        public bool OtvoriDatoteku(string putanja_datoteke, IRadSaDatotekom otvorena_datoteka)
+        #region METODA ZA CITANJE IZ XML DATOTEKE
+        public IRadSaDatotekom OtvoriDatoteku(string putanja_datoteke)
         {
-            throw new NotImplementedException();
-        }
 
+            if (!File.Exists(putanja_datoteke))
+            {
+                // ako ne postoji direktorijum - kreiraj se novi
+                if (!Directory.Exists(ConfigurationManager.AppSettings["DB"]))
+                {
+                    Directory.CreateDirectory(ConfigurationManager.AppSettings["DB"]);
+                }
+
+                // ako datoteka ne postoji, kreira se nova
+                string root_element = (putanja_datoteke.ToLower().Contains("audit")) ? "STAVKE" : "rows";
+                XDocument novi_xml = new XDocument(new XDeclaration("1.0", "utf-8", "no"), new XElement(root_element));
+                novi_xml.Save(putanja_datoteke);
+            }
+
+            // otvoriti po disposable pattern-u xml datoteku
+            // promenljive za memorijski tok
+            MemoryStream stream = new MemoryStream();
+
+            using (FileStream xml = new FileStream(putanja_datoteke, FileMode.Open, FileAccess.Read))
+            {
+                xml.CopyTo(stream);
+                xml.Dispose();
+            }
+
+            stream.Position = 0;
+
+            return new RadSaDatotekom(stream, Path.GetFileName(putanja_datoteke));
+
+        }
+        #endregion
+
+        #region CSV PARSER
         public bool ParsiranjeCsvDatoteke(MemoryStream csv, out List<Audit> greske)
         {
             greske = new List<Audit>();
@@ -34,16 +62,16 @@ namespace XmlBazaPodataka
                 string[] csv_redovi = csv_podaci.Split('\n');
                 string[] redovi = csv_redovi.Take(csv_redovi.Length - 1).ToArray();
 
-                foreach(var red in redovi)
+                foreach (var red in redovi)
                 {
                     string[] splitovano = red.Split(','); // csv - comma separated values
-                    
-                    if(splitovano.Length != 2)
+
+                    if (splitovano.Length != 2)
                     {
                         // nema dovoljno podataka u csv, mora ih imati 2, vreme:merenje
                         greske.Add(
-                            new Audit(0, DateTime.Now, MessageType.Error, "Nema dovoljno podataka u redu " + linija + ": vreme:merenje")
-                        );
+                                new Audit(0, DateTime.Now, MessageType.Error, "Nevalidan format u CSV za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
+                            );
                     }
                     else
                     {
@@ -54,77 +82,40 @@ namespace XmlBazaPodataka
                                 new Audit(0, DateTime.Now, MessageType.Error, "Nevalidan podatak TIME_STAMP za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
                             );
                         }
+                        else
+                        {
+                            // vreme je validno, sada parsiramo da li je merenje validno
+                            if (!double.TryParse(splitovano[1].Replace('.', ','), out double vrednost))
+                            {
+                                greske.Add(
+                                new Audit(0, DateTime.Now, MessageType.Error, "Nevalidan podatak MEASURED_VALUE za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
+                            );
+                            }
+                            else
+                            {
+                                if (vrednost < 0.0)
+                                {
+                                    greske.Add(
+                                        new Audit(0, DateTime.Now, MessageType.Error, "Nevalidan podatak MEASURED_VALUE za datum " + DateTime.Now.ToString("yyyy-MM-dd"))
+                                    );
+
+                                }
+
+                                else
+                                {
+                                    // i vreme i merenje su validni
+                                    nove_vrednosti.Add(
+                                        new Load(0, DateTime.Today + vreme, vrednost)
+                                    );
+                                }
+                            }
+                        }
                     }
 
                     // sledeci red u csv
                     linija += 1;
                 }
             }
-
-            // greske upisati u bazu podataka
-            // nove vrednosti upisati u bazu podataka
-            int redova = UpisUBazuPodataka(nove_vrednosti, greske);
-
-            // neki deo u poslatoj csv datoteci nije validan
-            if(greske.Count > 0)
-            {
-                return false;
-            }
-            else
-            {
-                // cela csv datoteka je korektno ili je neki podatak upisan
-                return redova > 0;
-            }
-        }
-        #endregion
-
-        #region METODE ZA RAD SA BAZOM PODATAKA
-        public bool ProcitajIzBazePodataka(out List<Load> procitano)
-        {
-             procitano = new List<Load>();
-
-            using (IRadSaDatotekom datoteka = new XmlBazaPodatakaServis().OtvoriDatoteku(ConfigurationManager.AppSettings["DatotekaBazePodataka"]))
-            {
-                XmlDocument baza = new XmlDocument();
-                baza.Load(((RadSaDatotekom)datoteka).DatotecniTok);
-
-                // citanje podataka samo za tekuci dan
-                string datum = DateTime.Now.ToString("yyyy-MM-dd");
-                XmlNodeList podaci = baza.SelectNodes("//row[TIME_STAMP[contains(., '" + datum + "')]]");
-
-             
-            }
-        }
-
-        public int UpisUBazuPodataka(List<Load> podaci, List<Audit> greske)
-        {
-            int upisano_redova = 0;
-
-            // upisi podatke u audit tabelu
-            var xml_load = XDocument.Load(ConfigurationManager.AppSettings["BazaZaGreske"]);
-            var elements = xml_load.Descendants("ID");
-            var max_row_id = elements.Max(e => int.Parse(e.Value));
-
-            // upisi greske u audit tabelu
-            // ali pre toga azuriraj id-greske sa max + 1
-            foreach(Audit a in greske)
-            {
-                a.Id = ++max_row_id;
-
-                var stavke = xml_load.Element("STAVKE");
-                var novi = new XElement("row");
-
-                // dodavanje podataka u xml serijalizaciju
-                novi.Add(new XElement("ID", a.Id));
-                novi.Add(new XElement("TIME_STAMP", a.Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff")));
-                    novi.Add(new XElement("MESSAGE_TYPE", a.Message_Type));
-                novi.Add(new XElement("MESSAGE", a.Message));
-
-                stavke.Add(novi);
-                xml_load.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
-            }
-
-            return upisano_redova;
 
             // ako je broj redova koji ima gresku jednak svi unetim redovima
             // onda se kreira samo jedan audit objekat
@@ -240,6 +231,7 @@ namespace XmlBazaPodataka
                     }
                     catch { }
 
+
                     if (element != null)
                     {
                         element.SelectSingleNode("MEASURED_VALUE").InnerText = l.MeasuredValue.ToString().Replace(',', '.');
@@ -256,7 +248,6 @@ namespace XmlBazaPodataka
                         stavke.Add(novi);
                         xml_dokument.Save(ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
                     }
-
 
                     upisano_redova += 1; // jedan red se upisao u tabelu
                 }
@@ -327,4 +318,5 @@ namespace XmlBazaPodataka
         }
         #endregion
     }
+    #endregion
 }

@@ -58,6 +58,7 @@ namespace Klijent.Komande
                 csv.Dispose();
             }
 
+            // pozicioniranje na pocetak memorijskog toka podataka
             stream.Position = 0;
 
             // citanje sadrzaja datoteke i slanje na server
@@ -67,12 +68,12 @@ namespace Klijent.Komande
                 datoteka.Dispose();
             }
 
-            // uspesno obrisan fajl obrisati
-            if(uspesno && File.Exists(svi_fajlovi[0]))
+            // uspesno obradjen fajl - obrisati ga
+            if (uspesno && File.Exists(svi_fajlovi[0]))
             {
                 File.Delete(svi_fajlovi[0]);
-                Console.ForegroundColor = ConsoleColor.DarkBlue;
-                Console.WriteLine("[INFO]: ", DateTime.Now, " Datoteka ", svi_fajlovi[0], " uspesno obrisana!");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("[INFO]: " + DateTime.Now + " Datoteka " + svi_fajlovi[0] + " uspesno obrisana!");
                 Console.ForegroundColor = ConsoleColor.White;
             }
 
@@ -82,6 +83,17 @@ namespace Klijent.Komande
         public bool SlanjeGetKomande(bool IsMin = false, bool IsMax = false, bool IsStand = false)
         {
             bool uspesno = false;
+
+            if (IsMin == false && IsMax == false && IsStand == false)
+            {
+                // samo je poslat get, desava se izuzetak komande
+                throw new FaultException<KomandaIzuzetak>(
+                    new KomandaIzuzetak("[ERROR]: " + DateTime.Now.ToString() + " Ne postoji nijedan parametar uz Get zahtev! Komanda 'Get' neuspesno izvrsena!"));
+            }
+
+            // komunikacija sa xml csv funkcijama iz xml baze podataka
+            ChannelFactory<IProracun> kanal_statistika_servis = new ChannelFactory<IProracun>("StatistikaServis");
+            IProracun proksi = kanal_statistika_servis.CreateChannel();
 
             // dodatni opis:
             // Ako je Get komanda prosla od strane servisa
@@ -93,7 +105,31 @@ namespace Klijent.Komande
             // izvestaj ne mora biti upisan pa se moze desiti izuzetak
             // TO DO
 
+            using (IRadSaDatotekom datoteka = proksi.PokreniProracun(IsMin, IsMax, IsStand))
+            {
+                // kreiranje teksutalne datoteke na strani klijenta nakon izvrsenog proracuna
+                uspesno = new UpisUIzvestaj().KreirajDatotekuKalkulacije(datoteka);
+
+                // poruka korisniku
+                if (uspesno)
+                {
+                    // Ispis poruke o uspesnom prijemu datoteke
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("[INFO]: " + DateTime.Now + " Datoteka sa trazenim proracunima uspesno pristigla!");
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    // ispis poruke o lokaciji pristigle datoteke
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("[INFO]: " + DateTime.Now + " Lokacija pristigle datoteke je '" + Path.Combine(ConfigurationManager.AppSettings["IzvestajiDirektorijum"], (datoteka as RadSaDatotekom).NazivDatoteke) + "'");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+
+                // oslobadjanje zauzetih resursa
+                datoteka.Dispose();
+            }
+
             return uspesno;
         }
+    }
     }
 }

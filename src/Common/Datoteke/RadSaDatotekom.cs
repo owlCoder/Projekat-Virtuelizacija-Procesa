@@ -4,10 +4,12 @@ using System.Runtime.Serialization;
 
 namespace Common.Datoteke
 {
+    #region KLASA ZA RAD SA DATOTEKOM PO DISPOSABLE SABLONU
     // Klasa koja modeluje rad sa datotekama po Disposable sablonu oslobadjanja memorije
     [DataContract]
     public class RadSaDatotekom : IRadSaDatotekom
     {
+        #region POLJA KLASE
         // Tok bajtova u kojoj se nalazi trenutno obradjivana datoteka
         [DataMember]
         public MemoryStream DatotecniTok { get; set; }
@@ -15,14 +17,18 @@ namespace Common.Datoteke
         // Naziv datoteke koja je trenutno otvorena
         [DataMember]
         public string NazivDatoteke { get; set; }
+        #endregion
 
+        #region KONSTRUKTOR KLASE
         // Konstruktor sa parametrima
         public RadSaDatotekom(MemoryStream datotecniTok, string nazivDatoteke)
         {
             DatotecniTok = datotecniTok;
             NazivDatoteke = nazivDatoteke;
         }
+        #endregion
 
+        #region METODA ZA DISPOSING ZAUZETIH RESURSA
         // Disposable sablon za rad sa datotekama
         public void Dispose()
         {
@@ -43,5 +49,7 @@ namespace Common.Datoteke
                 }
             }
         }
+        #endregion
     }
+    #endregion
 }

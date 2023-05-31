@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfejsi\IDataFetcher.cs" />
+    <Compile Include="Interfejsi\IDevijacija.cs" />
     <Compile Include="Interfejsi\IIzvestajProracuna.cs" />
     <Compile Include="Interfejsi\IPreglediPotrosnje.cs" />
     <Compile Include="Interfejsi\IProracun.cs" />

@@ -67,6 +67,7 @@ namespace Klijent.InterfejsMeni
         {
             try
             {
+                // lista svih gresaka koje su se desile pri parsiranju csv datoteke
                 List<Audit> greske = new List<Audit>();
 
                 bool uspesno = new Komanda().SlanjeCsv(out greske);
@@ -74,15 +75,15 @@ namespace Klijent.InterfejsMeni
                 if (uspesno)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("[INFO]: ", DateTime.Now, " Podaci o merenju uspesno parsirani!");
+                    Console.WriteLine("[INFO]: " + DateTime.Now + " Podaci o merenju uspesno parsirani!");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
                     // ispis svih gresaka koje su se desile
-                    foreach (Audit audit in greske) 
+                    foreach (Audit audit in greske)
                     {
-                        Console.ForegroundColor= ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(audit);
                     }
 
@@ -95,13 +96,13 @@ namespace Klijent.InterfejsMeni
                 Console.WriteLine(ke.Detail.Razlog);
                 Console.ForegroundColor = ConsoleColor.White;
             }
-             catch (FaultException ke)
+            catch (EndpointNotFoundException)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ke.Message);
+                Console.WriteLine("[Error]: " + DateTime.Now + " Za dalji rad potrebno je pokrenuti servis baze podataka!");
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(exp.Message);

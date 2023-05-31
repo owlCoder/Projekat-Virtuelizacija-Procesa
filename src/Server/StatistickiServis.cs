@@ -1,9 +1,20 @@
-﻿namespace Server
-{
-    // Delegat koji se koristi za pozivanje odgovarajucih metoda za preglede potrosnje
-    delegate dynamic Pregledi();
+﻿using Common.Datoteke;
+using Common.Dogadjaji;
+using Common.Izuzeci;
+using Common.Modeli;
+using Common.Proracuni;
+using Server.Izvestaj;
+using Server.PregledPotrosnje;
+using Server.PrikupljanjePodataka;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
 
-    public class StatistickiServis // : IPreglediPotrosnje
+namespace Server
+{
+    #region KLASA STATISTICKOG SERVISA ZA PRUZANJE USLUGA PRORACUNA KLIJENTIMA PREKO DELEGATA I EVENT-A
+    public class StatistickiServis : IProracun
     {
         #region POLJA KLASE
         InterakcijaDogadjajem Interakcija = new InterakcijaDogadjajem();
@@ -47,4 +58,5 @@
         }
         #endregion
     }
+    #endregion
 }

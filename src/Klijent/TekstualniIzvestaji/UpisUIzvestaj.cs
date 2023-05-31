@@ -84,11 +84,6 @@ namespace Klijent.TekstualniIzvestaji
 
             return false;
         }
-
-        public bool KreirajDatotekuKalkulacije(string naziv_datoteke = "calculations_", MemoryStream kalkulacija = null)
-        {
-            throw new System.NotImplementedException();
-        }
         #endregion
     }
     #endregion

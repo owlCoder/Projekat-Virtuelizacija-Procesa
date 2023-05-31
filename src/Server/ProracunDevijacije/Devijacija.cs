@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Server.Interfejsi;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Server.ProracunDevijacije
 {
-    class Devijacija
+    #region KLASA ZA PRORACUN DEVIJACIJE
+    public class Devijacija : IDevijacija
     {
         #region PRAZAN KONSTRUKTOR
         public Devijacija()
@@ -34,4 +33,5 @@ namespace Server.ProracunDevijacije
         }
         #endregion
     }
+    #endregion
 }

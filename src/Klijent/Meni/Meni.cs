@@ -1,11 +1,8 @@
-﻿using Common.Datoteke;
-using Common.Izuzeci;
+﻿using Common.Izuzeci;
 using Common.Modeli;
 using Klijent.Komande;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
 using System.Security.Principal;
 using System.ServiceModel;
 
@@ -114,9 +111,6 @@ namespace Klijent.InterfejsMeni
         #region METODA ZA GET MENI
         public void MeniGet(string unos)
         {
-            /// ///////////////
-            /// ANDREA
-            /// ///////////////
             try
             {
                 // Promenljive koje se prosledjuju metodi bool SlanjeCsv();
@@ -125,7 +119,8 @@ namespace Klijent.InterfejsMeni
                 // proveriti da li je broj parametara veci od 3, ako jeste ispisati gresku
                 string[] parametri = unos.Trim().Split(' '); // komande su razdvojene sa razmakom
 
-                if (parametri.Length < (1)) // prazan string
+                // uneta je samo Get komanda
+                if (parametri.Length < 1)
                 {
                     // unet je samo Get
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -168,22 +163,27 @@ namespace Klijent.InterfejsMeni
                             return;
                         }
                     }
+
+                    // provera da li je dva ili vise puta zahtevan isti proracun
+                    if (min_cnt > 1 || max_cnt > 1 || stand_cnt > 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Vrednost parametra za Get servis mora biti unikatna i sme se ponoviti samo jednom!");
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        return;
+                    }
+
                     // ako je uneto samo Get pozvati bool SlanjeGetKomande() sa svim parametrima false
                     IsMin = (min_cnt == 1);
                     IsMax = (max_cnt == 1);
                     IsStand = (stand_cnt == 1);
 
+                    // slanje get komande na servis statistike
                     bool uspesno = new Komanda().SlanjeGetKomande(IsMin, IsMax, IsStand);
                 }
-
             }
-            catch (DirectoryNotFoundException)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Nije moguce upisati izvestaj jer direktorijum izvestaja ne postoji!");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            catch (FaultException < DatotekaJeOtvorenaIzuzetak > de)
+            catch (FaultException<DatotekaJeOtvorenaIzuzetak> de)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(de.Detail.Razlog);
@@ -195,7 +195,31 @@ namespace Klijent.InterfejsMeni
                 Console.WriteLine(ie.Detail.Razlog);
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            catch(Exception exp)
+            catch (FaultException<KomandaIzuzetak> de)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(de.Detail.Razlog);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch (FaultException<PregledPotrosnjeIzuzetak> pe)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(pe.Detail.Razlog);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch (EndpointNotFoundException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[Error]: " + DateTime.Now + " Za dalji rad potrebno je pokrenuti servis proracuna!");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch (FaultException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[Error]: " + DateTime.Now + " Za dalji rad potrebno je pokrenuti servis baze podataka!");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch (Exception exp)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(exp.ToString());
@@ -211,11 +235,6 @@ namespace Klijent.InterfejsMeni
             Console.WriteLine("\t - Send (iz predefisanog direktorijuma salje se CSV na servis");
             Console.WriteLine("\t - Get [min max stand] (zahteva se od servera min, max ili stand. dev. potrosnje za tekuci dan)");
             Console.Write("\t - help (prikazuje meni dostupnih komandi)\n");
-        }
-
-        public void MeniGet()
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }

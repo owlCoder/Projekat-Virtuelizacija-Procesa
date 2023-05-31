@@ -59,6 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Modeli\Audit.cs" />
     <Compile Include="Modeli\Load.cs" />
+    <Compile Include="Proracuni\IProracun.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

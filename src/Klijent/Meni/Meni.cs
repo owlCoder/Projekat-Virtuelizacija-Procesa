@@ -236,6 +236,11 @@ namespace Klijent.InterfejsMeni
             Console.WriteLine("\t - Get [min max stand] (zahteva se od servera min, max ili stand. dev. potrosnje za tekuci dan)");
             Console.Write("\t - help (prikazuje meni dostupnih komandi)\n");
         }
+
+        public void MeniGet()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

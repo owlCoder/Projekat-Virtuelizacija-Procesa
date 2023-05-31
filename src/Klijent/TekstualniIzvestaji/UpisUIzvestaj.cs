@@ -1,17 +1,16 @@
 ﻿using Common.Datoteke;
-using System;
-using System.Collections.Generic;
+using Common.Izuzeci;
+using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
+using System.ServiceModel;
 
 namespace Klijent.TekstualniIzvestaji
 {
+    #region KLASA ZA UPIS IZVESTAJA NA KLIJENTU
     public class UpisUIzvestaj : IUpisUIzvestaj
     {
-        public bool KreirajDatotekuKalkulacije(string naziv_datoteke = "calculations_", MemoryStream kalkulacija = null)
+        #region METODA KOJA KREIRA TEKSTUALNU DATOTEKU NA KLIJENTU
+        public bool KreirajDatotekuKalkulacije(IRadSaDatotekom datoteka)
         {
             bool uspesno = false;
             string direktorijum_izvestaja = ConfigurationManager.AppSettings["IzvestajiDirektorijum"];
@@ -33,34 +32,64 @@ namespace Klijent.TekstualniIzvestaji
                     new DatotekaJeOtvorenaIzuzetak("[Error]: Datoteka " + (datoteka as RadSaDatotekom).NazivDatoteke
                                                    + " je otvorena od strane drugog procesa i nije moguc upis u nju!"));
                 }
-                
+                else
+                {
+                    // ako postoji a nije otvorena, obrisi staru datoteku
+                    File.Delete(lokacija_datoteke);
+                }
 
             }
 
             // datoteka ne postoji i nije otvorena, te je mozemo kreirati
             // koristimo prosledjeni memorijski strim
             MemoryStream stream = (datoteka as RadSaDatotekom).DatotecniTok;
-        }
 
-        // citanje primljenog datotecnog toka sa servera i konverzija u tekstualnu datoteku
+            // citanje primljenog datotecnog toka sa servera i konverzija u tekstualnu datoteku
             using (FileStream txt_fajl = new FileStream(lokacija_datoteke, FileMode.Create, FileAccess.Write))
             {
                 // niz bajtova u koji ce se cuvati strim
                 byte[] bytes = new byte[stream.Length];
 
                 // citanje memorijskog strima i prebacivanje u niz bajtova
-                stream.Read(bytes, 0, (int) stream.Length);
+                stream.Read(bytes, 0, (int)stream.Length);
 
                 // upis u tekstualnu datoteku na klijentu
                 txt_fajl.Write(bytes, 0, bytes.Length);
 
                 // datoteka je upisana - zatvaranje datotecnog toka 
                 txt_fajl.Close();
-                
+
                 uspesno = true;
             }
 
-
             return uspesno;
+        }
+        #endregion
+
+        #region METODA ZA PROVERU DA LI JE DATOTEKA OTVORENA
+        public static bool DatotekaOtvorena(string putanja_fajla)
+        {
+            try
+            {
+                // Ukoliko je datoteka otvorena od strane drugog procesa - desava se IOException
+                using (FileStream stream = File.Open(putanja_fajla, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                {
+                    stream.Close();
+                }
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool KreirajDatotekuKalkulacije(string naziv_datoteke = "calculations_", MemoryStream kalkulacija = null)
+        {
+            throw new System.NotImplementedException();
+        }
+        #endregion
     }
+    #endregion
 }

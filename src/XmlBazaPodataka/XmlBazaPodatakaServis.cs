@@ -286,6 +286,25 @@ namespace XmlBazaPodataka
                 }
                 catch { }
 
+                // upisi greske u audit tabelu
+                // ali pre toga azuriraj id-greske sa max + 1
+                foreach (Audit a in greske)
+                {
+                    a.Id = ++max_row_id;
+
+                    var stavke = xml_audit.Element("STAVKE");
+                    var novi = new XElement("row");
+
+                    // dodavanje podataka u xml serijalizaciju
+                    novi.Add(new XElement("ID", a.Id));
+                    novi.Add(new XElement("TIME_STAMP", a.Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff")));
+                    novi.Add(new XElement("MESSAGE_TYPE", a.Message_Type));
+                    novi.Add(new XElement("MESSAGE", a.Message));
+
+                    stavke.Add(novi);
+                    xml_audit.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
+                }
+
                 
 
                 // oslobadjanje resursa

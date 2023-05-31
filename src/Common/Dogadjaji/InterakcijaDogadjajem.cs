@@ -24,11 +24,6 @@ namespace Common.Dogadjaji
 
         // Niz tipova potrosnje koja se zahteva
         public readonly string[] Tip = { "Max Load: ", "Min Load: ", "Stand Deviation: " };
-
-        public void Objavi(IEnumerable<Load> podaci)
-        {
-            throw new System.NotImplementedException();
-        }
         #endregion
 
         #region KONSTRUKTOR KLASE
@@ -47,6 +42,26 @@ namespace Common.Dogadjaji
                 new Proracun(Tip[1], -1.0),
                 new Proracun(Tip[2], -1.0)
             };
+        }
+        #endregion
+
+        #region METODA ZA PROZIVKU DELEGATA
+        // Metoda koja za prosledjene podatke poziva sve metode 
+        // povezane delegatom
+        public void Objavi(IEnumerable<Load> podaci)
+        {
+            if (IzvrsiProracun != null)
+            {
+                // Poziv delegata preracun vrednosti baznih proracuna
+                foreach (ProracunDelegat p in IzvrsiProracun.GetInvocationList().Cast<ProracunDelegat>())
+                {
+                    string imethod = p.Target.ToString();
+                    int index_upisa = imethod.Contains("Max") ? 0 : (imethod.Contains("Min") ? 1 : imethod.Contains("Stand") ? 2 : 0);
+
+                    // Cuvanje podataka proracuna delegata
+                    Proracuni[index_upisa].VrednostProracuna = p(podaci);
+                }
+            }
         }
         #endregion
     }

@@ -55,6 +55,7 @@
     <Compile Include="Izuzeci\PregledPotrosnjeIzuzetak.cs" />
     <Compile Include="Izuzeci\XmlBazaPodatakaIzuzetak.cs" />
     <Compile Include="Modeli\Proracun.cs" />
+    <Compile Include="Potrosnja\IPreglediPotrosnje.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Modeli\Audit.cs" />
     <Compile Include="Modeli\Load.cs" />

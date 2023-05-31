@@ -23,11 +23,19 @@ namespace Klijent.Komande
 
             // promenljive za memorijski tok
             MemoryStream stream = new MemoryStream();
+
+            // inicijalizacija liste u kojoj se beleze audit zapisi
             greske = new List<Audit>();
 
             // komunikacija sa xml csv funkcijama iz xml baze podataka
             ChannelFactory<IXmlCsvFunkcije> kanal_xml_servis = new ChannelFactory<IXmlCsvFunkcije>("XmlCsvParser");
             IXmlCsvFunkcije proksi_csv = kanal_xml_servis.CreateChannel();
+
+            // ako ne postoji direktorijum za csv - kreirati ga
+            if (!Directory.Exists(putanja_csv_datoteka))
+            {
+                Directory.CreateDirectory(putanja_csv_datoteka);
+            }
 
             // pokupi sve datoteke iz direktorijuma
             string[] svi_fajlovi = Directory.GetFiles(putanja_csv_datoteka);
@@ -39,11 +47,14 @@ namespace Klijent.Komande
                     new KomandaIzuzetak("[ERROR]: " + DateTime.Now.ToString() + " Ne postoji nijedna CSV datoteka u direktorijumu! Komanda 'Send' neuspesno izvrsena!"));
             }
 
-            // kreiranje stream-a i slanje csv
-            // citanje csv datoteke
+            // kreiranje stream-a i slanje csv datoteke na server
+            // citanje csv datoteke, ako postoji vise csv datoteka, uzima se prva iz direktorijuma
             using (FileStream csv = new FileStream(svi_fajlovi[0], FileMode.Open, FileAccess.Read))
             {
+                // kopiranje datoteke u novi memorijski tok podataka
                 csv.CopyTo(stream);
+
+                // oslobadjanja resursa zauzetih prilikom otvaranja csv datoteke
                 csv.Dispose();
             }
 

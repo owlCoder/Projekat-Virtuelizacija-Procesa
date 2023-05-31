@@ -158,5 +158,27 @@ namespace XmlBazaPodataka
             }
         }
         #endregion
+
+        #region METODE CITANJE PODATAKA IZ BAZE PODATAKA
+        public void ProcitajIzBazePodataka(out List<Load> procitano)
+        {
+            procitano = new List<Load>();
+
+            using (IRadSaDatotekom datoteka = new XmlBazaPodatakaServis().OtvoriDatoteku(ConfigurationManager.AppSettings["DatotekaBazePodataka"]))
+            {
+                XmlDocument baza = new XmlDocument();
+                baza.Load(((RadSaDatotekom)datoteka).DatotecniTok);
+
+                // citanje podataka samo za tekuci dan
+                string datum = DateTime.Now.ToString("yyyy-MM-dd");
+                XmlNodeList podaci = baza.SelectNodes("//row[TIME_STAMP[contains(., '" + datum + "')]]");
+
+                
+
+                // oslobadjanje resursa datoteke
+                datoteka.Dispose();
+            }
+        }
+        #endregion
     }
 }

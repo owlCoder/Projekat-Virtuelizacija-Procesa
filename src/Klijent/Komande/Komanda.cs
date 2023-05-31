@@ -1,6 +1,8 @@
 ﻿using Common.Datoteke;
 using Common.Izuzeci;
 using Common.Modeli;
+using Common.Proracuni;
+using Klijent.TekstualniIzvestaji;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -130,6 +132,5 @@ namespace Klijent.Komande
 
             return uspesno;
         }
-    }
     }
 }

@@ -58,6 +58,7 @@
     <Compile Include="PregledPotrosnje\PregledStandardneDevijacijePotrosnje.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProracunDevijacije\Devijacija.cs" />
     <Compile Include="StatistickiServis.cs" />
   </ItemGroup>
   <ItemGroup>

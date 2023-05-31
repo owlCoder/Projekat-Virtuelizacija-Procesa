@@ -305,7 +305,21 @@ namespace XmlBazaPodataka
                     xml_audit.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
                 }
 
-                
+                // ako nema gresaka upisi u audit da je sve okej
+                if (greske.Count == 0)
+                {
+                    var stavke = xml_audit.Element("STAVKE");
+                    var novi = new XElement("row");
+
+                    // dodavanje podataka u xml serijalizaciju
+                    novi.Add(new XElement("ID", ++max_row_id));
+                    novi.Add(new XElement("TIME_STAMP", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")));
+                    novi.Add(new XElement("MESSAGE_TYPE", "Info"));
+                    novi.Add(new XElement("MESSAGE", "Podaci uspesno procitani i prosledjeni"));
+
+                    stavke.Add(novi);
+                    xml_audit.Save(ConfigurationManager.AppSettings["BazaZaGreske"]);
+                }
 
                 // oslobadjanje resursa
                 datoteka.Dispose();

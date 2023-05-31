@@ -173,7 +173,18 @@ namespace XmlBazaPodataka
                 string datum = DateTime.Now.ToString("yyyy-MM-dd");
                 XmlNodeList podaci = baza.SelectNodes("//row[TIME_STAMP[contains(., '" + datum + "')]]");
 
-                
+                foreach (XmlNode red in podaci)
+                {
+                    Load novi = new Load
+                    {
+                        Id = int.Parse(red.SelectSingleNode("ID").InnerText),
+                        MeasuredValue = double.Parse(red.SelectSingleNode("MEASURED_VALUE").InnerText.Replace('.', ',')),
+                        Timestamp = DateTime.Parse(red.SelectSingleNode("TIME_STAMP").InnerText)
+                    };
+
+                    // dodavanje procitanog podatka u izlaznu listu
+                    procitano.Add(novi);
+                }
 
                 // oslobadjanje resursa datoteke
                 datoteka.Dispose();

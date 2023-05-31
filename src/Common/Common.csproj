@@ -50,10 +50,8 @@
     <Compile Include="Dogadjaji\InterakcijaDogadjajem.cs" />
     <Compile Include="Izuzeci\DatotekaJeOtvorenaIzuzetak.cs" />
     <Compile Include="Izuzeci\IzvestajIzuzetak.cs" />
-    <Compile Include="Izuzeci\CsvDatotekaIzuzetak.cs" />
     <Compile Include="Izuzeci\KomandaIzuzetak.cs" />
     <Compile Include="Izuzeci\PregledPotrosnjeIzuzetak.cs" />
-    <Compile Include="Izuzeci\XmlBazaPodatakaIzuzetak.cs" />
     <Compile Include="Modeli\Proracun.cs" />
     <Compile Include="Potrosnja\IPreglediPotrosnje.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

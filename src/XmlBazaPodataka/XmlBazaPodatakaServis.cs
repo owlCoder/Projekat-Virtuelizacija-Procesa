@@ -268,5 +268,30 @@ namespace XmlBazaPodataka
             return upisano_redova;
         }
         #endregion
+
+        #region UPIS U AUDIT
+        private static void UpisUAuditTBL(List<Audit> greske, string xml_audit_path)
+        {
+            using (IRadSaDatotekom datoteka = new XmlBazaPodatakaServis().OtvoriDatoteku(xml_audit_path))
+            {
+                XDocument xml_audit = XDocument.Load(((RadSaDatotekom)datoteka).DatotecniTok);
+
+                var elements = xml_audit.Descendants("ID");
+                var max_row_id = 0;
+
+                // ako nema elemenata, max row id je 0
+                try
+                {
+                    max_row_id = elements.Max(e => int.Parse(e.Value));
+                }
+                catch { }
+
+                
+
+                // oslobadjanje resursa
+                datoteka.Dispose();
+            }
+        }
+        #endregion
     }
 }

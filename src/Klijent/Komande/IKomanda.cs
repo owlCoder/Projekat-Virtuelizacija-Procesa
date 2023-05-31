@@ -1,16 +1,11 @@
-﻿using Common.Datoteke;
-using Common.Izuzeci;
+﻿using Common.Izuzeci;
 using Common.Modeli;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Klijent.Komande
 {
+    #region INTERFEJS ZA GET I SEND KOMANDE
     [ServiceContract]
     public interface IKomanda
     {
@@ -28,12 +23,13 @@ namespace Klijent.Komande
 
         // Metoda koja salje get komandu na servis, ulazni parametri funkcije su podrazumevano
         // false, dok se mogu istovremeno zahtevati i sve tri kalkulacije.
-        // Odrednisni EndPoint je Server -> StatistickiServer
-        // Povratna vrednost je true ako postoji barem ijedan zapis, u suprotnom false
+        // Odredisni EndPoint je Server -> StatistickiServer
+        // Povratna vrednost je true ako postoji barem jedan zapis, u suprotnom false
         // Ako su sva tri parametra false (korisnik je uneo samo Get, izazvati izuzetak KomandaIzuzetak
-        // Na kraju ako postoji podataka, kreira se tekstualna datoteka koja sadrzi primljene proracune
+        // Na kraju ako postoji podatak, kreira se tekstualna datoteka koja sadrzi primljene proracune
         [OperationContract]
-        [FaultContract(typeof (KomandaIzuzetak))]
+        [FaultContract(typeof(KomandaIzuzetak))]
         bool SlanjeGetKomande(bool IsMin = false, bool IsMax = false, bool IsStand = false);
     }
+    #endregion
 }

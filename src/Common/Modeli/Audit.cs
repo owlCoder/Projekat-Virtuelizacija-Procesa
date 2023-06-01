@@ -6,7 +6,7 @@ namespace Common.Modeli
 {
     #region ENUMERACIJA ZA TIP PORUKE U AUDIT TABELI
     // Enumerativni tip za potrebe upisa tipa greske odnosno belezenja tipa izvestaja
-    public enum MessageType {[EnumMember] Info, [EnumMember] Warning, [EnumMember] Error };
+    public enum MessageType { [EnumMember] Info, [EnumMember] Warning, [EnumMember] Error };
     #endregion
 
     #region KLASA MODELUJE JEDAN RED U AUDIT TABELI

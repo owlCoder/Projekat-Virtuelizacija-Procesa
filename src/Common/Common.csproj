@@ -9,24 +9,25 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Common</RootNamespace>
     <AssemblyName>Common</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\binaries\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\binaries\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -46,8 +47,8 @@
   <ItemGroup>
     <Compile Include="Datoteke\IRadSaDatotekom.cs" />
     <Compile Include="Datoteke\RadSaDatotekom.cs" />
-    <Compile Include="Dogadjaji\IInterakcijaDogadjajem.cs" />
     <Compile Include="Dogadjaji\InterakcijaDogadjajem.cs" />
+    <Compile Include="Dogadjaji\IInterakcijaDogadjajem.cs" />
     <Compile Include="Izuzeci\DatotekaJeOtvorenaIzuzetak.cs" />
     <Compile Include="Izuzeci\IzvestajIzuzetak.cs" />
     <Compile Include="Izuzeci\KomandaIzuzetak.cs" />

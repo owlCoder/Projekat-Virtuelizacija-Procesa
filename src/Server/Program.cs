@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.ServiceModel;
 
 namespace Server
@@ -9,9 +8,6 @@ namespace Server
     {
         static void Main()
         {
-            // Ucitavanje putanje baze podataka iz konfiguracione datoteke App.config
-            // string putanja_baze_podataka = ConfigurationManager.AppSettings["DatotekaBazePodataka"];
-
             try
             {
                 ServiceHost host = new ServiceHost(typeof(StatistickiServis));
@@ -21,6 +17,9 @@ namespace Server
             {
                 Console.WriteLine(e.Message);
             }
+
+            Console.WriteLine("Servis Statistike je uspesno pokrenut!");
+            Console.ReadLine();
         }
     }
     #endregion

@@ -11,9 +11,11 @@ using System.Text;
 
 namespace Server.Izvestaj
 {
-    public class IzvestajProracuna : IIzvestajProracuna // mozda treba i : IDisposable
+    #region KLASA ZA GENERISANJE IZVESTAJA PRORACUNA KOJI SE SALJE KLIJENTU NA ZAHTEV
+    public class IzvestajProracuna : IIzvestajProracuna
     {
-        public RadSaDatotekom NapraviIzvestajNakonProracuna(List<Proracun> podaci)
+        #region METODA ZA KREIRANJE IZVESTAJA NAKON POZIVA DELEGATA PRORACUNA
+        public IRadSaDatotekom NapraviIzvestajNakonProracuna(IEnumerable<Proracun> podaci)
         {
             // ako nema podataka - tj nije generisan nijedan proracun, izazvati izuzetak
             if (podaci.ToList().Count == 0 || (podaci.ToList().FindAll(p => p.VrednostProracuna == -1)).Count == 3)
@@ -25,7 +27,7 @@ namespace Server.Izvestaj
             // ako ima podataka, serijalizovati ih i pretvoriti u niz bajtova
             string za_slanje = "";
 
-              foreach (Proracun p in podaci)
+            foreach (Proracun p in podaci)
             {
                 // ako se vrednost proracuna nije promenila - onda ona nije ni zahtevana od klijenta
                 // kao konacni izvestaj ulaze samo validni proracuni i proracuni koji su se desili
@@ -36,18 +38,14 @@ namespace Server.Izvestaj
                 }
             }
 
-             // string se pretrava u niz bajtova
+            // string se pretrava u niz bajtova
             MemoryStream stream = new MemoryStream(Encoding.ASCII.GetBytes(za_slanje.Replace(',', '.')));
-
             string ime_datoteke = "calculations_" + DateTime.Now.ToString("yyyy_MM_dd_HHmm") + ".txt";
 
-             // klijentu se vraca memorijski tok novo kreirane teksutalne datoteke
+            // klijentu se vraca memorijski tok novo kreirane teksutalne datoteke
             return new RadSaDatotekom(stream, ime_datoteke);
         }
-
-        public IRadSaDatotekom NapraviIzvestajNakonProracuna(IEnumerable<Proracun> podaci)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
+    #endregion
 }

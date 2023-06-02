@@ -16,3 +16,12 @@ C:\Users\Danijel\Desktop\pnz\src\XmlBazaPodataka\obj\Debug\XmlBazaPodataka.cspro
 C:\Users\Danijel\Desktop\pnz\src\XmlBazaPodataka\obj\Debug\XmlBazaPodataka.csproj.CopyComplete
 C:\Users\Danijel\Desktop\pnz\src\XmlBazaPodataka\obj\Debug\XmlBazaPodataka.exe
 C:\Users\Danijel\Desktop\pnz\src\XmlBazaPodataka\obj\Debug\XmlBazaPodataka.pdb
+C:\Users\Danijel\Desktop\VP\main\binaries\XmlBazaPodataka.exe.config
+C:\Users\Danijel\Desktop\VP\main\binaries\XmlBazaPodataka.exe
+C:\Users\Danijel\Desktop\VP\main\binaries\XmlBazaPodataka.pdb
+C:\Users\Danijel\Desktop\VP\main\src\XmlBazaPodataka\obj\Debug\XmlBazaPodataka.csproj.AssemblyReference.cache
+C:\Users\Danijel\Desktop\VP\main\src\XmlBazaPodataka\obj\Debug\XmlBazaPodataka.csproj.SuggestedBindingRedirects.cache
+C:\Users\Danijel\Desktop\VP\main\src\XmlBazaPodataka\obj\Debug\XmlBazaPodataka.csproj.CoreCompileInputs.cache
+C:\Users\Danijel\Desktop\VP\main\src\XmlBazaPodataka\obj\Debug\XmlBazaPodataka.csproj.CopyComplete
+C:\Users\Danijel\Desktop\VP\main\src\XmlBazaPodataka\obj\Debug\XmlBazaPodataka.exe
+C:\Users\Danijel\Desktop\VP\main\src\XmlBazaPodataka\obj\Debug\XmlBazaPodataka.pdb

@@ -16,3 +16,12 @@ C:\Users\Danijel\Desktop\pnz\src\Server\obj\Debug\Server.csproj.CoreCompileInput
 C:\Users\Danijel\Desktop\pnz\src\Server\obj\Debug\Server.csproj.CopyComplete
 C:\Users\Danijel\Desktop\pnz\src\Server\obj\Debug\Server.exe
 C:\Users\Danijel\Desktop\pnz\src\Server\obj\Debug\Server.pdb
+C:\Users\Danijel\Desktop\VP\main\binaries\Server.exe.config
+C:\Users\Danijel\Desktop\VP\main\binaries\Server.exe
+C:\Users\Danijel\Desktop\VP\main\binaries\Server.pdb
+C:\Users\Danijel\Desktop\VP\main\src\Server\obj\Debug\Server.csproj.AssemblyReference.cache
+C:\Users\Danijel\Desktop\VP\main\src\Server\obj\Debug\Server.csproj.SuggestedBindingRedirects.cache
+C:\Users\Danijel\Desktop\VP\main\src\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\Danijel\Desktop\VP\main\src\Server\obj\Debug\Server.csproj.CopyComplete
+C:\Users\Danijel\Desktop\VP\main\src\Server\obj\Debug\Server.exe
+C:\Users\Danijel\Desktop\VP\main\src\Server\obj\Debug\Server.pdb

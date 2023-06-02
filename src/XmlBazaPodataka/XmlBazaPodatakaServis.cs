@@ -111,15 +111,19 @@ namespace XmlBazaPodataka
                             }
                         }
                     }
-
-                    // sledeci red u csv
-                    linija += 1;
                 }
+
+                // oslobadjanje resursa
+                csv_stream.Close();
+                csv_stream.Dispose();
+
+                // koliko redova ima csv
+                linija = redovi.Length;
             }
 
             // ako je broj redova koji ima gresku jednak svi unetim redovima
             // onda se kreira samo jedan audit objekat
-            if (greske.Count == linija - 1)
+            if (greske.Count == linija)
             {
                 greske.Clear(); // upisace se samo jedna greska
                 greske.Add(

@@ -10,3 +10,9 @@ C:\Users\Danijel\Desktop\pnz\src\Common\obj\Debug\Common.csproj.AssemblyReferenc
 C:\Users\Danijel\Desktop\pnz\src\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
 C:\Users\Danijel\Desktop\pnz\src\Common\obj\Debug\Common.dll
 C:\Users\Danijel\Desktop\pnz\src\Common\obj\Debug\Common.pdb
+C:\Users\Danijel\Desktop\VP\main\binaries\Common.dll
+C:\Users\Danijel\Desktop\VP\main\binaries\Common.pdb
+C:\Users\Danijel\Desktop\VP\main\src\Common\obj\Debug\Common.csproj.AssemblyReference.cache
+C:\Users\Danijel\Desktop\VP\main\src\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Danijel\Desktop\VP\main\src\Common\obj\Debug\Common.dll
+C:\Users\Danijel\Desktop\VP\main\src\Common\obj\Debug\Common.pdb

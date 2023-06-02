@@ -56,6 +56,7 @@ namespace Klijent.Komande
 
                 // oslobadjanja resursa zauzetih prilikom otvaranja csv datoteke
                 csv.Dispose();
+                csv.Close();
             }
 
             // pozicioniranje na pocetak memorijskog toka podataka

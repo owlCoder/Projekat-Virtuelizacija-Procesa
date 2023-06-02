@@ -1,0 +1,9 @@
+C:\Users\Danijel\Desktop\VP\main\binaries\Server.exe.config
+C:\Users\Danijel\Desktop\VP\main\binaries\Server.exe
+C:\Users\Danijel\Desktop\VP\main\binaries\Server.pdb
+C:\Users\Danijel\Desktop\VP\main\src\Server\obj\Release\Server.csproj.AssemblyReference.cache
+C:\Users\Danijel\Desktop\VP\main\src\Server\obj\Release\Server.csproj.SuggestedBindingRedirects.cache
+C:\Users\Danijel\Desktop\VP\main\src\Server\obj\Release\Server.csproj.CoreCompileInputs.cache
+C:\Users\Danijel\Desktop\VP\main\src\Server\obj\Release\Server.csproj.CopyComplete
+C:\Users\Danijel\Desktop\VP\main\src\Server\obj\Release\Server.exe
+C:\Users\Danijel\Desktop\VP\main\src\Server\obj\Release\Server.pdb

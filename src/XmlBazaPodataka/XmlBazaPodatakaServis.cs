@@ -40,6 +40,7 @@ namespace XmlBazaPodataka
             {
                 xml.CopyTo(stream);
                 xml.Dispose();
+                xml.Close();
             }
 
             stream.Position = 0;
@@ -141,6 +142,10 @@ namespace XmlBazaPodataka
             // nove vrednosti upisati u bazu podataka
             int redova = UpisUBazuPodataka(nove_vrednosti, greske);
 
+            // poruka na xml servisu
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("[INFO]: " + DateTime.Now + " CSV Parser je obradio " + linija + " ulaznih podataka!");
+
             // neki deo u poslatoj csv datoteci nije validan
             if (greske.Count > 0)
             {
@@ -157,6 +162,10 @@ namespace XmlBazaPodataka
         #region METODE CITANJE PODATAKA IZ BAZE PODATAKA
         public void ProcitajIzBazePodataka(out List<Load> procitano)
         {
+            // poruka na xml servisu
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("[INFO]: " + DateTime.Now + " Prijem zahteva za citanje iz baze podataka...");
+
             procitano = new List<Load>();
 
             using (IRadSaDatotekom datoteka = new XmlBazaPodatakaServis().OtvoriDatoteku(ConfigurationManager.AppSettings["DatotekaBazePodataka"]))
@@ -184,6 +193,18 @@ namespace XmlBazaPodataka
                 // oslobadjanje resursa datoteke
                 datoteka.Dispose();
             }
+
+            // poruka na xml servisu
+            Console.ForegroundColor = ConsoleColor.Blue;
+
+            if(procitano.Count > 0)
+                Console.WriteLine("[INFO]: " + DateTime.Now + " Uspesno procitano " + procitano.Count + " LOAD objekata iz baze podataka!");
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("[WARNING]: " + DateTime.Now + " Iz baze podataka nije procitan nijedan podatak!");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
         #endregion
 
@@ -194,7 +215,23 @@ namespace XmlBazaPodataka
             UpisUAuditTBL(greske, ConfigurationManager.AppSettings["BazaZaGreske"]);
 
             // upis podataka u bazu xml
-            return UpisULoadTBL(podaci, ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+            int load_upisano = UpisULoadTBL(podaci, ConfigurationManager.AppSettings["DatotekaBazePodataka"]);
+
+            // poruka na xml servisu
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("[INFO]: " + DateTime.Now + " Uspesno upisano " + greske.Count + " AUDIT objekata u bazu podataka!");
+            
+            if (load_upisano == podaci.Count)
+                Console.WriteLine("[INFO]: " + DateTime.Now + " Uspesno upisano " + load_upisano + " LOAD objekata u bazu podataka!");
+            else
+            {
+                Console.ForegroundColor= ConsoleColor.Red;
+                Console.WriteLine("[ERROR]: " + DateTime.Now + " Neuspesan upis " + (podaci.Count - load_upisano) + " LOAD objekata u bazu podataka!");
+            }
+
+            Console.ForegroundColor = ConsoleColor.White;
+
+            return load_upisano;
         }
         #endregion
 

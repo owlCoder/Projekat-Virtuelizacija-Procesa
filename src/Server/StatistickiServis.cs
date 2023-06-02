@@ -53,6 +53,11 @@ namespace Server
             IzvestajProracuna ip = new IzvestajProracuna();
             RadSaDatotekom generisana_datoteka = ip.NapraviIzvestajNakonProracuna(Interakcija.Proracuni) as RadSaDatotekom;
 
+            // info poruka
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("[INFO]: " + DateTime.Now + " Statisticki servis je obradio zahtev za proracun potrosnje!");
+            Console.WriteLine("[INFO]: " + DateTime.Now + " Zahtevani proracuni su: " + (IsMin ? "'Min Load' " : "") + (IsMax ? "'Max Load' " : "") + (IsStand ? "'Stand Deviation'" : ""));
+
             // slanje datoteka na klijenta koji je zahtevao proracun
             return generisana_datoteka;
         }

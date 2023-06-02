@@ -18,7 +18,8 @@ namespace Server
                 Console.WriteLine(e.Message);
             }
 
-            Console.WriteLine("Servis Statistike je uspesno pokrenut!");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("[INFO]: " + DateTime.Now + " Servis Statistike je uspesno pokrenut!");
             Console.ReadLine();
         }
     }

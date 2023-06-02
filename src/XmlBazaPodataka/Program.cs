@@ -20,7 +20,8 @@ namespace XmlBazaPodataka
                 Console.WriteLine(e.Message);
             }
 
-            Console.WriteLine("Servis XML Baze Podataka je uspesno pokrenut!");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("[INFO]: " + DateTime.Now + " Servis XML Baze Podataka je uspesno pokrenut!");
             Console.ReadLine();
         }
     }

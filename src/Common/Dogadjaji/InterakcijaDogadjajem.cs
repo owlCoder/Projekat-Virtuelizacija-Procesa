@@ -59,7 +59,7 @@ namespace Common.Dogadjaji
                     int index_upisa = imethod.Contains("Max") ? 0 : (imethod.Contains("Min") ? 1 : imethod.Contains("Stand") ? 2 : 0);
 
                     // Cuvanje podataka proracuna delegata
-                    Proracuni[index_upisa].VrednostProracuna = p(podaci);
+                    Proracuni[index_upisa].VrednostProracuna = p.Invoke(podaci);
                 }
             }
         }

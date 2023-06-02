@@ -1,9 +1,0 @@
-C:\Users\Danijel\Desktop\VP\main\binaries\XmlBazaPodataka.exe.config
-C:\Users\Danijel\Desktop\VP\main\binaries\XmlBazaPodataka.exe
-C:\Users\Danijel\Desktop\VP\main\binaries\XmlBazaPodataka.pdb
-C:\Users\Danijel\Desktop\VP\main\src\XmlBazaPodataka\obj\Release\XmlBazaPodataka.csproj.AssemblyReference.cache
-C:\Users\Danijel\Desktop\VP\main\src\XmlBazaPodataka\obj\Release\XmlBazaPodataka.csproj.SuggestedBindingRedirects.cache
-C:\Users\Danijel\Desktop\VP\main\src\XmlBazaPodataka\obj\Release\XmlBazaPodataka.csproj.CoreCompileInputs.cache
-C:\Users\Danijel\Desktop\VP\main\src\XmlBazaPodataka\obj\Release\XmlBazaPodataka.csproj.CopyComplete
-C:\Users\Danijel\Desktop\VP\main\src\XmlBazaPodataka\obj\Release\XmlBazaPodataka.exe
-C:\Users\Danijel\Desktop\VP\main\src\XmlBazaPodataka\obj\Release\XmlBazaPodataka.pdb

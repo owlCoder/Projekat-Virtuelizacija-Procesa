@@ -1,6 +1,0 @@
-C:\Users\Danijel\Desktop\VP\main\binaries\Common.dll
-C:\Users\Danijel\Desktop\VP\main\binaries\Common.pdb
-C:\Users\Danijel\Desktop\VP\main\src\Common\obj\Release\Common.csproj.AssemblyReference.cache
-C:\Users\Danijel\Desktop\VP\main\src\Common\obj\Release\Common.csproj.CoreCompileInputs.cache
-C:\Users\Danijel\Desktop\VP\main\src\Common\obj\Release\Common.dll
-C:\Users\Danijel\Desktop\VP\main\src\Common\obj\Release\Common.pdb

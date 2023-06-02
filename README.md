@@ -1,25 +1,25 @@
 <p align="center">
  <img width="100px" src="https://raw.githubusercontent.com/owlCoder/public_api_buckets/vp/logo.png" align="center" alt="GitHub Readme Stats" />
  <h2 align="center">Proračuni na osnovu zahteva 2.4.17</h2>
- <p align="center">Aplikacija koja predstavlja pojednostavljenu verziju sistema za rad sa elektroenergetskom mrežom i unmanaged kodom implementirano u WCF.</p>
+ <p align="center">Aplikacija prikuplja podatke od korisnika o ostvarenim vrednostima potrošnje električne energije, po satima, za današnji dan. Aplikacija se sastoji od servisne i klijentske aplikacije kao i distribuiranog servisa XML baze podataka.</p>
 </p>
   <p align="center">
     <a href="https://github.com/owlCoder/Content-Managment-System/actions">
       <img alt="Tests Passing" src="https://github.com/anuraghazra/github-readme-stats/workflows/Test/badge.svg" />
     </a>
-    <a href="https://github.com/owlCoder/cache-cms/graphs/contributors">
-      <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/owlCoder/Content-Managment-System" />
+    <a href="https://github.com/owlCoder/Proracuni-Na-Osnovu-Zahteva/graphs/contributors">
+      <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/owlCoder/Proracuni-Na-Osnovu-Zahteva" />
     </a>
-    <a href="https://codecov.io/gh/owlCoder/cms">
+    <a href="https://codecov.io/gh/owlCoder/Proracuni-Na-Osnovu-Zahteva">
       <img src="https://camo.githubusercontent.com/6ef37dcea5bd735bd79e9f3909739e07573aa9e5011e6217b0059f940959b752/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f436f7665726167652d39362532352d627269676874677265656e2e737667" />
     </a>
-    <a href="https://github.com/owlCoder/cms/issues">
-      <img alt="Issues" src="https://img.shields.io/github/issues/owlCoder/Content-Managment-System?color=0088ff" />
+    <a href="https://github.com/owlCoder/Proracuni-Na-Osnovu-Zahteva/issues">
+      <img alt="Issues" src="https://img.shields.io/github/issues/owlCoder/Proracuni-Na-Osnovu-Zahteva?color=0088ff" />
     </a>
-    <a href="https://github.com/owlCoder/cms/pulls">
+    <a href="https://github.com/owlCoder/Proracuni-Na-Osnovu-Zahteva/pulls">
       <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/owlCoder/Content-Managment-System?color=0088ff" />
     </a>
-     <a href="https://github.com/owlCoder/cms/pulls">
+     <a href="https://github.com/owlCoder/Proracuni-Na-Osnovu-Zahteva/pulls">
       <img alt="GitHub pull requests" src="https://codeclimate.com/github/dwyl/esta/badges/gpa.svg" />
     </a>
     <br />
